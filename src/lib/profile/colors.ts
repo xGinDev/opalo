@@ -1,4 +1,4 @@
-// Color helpers for the profile background: the accent color plus two derived tones.
+// Color helpers for the profile particles.
 
 type Rgb = [number, number, number];
 
@@ -25,47 +25,11 @@ function hslToRgb([h, s, l]: Rgb): Rgb {
   return [f(0), f(8), f(4)];
 }
 
-export function rgbToHex(rgb: Rgb) {
-  return "#" + rgb.map((c) => Math.round(Math.max(0, Math.min(1, c)) * 255).toString(16).padStart(2, "0")).join("");
-}
-
 const WARM_SHIFT = 75; // lilac → pink, as in the Figma
-const COOL_SHIFT = -78; // lilac → teal
 
-/**
- * Accent plus two derived tones (warm = pink side, cool = teal side), each in a light
- * version (small glows, particles) and a dark saturated one (big lights). Calibrated so the
- * default lilac #B9A7FF reproduces Figma 9:603 (#7A2E5C / #3B2A7A / #1E5C5A). 0–1 RGB.
- */
-export function accentPalette(accentHex: string) {
-  const accent = hexToRgb(accentHex);
-  const [h, s] = rgbToHsl(accent);
-  const sat = Math.max(s, 0.35);
-  const hue = (shift: number) => (h + shift + 360) % 360;
-  return {
-    accent,
-    warm: hslToRgb([hue(WARM_SHIFT), Math.min(sat, 0.82), 0.8]),
-    cool: hslToRgb([hue(COOL_SHIFT), Math.min(sat, 0.6), 0.73]),
-    darkAccent: hslToRgb([h, Math.min(sat, 0.5), 0.32]),
-    darkWarm: hslToRgb([hue(WARM_SHIFT), Math.min(sat, 0.45), 0.33]),
-    darkCool: hslToRgb([hue(COOL_SHIFT), Math.min(sat, 0.5), 0.24]),
-  };
-}
-
-/** CSS version of the background lights (same layout as the shader), as hex colors. */
-export function cssLightColors(accentHex: string) {
-  const p = accentPalette(accentHex);
-  return {
-    darkWarm: rgbToHex(p.darkWarm),
-    darkAccent: rgbToHex(p.darkAccent),
-    darkCool: rgbToHex(p.darkCool),
-    warm: rgbToHex(p.warm),
-    accent: rgbToHex(p.accent),
-  };
-}
-
-/** [warm, accent, cool] as hex (OG image). */
-export function accentHexPalette(accentHex: string): [string, string, string] {
-  const p = accentPalette(accentHex);
-  return [rgbToHex(p.warm), rgbToHex(p.accent), rgbToHex(p.cool)];
+/** Particle color (0–1 RGB): white for stars, rain and snow; petals take a warm tone of the accent. */
+export function particleColor(particles: string, accentHex: string): Rgb {
+  if (particles !== "petals") return [1, 1, 1];
+  const [h, s] = rgbToHsl(hexToRgb(accentHex));
+  return hslToRgb([(h + WARM_SHIFT) % 360, Math.min(Math.max(s, 0.35), 0.82), 0.8]);
 }

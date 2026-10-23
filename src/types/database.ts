@@ -214,6 +214,7 @@ export type Database = {
         Row: {
           accent_color: string;
           bg_blur: number;
+          bg_color: string;
           bg_kind: Database["public"]["Enums"]["bg_kind"];
           bg_url: string | null;
           card_border: boolean;
@@ -243,6 +244,7 @@ export type Database = {
         Insert: {
           accent_color?: string;
           bg_blur?: number;
+          bg_color?: string;
           bg_kind?: Database["public"]["Enums"]["bg_kind"];
           bg_url?: string | null;
           card_border?: boolean;
@@ -272,6 +274,7 @@ export type Database = {
         Update: {
           accent_color?: string;
           bg_blur?: number;
+          bg_color?: string;
           bg_kind?: Database["public"]["Enums"]["bg_kind"];
           bg_url?: string | null;
           card_border?: boolean;

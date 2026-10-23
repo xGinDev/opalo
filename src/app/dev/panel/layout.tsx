@@ -45,6 +45,7 @@ export const MOCK_PANEL: PanelData = {
     tilt_3d: true,
     bg_kind: "color",
     bg_url: null,
+    bg_color: "#0B0812",
     bg_blur: 6,
     particles: "stars",
     cursor_trail: false,

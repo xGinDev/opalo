@@ -32,6 +32,7 @@ export const settingsPatchSchema = z
     tilt_3d: z.boolean(),
     bg_kind: z.enum(Enums.bg_kind),
     bg_url: z.url().nullable(),
+    bg_color: z.string().regex(/^#[0-9A-Fa-f]{6}$/, "Color no válido."),
     bg_blur: z.number().int().min(0).max(20),
     particles: z.enum(Enums.particle_kind),
     cursor_trail: z.boolean(),

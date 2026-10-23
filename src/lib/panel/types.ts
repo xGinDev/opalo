@@ -21,6 +21,8 @@ export type PanelData = {
 
 /** Accent swatches from Figma 7:466 "Color de acento". */
 export const ACCENT_SWATCHES = ["#B9A7FF", "#F6A8CF", "#8FE3DC", "#F2D49B", "#FF6B7A", "#F5F2FA"];
+/** Solid backgrounds: Ópalo night first, then dark tones that keep white text legible. */
+export const BACKGROUND_SWATCHES = ["#0B0812", "#000000", "#16112B", "#2A0F24", "#0C2326", "#2B1D0E", "#3A0D16"];
 
 /** Builds the same shape as `get_public_profile`, so the preview renders exactly like the public page. */
 export function toPublicProfile(data: Pick<PanelData, "profile" | "settings" | "links" | "badges" | "stats">): PublicProfile {

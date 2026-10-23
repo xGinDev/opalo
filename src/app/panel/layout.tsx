@@ -28,7 +28,8 @@ export default async function PanelLayout({ children }: { children: React.ReactN
 
   const initial: PanelData = {
     profile: profile.data,
-    settings: settings.data,
+    // Default covers databases where migration 0006 (bg_color) hasn't run yet.
+    settings: { ...settings.data, bg_color: settings.data.bg_color ?? "#0B0812" },
     links: links.data ?? [],
     stats: { views: stats.data?.views ?? 0, clicks: stats.data?.clicks ?? 0 },
     badges: (badges.data ?? []).flatMap((b) => (b.badges ? [b.badges as PublicBadge] : [])),

@@ -4,7 +4,8 @@ import type { Database } from "@/types/database";
 import { hasSupabaseEnv, supabaseAnonKey, supabaseUrl } from "./env";
 import { REMEMBER_COOKIE, applyRemember, isRemembered } from "./remember";
 
-const PROTECTED_PREFIXES = ["/panel", "/admin"];
+// /admin is deliberately not here: anonymous visitors get the same 404 as non-admins.
+const PROTECTED_PREFIXES = ["/panel"];
 const AUTH_PAGES = ["/login", "/registro"];
 
 function matches(pathname: string, prefixes: string[]) {
@@ -13,7 +14,7 @@ function matches(pathname: string, prefixes: string[]) {
 
 /**
  * Refreshes the Supabase session cookie on every request and guards private routes.
- * The admin role itself is checked server-side in the /admin layout (404 if not admin).
+ * /admin is gated server-side (requireAdmin → 404 for anyone who isn't an admin, signed in or not).
  */
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });

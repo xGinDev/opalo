@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Gem, LogOut } from "lucide-react";
+import { Gem, LogOut, ShieldCheck } from "lucide-react";
 import { signOut } from "@/app/(auth)/actions";
 import { Logo } from "@/components/brand/logo";
 import { NavItem } from "@/components/opal/nav-item";
@@ -80,6 +80,18 @@ export function PanelSidebar({ className, onNavigate }: { className?: string; on
               </Link>
             </Button>
           </div>
+        )}
+        {profile.role === "admin" && (
+          <NavItem
+            href="/admin"
+            icon={ShieldCheck}
+            label="Administración"
+            active={false}
+            onClick={(e) => {
+              guard(navigate, dirty, "/admin")(e);
+              onNavigate?.();
+            }}
+          />
         )}
         <form action={signOut}>
           <button

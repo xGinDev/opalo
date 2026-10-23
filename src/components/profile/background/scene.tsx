@@ -5,9 +5,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import type { Enums } from "@/types/database";
 import {
-  BLOBS_FRAGMENT,
   FLAT_FRAGMENT,
-  FULLSCREEN_VERTEX,
   PETALS_FRAGMENT,
   PETALS_VERTEX,
   RAIN_VERTEX,
@@ -19,11 +17,10 @@ import {
 type Rgb = [number, number, number];
 
 export type SceneProps = {
-  /** Draw the animated lights (bg_kind = 'color'); otherwise the canvas is transparent. */
-  showBlobs: boolean;
-  palette: { accent: Rgb; warm: Rgb; cool: Rgb; darkAccent: Rgb; darkWarm: Rgb; darkCool: Rgb };
-  particles: Enums<"particle_kind">;
-  /** Freeze time: no drifting lights or moving particles. */
+  /** Particle color, 0–1 RGB. */
+  color: Rgb;
+  particles: Exclude<Enums<"particle_kind">, "none">;
+  /** Freeze time: no moving particles. */
   still: boolean;
 };
 
@@ -57,35 +54,6 @@ function useUniforms(still: boolean) {
   });
   /* eslint-enable react-hooks/immutability */
   return uniforms;
-}
-
-function Blobs({ palette, shared }: { palette: SceneProps["palette"]; shared: ReturnType<typeof useUniforms> }) {
-  const material = useMemo(
-    () =>
-      new THREE.ShaderMaterial({
-        vertexShader: FULLSCREEN_VERTEX,
-        fragmentShader: BLOBS_FRAGMENT,
-        uniforms: {
-          ...shared,
-          uAccent: { value: new THREE.Color(...palette.accent) },
-          uWarm: { value: new THREE.Color(...palette.warm) },
-          uCool: { value: new THREE.Color(...palette.cool) },
-          uDarkAccent: { value: new THREE.Color(...palette.darkAccent) },
-          uDarkWarm: { value: new THREE.Color(...palette.darkWarm) },
-          uDarkCool: { value: new THREE.Color(...palette.darkCool) },
-        },
-        depthTest: false,
-        depthWrite: false,
-      }),
-    [palette, shared],
-  );
-  useEffect(() => () => material.dispose(), [material]);
-
-  return (
-    <mesh frustumCulled={false} renderOrder={0} material={material}>
-      <planeGeometry args={[2, 2]} />
-    </mesh>
-  );
 }
 
 function seeds(count: number) {
@@ -180,15 +148,9 @@ function Particles({
   return <primitive object={object} frustumCulled={false} renderOrder={1} />;
 }
 
-function SceneContent({ showBlobs, palette, particles, still }: SceneProps) {
+function SceneContent({ color, particles, still }: SceneProps) {
   const shared = useUniforms(still);
-  const particleColor: Rgb = particles === "petals" ? palette.warm : [1, 1, 1];
-  return (
-    <>
-      {showBlobs && <Blobs palette={palette} shared={shared} />}
-      {particles !== "none" && <Particles kind={particles} color={particleColor} shared={shared} />}
-    </>
-  );
+  return <Particles kind={particles} color={color} shared={shared} />;
 }
 
 /** The profile background canvas. Loaded with next/dynamic (ssr: false) so three.js stays off other routes. */

@@ -43,6 +43,7 @@ export default async function DevProfilePage({ searchParams }: Props) {
       tilt_3d: true,
       bg_kind: "color",
       bg_url: null,
+      bg_color: q.fondo ? `#${q.fondo}` : "#0B0812",
       bg_blur: 6,
       particles: pick(q.particles, Enums.particle_kind, "stars"),
       cursor_trail: q.trail === "1",

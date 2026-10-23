@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import { accentHexPalette } from "@/lib/profile/colors";
 import { bioPhrases } from "@/lib/profile/format";
 import { getPublicProfile, usernameFromParam } from "@/lib/profile/get-public-profile";
 
@@ -7,7 +6,7 @@ export const alt = "Perfil en Ópalo";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/** Dynamic OG image: avatar, name and the opal gradient. */
+/** Dynamic OG image: avatar and name over the profile background color. */
 export default async function Image({ params }: { params: Promise<{ username: string }> }) {
   const username = usernameFromParam((await params).username);
   const data = username ? await getPublicProfile(username) : null;
@@ -15,7 +14,9 @@ export default async function Image({ params }: { params: Promise<{ username: st
   const name = data?.profile.display_name?.trim() || data?.profile.username || "ópalo";
   const handle = data ? `opalo.me/${data.profile.username}` : "opalo.me";
   const bio = data ? bioPhrases(data.profile.bio)[0] : "Todo lo que eres, en un solo enlace.";
-  const [warm, accent, cool] = accentHexPalette(data?.settings.accent_color ?? "#B9A7FF");
+  const accent = data?.settings.accent_color ?? "#B9A7FF";
+  // Same solid color as the profile; image/video backgrounds fall back to the Ópalo base.
+  const background = data?.settings.bg_kind === "color" ? (data.settings.bg_color ?? "#0b0812") : "#0b0812"; // ?? until migration 0006 runs
   const avatar = data?.profile.avatar_url;
 
   return new ImageResponse(
@@ -27,14 +28,11 @@ export default async function Image({ params }: { params: Promise<{ username: st
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0b0812",
+          background,
           position: "relative",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ position: "absolute", left: -260, top: -300, width: 900, height: 900, display: "flex", backgroundImage: `radial-gradient(circle, ${warm}66 0%, transparent 65%)` }} />
-        <div style={{ position: "absolute", right: -260, top: 20, width: 920, height: 920, display: "flex", backgroundImage: `radial-gradient(circle, ${accent}55 0%, transparent 65%)` }} />
-        <div style={{ position: "absolute", left: 120, bottom: -440, width: 840, height: 840, display: "flex", backgroundImage: `radial-gradient(circle, ${cool}4d 0%, transparent 65%)` }} />
 
         <div style={{ display: "flex", alignItems: "center", gap: 56, padding: "0 90px" }}>
           <div

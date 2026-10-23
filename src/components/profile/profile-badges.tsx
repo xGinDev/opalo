@@ -4,7 +4,7 @@ import { Award, BadgeCheck, Crown, Gem, Shield, Zap, type LucideIcon } from "luc
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { PublicBadge } from "@/lib/profile/types";
 
-const ICONS: Record<string, { icon: LucideIcon; color: string }> = {
+export const BADGE_ICONS: Record<string, { icon: LucideIcon; color: string }> = {
   gem: { icon: Gem, color: "text-lilac" },
   crown: { icon: Crown, color: "text-gold" },
   zap: { icon: Zap, color: "text-pink" },
@@ -22,7 +22,7 @@ export function ProfileBadges({ badges }: { badges: PublicBadge[] }) {
       className="flex shrink-0 items-center gap-[7px] rounded-full border border-white/12 bg-white/9 px-2.5 py-1.5"
     >
       {badges.map((badge) => {
-        const { icon: Icon, color } = ICONS[badge.icon ?? ""] ?? { icon: Award, color: "text-gold" };
+        const { icon: Icon, color } = BADGE_ICONS[badge.icon ?? ""] ?? { icon: Award, color: "text-gold" };
         return (
           <li key={badge.slug} className="flex">
             <Tooltip>

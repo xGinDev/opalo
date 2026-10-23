@@ -129,12 +129,28 @@ export function LayoutPicker({ value, onChange }: { value: "card" | "center"; on
   );
 }
 
-/** Figma 7:466 accent swatches plus a custom color. */
-export function AccentPicker({ value, swatches, onChange }: { value: string; swatches: string[]; onChange: (v: string) => void }) {
+/** Relative luminance check, so the check mark stays visible on light and dark swatches. */
+function isLight(hex: string) {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  return 0.299 * r + 0.587 * g + 0.114 * b > 150;
+}
+
+/** Figma 7:466 swatches plus a custom color (accent, and the solid background color). */
+export function AccentPicker({
+  value,
+  swatches,
+  onChange,
+  label = "Color de acento",
+}: {
+  value: string;
+  swatches: string[];
+  onChange: (v: string) => void;
+  label?: string;
+}) {
   const isCustom = !swatches.some((s) => s.toLowerCase() === value.toLowerCase());
   return (
-    <div role="radiogroup" aria-label="Color de acento" className="flex flex-wrap items-center gap-2.5">
-      <span className="text-[13px] font-semibold text-muted-foreground">Color de acento</span>
+    <div role="radiogroup" aria-label={label} className="flex flex-wrap items-center gap-2.5">
+      <span className="text-[13px] font-semibold text-muted-foreground">{label}</span>
       {swatches.map((color) => {
         const selected = color.toLowerCase() === value.toLowerCase();
         return (
@@ -146,12 +162,12 @@ export function AccentPicker({ value, swatches, onChange }: { value: string; swa
             aria-label={color}
             onClick={() => onChange(color)}
             className={cn(
-              "flex size-[26px] items-center justify-center rounded-full ring-offset-2 ring-offset-surface transition",
+              "flex size-[26px] items-center justify-center rounded-full border border-white/15 ring-offset-2 ring-offset-surface transition",
               selected && "ring-2 ring-white",
             )}
             style={{ backgroundColor: color }}
           >
-            {selected && <Check className="size-3.5 text-on-accent" strokeWidth={3} aria-hidden />}
+            {selected && <Check className={cn("size-3.5", isLight(color) ? "text-on-accent" : "text-white")} strokeWidth={3} aria-hidden />}
           </button>
         );
       })}

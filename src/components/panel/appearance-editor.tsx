@@ -2,7 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { ACCENT_SWATCHES } from "@/lib/panel/types";
+import { ACCENT_SWATCHES, BACKGROUND_SWATCHES } from "@/lib/panel/types";
 import { nameFontFamily } from "@/lib/profile-fonts";
 import type { Enums } from "@/types/database";
 import { AccentPicker, ChoiceChips, type Choice, LayoutPicker, PanelCard, PremiumBadge, ToggleRow } from "./editor-ui";
@@ -106,8 +106,11 @@ export function AppearanceEditor() {
         <AccentPicker value={s.accent_color} swatches={ACCENT_SWATCHES} onChange={(accent_color) => updateSettings({ accent_color })} />
       </PanelCard>
 
-      <PanelCard title="Fondo" description="Luces animadas con tu color, o tu propia imagen o video.">
+      <PanelCard title="Fondo" description="Un color sólido, o tu propia imagen o video.">
         <ChoiceChips label="Tipo" value={s.bg_kind} options={BACKGROUND_CHOICES} onChange={(bg_kind) => updateSettings({ bg_kind })} premiumFeature="el fondo con imagen o video" />
+        {s.bg_kind === "color" && (
+          <AccentPicker label="Color de fondo" value={s.bg_color} swatches={BACKGROUND_SWATCHES} onChange={(bg_color) => updateSettings({ bg_color })} />
+        )}
         {s.bg_kind !== "color" && (
           <div className="flex flex-col gap-4 rounded-md bg-surface-2 p-4">
             <div className="flex flex-wrap items-center gap-3">
@@ -122,7 +125,7 @@ export function AppearanceEditor() {
                 {s.bg_kind === "video" ? "MP4 o WebM, hasta 50 MB." : "PNG, JPG, WebP o GIF, hasta 50 MB."}
               </p>
             </div>
-            {!s.bg_url && <p className="text-[13px] text-gold">Sube un archivo para ver tu fondo. Mientras tanto se usan las luces de color.</p>}
+            {!s.bg_url && <p className="text-[13px] text-gold">Sube un archivo para ver tu fondo. Mientras tanto se usa tu color de fondo.</p>}
           </div>
         )}
         {s.bg_kind !== "color" && (
