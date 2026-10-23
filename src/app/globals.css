@@ -1,0 +1,190 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Ópalo is dark-only: the `dark` variant is kept for shadcn components and always matches. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+ * Ópalo tokens (Figma: "Ópalo / Color")
+ * ------------------------------------------------------------------------- */
+:root {
+  --opal-bg: #0d0b12;
+  --opal-surface: #16141d;
+  --opal-surface-2: #1f1c28;
+  --opal-line: #2c2836;
+  --opal-text: #f5f2fa;
+  --opal-muted: #9d97ab;
+  --opal-lilac: #b9a7ff;
+  --opal-pink: #f6a8cf;
+  --opal-aqua: #8fe3dc;
+  --opal-gold: #f2d49b;
+  --opal-success: #5bd99a;
+  --opal-danger: #ff6b7a;
+  --opal-on-accent: #140f22;
+
+  --opal-gradient: linear-gradient(90deg, #f6a8cf, #b9a7ff 50%, #8fe3dc);
+
+  /* shadcn theme, wired to Ópalo tokens */
+  --radius: 0.75rem;
+  --background: var(--opal-bg);
+  --foreground: var(--opal-text);
+  --card: var(--opal-surface);
+  --card-foreground: var(--opal-text);
+  --popover: var(--opal-surface-2);
+  --popover-foreground: var(--opal-text);
+  --primary: var(--opal-lilac);
+  --primary-foreground: var(--opal-on-accent);
+  --secondary: var(--opal-surface-2);
+  --secondary-foreground: var(--opal-text);
+  --muted: var(--opal-surface-2);
+  --muted-foreground: var(--opal-muted);
+  --accent: var(--opal-surface-2);
+  --accent-foreground: var(--opal-text);
+  --destructive: var(--opal-danger);
+  --border: var(--opal-line);
+  --input: var(--opal-line);
+  --ring: var(--opal-lilac);
+  --chart-1: var(--opal-lilac);
+  --chart-2: var(--opal-pink);
+  --chart-3: var(--opal-aqua);
+  --chart-4: var(--opal-gold);
+  --chart-5: var(--opal-success);
+  --sidebar: var(--opal-surface);
+  --sidebar-foreground: var(--opal-text);
+  --sidebar-primary: var(--opal-lilac);
+  --sidebar-primary-foreground: var(--opal-on-accent);
+  --sidebar-accent: var(--opal-surface-2);
+  --sidebar-accent-foreground: var(--opal-text);
+  --sidebar-border: var(--opal-line);
+  --sidebar-ring: var(--opal-lilac);
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  /* Fonts (set by next/font in the root layout) */
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-manrope), ui-sans-serif, sans-serif;
+
+  /* Radii: 8 / 12 / 16 / 20 / 24 / 32 */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  /* Ópalo palette as utilities: bg-surface, border-line, text-lilac, ... */
+  --color-surface: var(--opal-surface);
+  --color-surface-2: var(--opal-surface-2);
+  --color-line: var(--opal-line);
+  --color-lilac: var(--opal-lilac);
+  --color-pink: var(--opal-pink);
+  --color-aqua: var(--opal-aqua);
+  --color-gold: var(--opal-gold);
+  --color-success: var(--opal-success);
+  --color-danger: var(--opal-danger);
+  --color-on-accent: var(--opal-on-accent);
+
+  /* shadcn semantic colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Opal gradient fill / text: `bg-opal`, `text-opal` */
+@utility bg-opal {
+  background-image: var(--opal-gradient);
+}
+
+@utility text-opal {
+  background-image: var(--opal-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Gradient border that keeps the element's own background: `border-opal`.
+ * Tune with --opal-border-width and --opal-border-fill. */
+@utility border-opal {
+  border: var(--opal-border-width, 1px) solid transparent;
+  background:
+    linear-gradient(var(--opal-border-fill, var(--opal-surface)), var(--opal-border-fill, var(--opal-surface))) padding-box,
+    var(--opal-gradient) border-box;
+}
+
+/* Public profile: rainbow name and blinking bio cursor */
+@keyframes opal-rainbow {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes opal-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@utility animate-rainbow {
+  animation: opal-rainbow 4s linear infinite;
+}
+
+@utility animate-blink {
+  animation: opal-blink 1s steps(1) infinite;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}

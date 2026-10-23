@@ -1,0 +1,14 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="gema">
+<path id="Vector" d="M15 2L27 9.5V20.5L15 28L3 20.5V9.5L15 2Z" fill="url(#paint0_linear_0_28)"/>
+<path id="Vector_2" d="M15 2L27 9.5L15 15L3 9.5L15 2Z" fill="white" fill-opacity="0.35"/>
+<path id="Vector_3" d="M15 15V28L3 20.5V9.5L15 15Z" fill="black" fill-opacity="0.12"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_28" x1="3" y1="15" x2="27" y2="15" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F6A8CF"/>
+<stop offset="0.5" stop-color="#B9A7FF"/>
+<stop offset="1" stop-color="#8FE3DC"/>
+</linearGradient>
+</defs>
+</svg>
