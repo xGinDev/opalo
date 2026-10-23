@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * State and controls for the profile song. Returns `[ref, controls]`: attach the ref to the
  * <audio> element the caller renders; `controls` is plain state and is safe to read in render.
  */
-export function useAudio(src: string | null) {
+export function useAudio(src: string | null, volume = 1) {
   const ref = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -26,6 +26,11 @@ export function useAudio(src: string | null) {
     events.forEach((e) => audio.addEventListener(e, sync));
     return () => events.forEach((e) => audio.removeEventListener(e, sync));
   }, [src]);
+
+  // The owner picks the volume (0–1); visitors can still mute it.
+  useEffect(() => {
+    if (ref.current) ref.current.volume = Math.min(1, Math.max(0, volume));
+  }, [src, volume]);
 
   const play = useCallback(async () => {
     try {

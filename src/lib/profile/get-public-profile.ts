@@ -7,7 +7,7 @@ import type { Database } from "@/types/database";
 import type { PublicProfile } from "./types";
 
 /** Cookie-less anon client: public profile data never depends on who is looking. */
-function anonClient() {
+export function anonClient() {
   return createClient<Database>(supabaseUrl, supabaseAnonKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });

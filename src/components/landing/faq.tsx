@@ -27,7 +27,7 @@ export function Faq() {
     <section
       id="preguntas"
       aria-labelledby="preguntas-title"
-      className="mx-auto grid max-w-[1440px] scroll-mt-6 gap-8 px-4 pt-10 pb-20 sm:px-8 lg:grid-cols-[420px_1fr] lg:gap-20 lg:px-20 lg:pt-[60px] lg:pb-[110px]"
+      className="mx-auto grid max-w-[1440px] scroll-mt-24 gap-8 px-4 pt-10 pb-20 sm:px-8 lg:grid-cols-[420px_1fr] lg:gap-20 lg:px-20 lg:pt-[60px] lg:pb-[110px]"
     >
       <Reveal>
         <h2 id="preguntas-title" className="text-4xl leading-[1.05] font-bold tracking-[-0.025em] sm:text-[50px]">

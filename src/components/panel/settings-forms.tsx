@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { Loader2, LogOut, Trash2 } from "lucide-react";
+import { Check, Copy, Loader2, LogOut, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { signOut } from "@/app/(auth)/actions";
 import { changeEmail, changePassword, changeUsername, deleteAccount } from "@/app/panel/actions";
@@ -159,6 +159,7 @@ function PasswordSection() {
 function DangerSection() {
   const { data } = usePanel();
   const [confirmation, setConfirmation] = useState("");
+  const [copied, setCopied] = useState(false);
   const [isPending, startTransition] = useTransition();
   const matches = normalizeUsername(confirmation) === data.profile.username;
 
@@ -184,9 +185,28 @@ function DangerSection() {
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-2">
-              <Label htmlFor="delete-confirm">
-                Escribe <strong className="text-foreground">{data.profile.username}</strong> para confirmar
-              </Label>
+              <div className="flex flex-wrap items-center gap-1.5">
+                <Label htmlFor="delete-confirm">Escribe o pega</Label>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(data.profile.username);
+                      setCopied(true);
+                      toast.success("Usuario copiado");
+                      setTimeout(() => setCopied(false), 2000);
+                    } catch {
+                      toast.error("No pudimos copiarlo. Escríbelo a mano.");
+                    }
+                  }}
+                  aria-label={`Copiar ${data.profile.username}`}
+                  className="inline-flex items-center gap-1.5 rounded-sm bg-surface-2 px-2 py-0.5 text-[13px] font-bold text-foreground transition-colors hover:bg-surface-2/70"
+                >
+                  {data.profile.username}
+                  {copied ? <Check className="size-3.5 text-success" aria-hidden /> : <Copy className="size-3.5 text-muted-foreground" aria-hidden />}
+                </button>
+                <span className="text-[13px] font-semibold text-muted-foreground">para confirmar</span>
+              </div>
               <Input id="delete-confirm" value={confirmation} onChange={(e) => setConfirmation(e.target.value)} autoComplete="off" autoCapitalize="none" />
             </div>
             <DialogFooter>

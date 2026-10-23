@@ -1,80 +1,104 @@
-import { Award, Check, Eye, Gem } from "lucide-react";
+import { Award, Eye, Gem, MapPin, Sparkle } from "lucide-react";
+import { SiDiscord, SiSpotify, SiSteam, SiTiktok } from "react-icons/si";
 import { GlowOrb } from "@/components/opal/glow-orb";
-import { opalIcons } from "@/components/opal/icons";
 
 const OPAL_DIAGONAL = "linear-gradient(135deg, #f6a8cf 0%, #b9a7ff 35.7%, #8fe3dc 71.4%)";
 const SOCIALS = [
-  { icon: opalIcons.chat, label: "Discord" },
-  { icon: opalIcons.camera, label: "Instagram" },
-  { icon: opalIcons.play, label: "YouTube" },
-  { icon: opalIcons.music, label: "Spotify" },
-  { icon: opalIcons.globe, label: "Sitio web" },
+  { icon: SiDiscord, label: "Discord" },
+  { icon: SiTiktok, label: "TikTok" },
+  { icon: SiSteam, label: "Steam" },
+  { icon: SiSpotify, label: "Spotify" },
+];
+const SPARKLES = [
+  { left: "-14%", top: "4%", size: 11 },
+  { left: "104%", top: "-6%", size: 9 },
+  { left: "92%", top: "78%", size: 7 },
 ];
 
-/** Figma 3:41 — decorative sample profile shown in the hero. */
+/**
+ * Decorative sample profile in the hero, built like a real Ópalo page: blurred background,
+ * "Avatar flotante" card with the "Apilada" arrangement (badges under the name, location on
+ * its own line, views in the corner).
+ */
 export function HeroProfileCard() {
   return (
-    <div className="relative mx-auto h-[560px] w-full max-w-[460px] sm:h-[660px]" aria-hidden>
+    <div className="relative mx-auto h-[540px] w-full max-w-[460px] sm:h-[600px]" aria-hidden>
       <GlowOrb
         color="linear-gradient(135deg, #f6a8cf, #b9a7ff 50%, #8fe3dc)"
         blur={60}
-        opacity={0.35}
-        className="top-[70px] left-1/2 size-[min(520px,110%)] -translate-x-1/2"
+        opacity={0.3}
+        className="top-[60px] left-1/2 size-[min(520px,110%)] -translate-x-1/2"
       />
 
-      <div className="absolute top-[10px] left-1/2 flex w-[min(400px,100%)] -translate-x-1/2 flex-col items-center gap-4 overflow-hidden rounded-3xl border border-white/8 bg-[#120f1a] px-8 pt-12 pb-9 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)]">
-        <GlowOrb color="#f6a8cf" blur={45} opacity={0.32} className="top-[-61px] left-[-81px] size-[300px]" />
-        <GlowOrb color="#b9a7ff" blur={45} opacity={0.32} className="top-[119px] left-[179px] size-[280px]" />
-        <GlowOrb color="#8fe3dc" blur={45} opacity={0.32} className="top-[379px] left-[-41px] size-[260px]" />
+      {/* The "page": a dark, blurred backdrop like an uploaded image. */}
+      <div className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-3xl border border-white/8 bg-[#0d0a12] px-6 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.7)] sm:px-9">
+        <GlowOrb color="#7a1f3d" blur={50} opacity={0.75} className="top-[-60px] left-[-90px] size-[320px]" />
+        <GlowOrb color="#3b2a7a" blur={55} opacity={0.7} className="top-[180px] right-[-120px] size-[340px]" />
+        <GlowOrb color="#8c2a3a" blur={50} opacity={0.5} className="bottom-[-110px] left-[40px] size-[300px]" />
+        <GlowOrb color="#f6a8cf" blur={40} opacity={0.12} className="top-[90px] left-[150px] size-[160px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:4px_4px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(0,0,0,0.65)_100%)]" />
 
-        <div
-          className="relative flex size-[108px] items-center justify-center rounded-full border-3 border-white/18 shadow-[0_0_40px_rgba(185,167,255,0.55)]"
-          style={{ backgroundImage: OPAL_DIAGONAL }}
-        >
-          <span className="font-display text-[44px] font-extrabold text-on-accent">N</span>
-        </div>
+        {/* Snow-like particles. */}
+        {[
+          [12, 18],
+          [84, 12],
+          [70, 40],
+          [8, 64],
+          [90, 74],
+          [30, 90],
+          [58, 84],
+        ].map(([x, y]) => (
+          <span key={`${x}-${y}`} className="absolute size-1 rounded-full bg-white/60" style={{ left: `${x}%`, top: `${y}%` }} />
+        ))}
 
-        <div className="relative flex items-center gap-2.5">
-          <span className="font-display text-[38px] leading-none font-extrabold tracking-[-0.02em] [text-shadow:0_0_16px_rgba(255,255,255,0.55)]">
-            nico
+        {/* The card: floating avatar over a dark glass panel. */}
+        <div className="relative mt-[54px] flex w-full flex-col items-center gap-3 rounded-[22px] border-[3px] border-white/20 bg-black/55 px-6 pt-[70px] pb-14 backdrop-blur-[9px]">
+          <div
+            className="absolute -top-[54px] left-1/2 flex size-[108px] -translate-x-1/2 items-center justify-center rounded-full border-3 border-white/18 shadow-[0_0_36px_rgba(185,167,255,0.5)]"
+            style={{ backgroundImage: OPAL_DIAGONAL }}
+          >
+            <span className="font-display text-[38px] font-extrabold text-on-accent">JD</span>
+            <span className="absolute right-[4%] bottom-[4%] size-[20%] rounded-full border-4 border-[#0b0812] bg-success" />
+          </div>
+
+          <span className="relative font-display text-[40px] leading-none font-extrabold tracking-[-0.02em] [text-shadow:0_0_10px_rgba(255,255,255,0.6),0_0_26px_rgba(185,167,255,0.5)]">
+            John Doe
+            {SPARKLES.map((s) => (
+              <Sparkle
+                key={s.left}
+                className="absolute text-white drop-shadow-[0_0_6px_#b9a7ff]"
+                style={{ left: s.left, top: s.top, width: s.size, height: s.size }}
+                fill="currentColor"
+                strokeWidth={0}
+              />
+            ))}
           </span>
-          <span className="flex gap-1.5 rounded-full bg-white/8 px-[9px] py-[5px]">
+
+          <span className="flex gap-[7px] rounded-full border border-white/12 bg-white/9 px-2.5 py-1.5">
             <Gem className="size-[15px] text-lilac" />
             <Award className="size-[15px] text-gold" />
-            <Check className="size-[15px] text-aqua" />
+            <Sparkle className="size-[15px] text-aqua" />
           </span>
+
+          <p className="text-base font-semibold">
+            todo lo mío, en un solo lugar<span className="ml-0.5 inline-block h-[1.05em] w-[2px] animate-blink bg-white align-[-0.15em]" />
+          </p>
+
+          <p className="flex items-center gap-1.5 text-[13px] font-bold">
+            <MapPin className="size-[15px]" fill="currentColor" strokeWidth={0} /> en algún lugar
+          </p>
+
+          <div className="flex gap-4 pt-2">
+            {SOCIALS.map(({ icon: Icon, label }) => (
+              <Icon key={label} className="size-[30px] text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.75)]" />
+            ))}
+          </div>
+
+          <p className="absolute bottom-4 left-5 flex items-center gap-1.5 text-[13px] font-bold">
+            <Eye className="size-[15px]" /> 48.210
+          </p>
         </div>
-
-        <p className="relative text-base font-semibold">dev de día, gamer de noche</p>
-
-        <div className="relative flex items-center gap-3 rounded-lg border border-white/10 bg-black/35 py-2.5 pr-[18px] pl-2.5">
-          <span className="size-10 rounded-full bg-opal" />
-          <span className="flex flex-col gap-0.5">
-            <span className="text-sm font-bold">nico</span>
-            <span className="text-xs font-medium text-muted-foreground">en línea, escuchando música</span>
-          </span>
-        </div>
-
-        <div className="relative flex gap-[18px] py-1.5">
-          {SOCIALS.map(({ icon: Icon, label }) => (
-            <Icon key={label} className="size-[26px] drop-shadow-[0_0_4px_rgba(255,255,255,0.7)]" strokeWidth={1.75} />
-          ))}
-        </div>
-
-        <div className="relative flex items-center gap-3">
-          <span className="size-12 shrink-0 rounded-sm bg-[linear-gradient(180deg,#f6a8cf,#b9a7ff_50%,#8fe3dc)]" />
-          <span className="flex flex-col gap-2">
-            <span className="text-sm font-bold">midnight drive</span>
-            <span className="relative h-[3px] w-[min(220px,40vw)] overflow-hidden rounded-[2px] bg-white/20">
-              <span className="absolute inset-y-0 left-0 w-[42%] rounded-[2px] bg-white" />
-            </span>
-            <span className="text-[11px] font-medium text-muted-foreground">1:34 / 3:33</span>
-          </span>
-        </div>
-
-        <p className="relative flex items-center gap-1.5 text-xs font-bold text-muted-foreground">
-          <Eye className="size-[15px]" /> 48.210 visitas
-        </p>
       </div>
     </div>
   );

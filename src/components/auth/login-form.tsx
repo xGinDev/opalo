@@ -20,12 +20,12 @@ type LoginFormProps = {
   initialError?: string;
 };
 
-/** Figma 6:135 — email/password plus Google and Discord. */
+/** Figma 6:135 — email or username + password, plus Google and Discord. */
 export function LoginForm({ next, initialError }: LoginFormProps) {
   const [isPending, startTransition] = useTransition();
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "", remember: true },
+    defaultValues: { identifier: "", password: "", remember: true },
   });
   const formError = form.formState.errors.root?.message ?? initialError;
 
@@ -44,12 +44,12 @@ export function LoginForm({ next, initialError }: LoginFormProps) {
         <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
           <FormField
             control={form.control}
-            name="email"
+            name="identifier"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Correo</FormLabel>
+                <FormLabel>Correo o usuario</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="tu@correo.com" autoComplete="email" {...field} />
+                  <Input placeholder="tu@correo.com o tu usuario" autoComplete="username" autoCapitalize="none" spellCheck={false} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

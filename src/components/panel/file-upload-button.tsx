@@ -14,10 +14,12 @@ type FileUploadButtonProps = {
   /** Narrows the bucket's allowed types (e.g. only audio/mpeg). */
   accept?: string[];
   onUploaded: (url: string, file: File) => void;
+  /** Optional processing before upload (e.g. crop and compress an image). */
+  transform?: (file: File) => Promise<Blob>;
 };
 
 /** Uploads straight to Supabase Storage under the user's folder. */
-export function FileUploadButton({ bucket, name, label, accept, onUploaded }: FileUploadButtonProps) {
+export function FileUploadButton({ bucket, name, label, accept, onUploaded, transform }: FileUploadButtonProps) {
   const { data } = usePanel();
   const inputRef = useRef<HTMLInputElement>(null);
   const [isPending, startTransition] = useTransition();
@@ -26,7 +28,8 @@ export function FileUploadButton({ bucket, name, label, accept, onUploaded }: Fi
   function upload(file: File | undefined) {
     if (!file) return;
     startTransition(async () => {
-      const result = await uploadUserFile(bucket, data.profile.id, file, name);
+      const blob = transform ? await transform(file).catch(() => file) : file;
+      const result = await uploadUserFile(bucket, data.profile.id, blob, name);
       if ("error" in result) toast.error(result.error);
       else onUploaded(result.url, file);
     });

@@ -32,7 +32,7 @@ export function LegalPage({ title, intro, updatedAt, sections }: LegalPageProps)
       </header>
 
       <div className="mx-auto flex max-w-[1440px] items-start gap-24 px-4 pt-10 pb-24 sm:px-8 lg:px-20 lg:pt-14 lg:pb-[100px]">
-        <aside className="sticky top-8 hidden w-[260px] shrink-0 self-start lg:block">
+        <aside className="sticky top-28 hidden w-[260px] shrink-0 self-start lg:block">
           <LegalToc items={tocItems} />
         </aside>
 
@@ -54,7 +54,7 @@ export function LegalPage({ title, intro, updatedAt, sections }: LegalPageProps)
           </details>
 
           {sections.map((section, index) => (
-            <section key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className="scroll-mt-8">
+            <section key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className="scroll-mt-28">
               <h2 id={`${section.id}-title`} className="mb-3.5 text-[26px] font-bold tracking-[-0.01em]">
                 {index + 1}. {section.label}
               </h2>

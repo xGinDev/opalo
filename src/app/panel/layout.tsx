@@ -4,7 +4,15 @@ import { PanelShell } from "@/components/panel/panel-shell";
 import type { PanelData } from "@/lib/panel/types";
 import type { PublicBadge } from "@/lib/profile/types";
 import { profileFontVariables } from "@/lib/profile-fonts";
+import { DISCORD_ID_REGEX } from "@/lib/profile/discord";
 import { createClient } from "@/lib/supabase/server";
+
+/** Discord OAuth stores the Discord user ID as `provider_id` in the user metadata. */
+function discordAccountId(claims: { app_metadata?: { providers?: string[] }; user_metadata?: Record<string, unknown> }) {
+  if (!claims.app_metadata?.providers?.includes("discord")) return null;
+  const id = claims.user_metadata?.provider_id;
+  return typeof id === "string" && DISCORD_ID_REGEX.test(id) ? id : null;
+}
 
 /** Loads everything the panel edits once; pages read and update it through PanelProvider. */
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
@@ -34,6 +42,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     stats: { views: stats.data?.views ?? 0, clicks: stats.data?.clicks ?? 0 },
     badges: (badges.data ?? []).flatMap((b) => (b.badges ? [b.badges as PublicBadge] : [])),
     email: (claims.claims.email as string | undefined) ?? null,
+    discordAccountId: discordAccountId(claims.claims),
   };
 
   return (

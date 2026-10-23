@@ -7,22 +7,29 @@ import type { AudioControls } from "./use-audio";
 
 type MusicPlayerProps = {
   title: string;
+  /** Small square cover; falls back to the accent gradient. */
+  coverUrl?: string | null;
   audio: AudioControls;
   accent: string;
   className?: string;
 };
 
 /** Figma 9:810 "reproductor": cover, title, seekable progress and prev / pause / next. */
-export function MusicPlayer({ title, audio, accent, className }: MusicPlayerProps) {
+export function MusicPlayer({ title, coverUrl, audio, accent, className }: MusicPlayerProps) {
   const progress = audio.duration ? (audio.current / audio.duration) * 100 : 0;
 
   return (
     <div className={cn("flex w-full items-center gap-2.5 @3xl:gap-3.5", className)}>
-      <span
-        aria-hidden
-        className="size-12 shrink-0 rounded-sm @3xl:size-14"
-        style={{ backgroundImage: `linear-gradient(180deg, #f6a8cf, ${accent} 50%, #8fe3dc)` }}
-      />
+      {coverUrl ? (
+        // eslint-disable-next-line @next/next/no-img-element -- small user upload from Supabase Storage
+        <img src={coverUrl} alt="" className="size-12 shrink-0 rounded-sm object-cover @3xl:size-14" loading="lazy" />
+      ) : (
+        <span
+          aria-hidden
+          className="size-12 shrink-0 rounded-sm @3xl:size-14"
+          style={{ backgroundImage: `linear-gradient(180deg, #f6a8cf, ${accent} 50%, #8fe3dc)` }}
+        />
+      )}
       <div className="flex min-w-0 flex-1 flex-col gap-1.5 text-left">
         <p className="truncate text-[15px] font-bold">{title}</p>
         <div className="flex items-center gap-2.5 text-xs font-medium text-muted-foreground tabular-nums">

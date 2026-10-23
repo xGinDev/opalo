@@ -3,13 +3,15 @@
 import { motion } from "motion/react";
 import { toast } from "sonner";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { linkAction, platformMeta } from "@/lib/profile/links";
+import { brandColor, linkAction, platformMeta } from "@/lib/profile/links";
 import type { PublicLink } from "@/lib/profile/types";
 import { cn } from "@/lib/utils";
 
 type SocialLinksProps = {
   links: PublicLink[];
   accent: string;
+  /** "mono": white icons with an accent glow (Figma); "color": each brand in its own color. */
+  iconStyle?: "mono" | "color";
   still: boolean;
   /** Called on every click (the page sends it to /api/track/click; the preview ignores it). */
   onLinkClick?: (link: PublicLink) => void;
@@ -17,11 +19,16 @@ type SocialLinksProps = {
   iconClassName?: string;
 };
 
-/** Figma 9:789 "redes": white glowing icons with tooltip and a small hop on hover. */
-export function SocialLinks({ links, accent, still, onLinkClick, className, iconClassName }: SocialLinksProps) {
+/** Figma 9:789 "redes": glowing icons (white or brand colors) with tooltip and a small hop on hover. */
+export function SocialLinks({ links, accent, iconStyle = "mono", still, onLinkClick, className, iconClassName }: SocialLinksProps) {
   if (links.length === 0) return null;
 
-  const glow = { filter: `drop-shadow(0 0 4px rgba(255,255,255,0.75)) drop-shadow(0 0 12px ${accent}73)` };
+  const monoGlow = { filter: `drop-shadow(0 0 4px rgba(255,255,255,0.75)) drop-shadow(0 0 12px ${accent}73)` };
+  const styleFor = (platform: string) => {
+    if (iconStyle !== "color") return monoGlow;
+    const color = brandColor(platform);
+    return { color, filter: `drop-shadow(0 0 3px ${color}99) drop-shadow(0 0 10px ${color}59)` };
+  };
   const hover = still ? undefined : { y: -4, scale: 1.08 };
 
   return (
@@ -37,7 +44,7 @@ export function SocialLinks({ links, accent, still, onLinkClick, className, icon
         const common = {
           "aria-label": label,
           className: "block size-full rounded-sm text-white",
-          style: glow,
+          style: styleFor(link.platform),
           whileHover: hover,
           whileFocus: hover,
           transition: { type: "spring" as const, stiffness: 420, damping: 16 },

@@ -40,7 +40,18 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { LeaderboardTabs } from "@/components/landing/leaderboard-tabs";
+import type { LeaderboardRow } from "@/lib/landing/leaderboard";
 import { ToastDemo } from "./toast-demo";
+
+const MOCK_LEADERBOARD: LeaderboardRow[] = Array.from({ length: 30 }, (_, i) => ({
+  rank: i + 1,
+  username: ["nico", "luna", "kairo", "$", "estudionorte", "vale"][i % 6] + (i >= 6 ? String(i) : ""),
+  display_name: i % 4 === 0 ? null : ["Nico", "Luna ☾", "kairo", "Ópalo", "Estudio Norte", "vale"][i % 6],
+  avatar_url: null,
+  plan: i % 3 === 0 ? "premium" : "free",
+  views: Math.round(48210 / (1 + i * 0.6)),
+}));
 
 export const metadata: Metadata = { title: "UI", robots: { index: false } };
 
@@ -356,6 +367,10 @@ export default function DevUiPage() {
             <Skeleton className="h-4 w-32" />
           </div>
         </div>
+      </Section>
+
+      <Section title="Tabla de clasificación (datos de prueba; Este mes vacío)">
+        <LeaderboardTabs allTime={MOCK_LEADERBOARD} month={[]} />
       </Section>
     </main>
   );

@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { PENDING_USERNAME_COOKIE } from "@/lib/auth/constants";
 import { requestOrigin, safeNext } from "@/lib/auth/redirect";
 import { translateError } from "@/lib/errors";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { REMEMBER_COOKIE } from "@/lib/supabase/remember";
 import { normalizeUsername } from "@/lib/username";
@@ -15,6 +16,7 @@ import {
   type RegisterInput,
   loginSchema,
   newPasswordSchema,
+  parseLoginIdentifier,
   recoverSchema,
   registerSchema,
   usernameFormatError,
@@ -32,10 +34,39 @@ function callbackUrl(origin: string, next: string) {
   return `${origin}/auth/callback?next=${encodeURIComponent(next)}`;
 }
 
+/**
+ * Email for a login identifier: the email itself, or the account email behind a username.
+ * Looked up server-side with the service role; the email never reaches the browser.
+ */
+async function emailForIdentifier(identifier: string): Promise<string | null | "unavailable"> {
+  const parsed = parseLoginIdentifier(identifier);
+  if ("email" in parsed) return parsed.email;
+  if (usernameFormatError(parsed.username)) return null;
+
+  try {
+    const admin = createAdminClient();
+    const { data: profile } = await admin.from("profiles").select("id").eq("username", parsed.username).maybeSingle();
+    if (!profile) return null;
+    const { data } = await admin.auth.admin.getUserById(profile.id);
+    return data.user?.email ?? null;
+  } catch (error) {
+    // No SUPABASE_SERVICE_ROLE_KEY: username login can't work, email login still does.
+    console.error("[signIn] username lookup failed", error);
+    return "unavailable";
+  }
+}
+
 export async function signIn(input: LoginInput, next?: string): Promise<AuthResult> {
   const parsed = loginSchema.safeParse(input);
-  if (!parsed.success) return { status: "error", message: "Revisa tu correo y contraseña." };
-  const { email, password, remember } = parsed.data;
+  if (!parsed.success) return { status: "error", message: "Revisa tu correo o usuario y tu contraseña." };
+  const { identifier, password, remember } = parsed.data;
+
+  const email = await emailForIdentifier(identifier);
+  if (email === "unavailable") {
+    return { status: "error", message: "Ahora mismo solo puedes entrar con tu correo.", field: "identifier" };
+  }
+  // Unknown username: same message as a wrong password, so nobody can probe which accounts exist.
+  if (!email) return { status: "error", message: translateError({ message: "Invalid login credentials" }) };
 
   const cookieStore = await cookies();
   cookieStore.set(REMEMBER_COOKIE, remember ? "1" : "0", {

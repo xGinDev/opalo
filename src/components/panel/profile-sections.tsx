@@ -9,6 +9,7 @@ import { AvatarUploader } from "./avatar-uploader";
 import { AccentPicker, ChoiceChips, type Choice, Counter, LayoutPicker, PanelCard, ToggleRow } from "./editor-ui";
 import { LinksManager } from "./links-manager";
 import { usePanel } from "./panel-provider";
+import { PresenceEditor } from "./presence-editor";
 
 export const PARTICLE_CHOICES: Choice<Enums<"particle_kind">>[] = [
   { value: "stars", label: "Estrellas" },
@@ -61,19 +62,10 @@ export function InfoCard() {
         />
         <Counter value={profile.bio} max={300} />
       </div>
-      <div className="grid gap-2">
-        <Label htmlFor="presence_text">Estado</Label>
-        <Input
-          id="presence_text"
-          value={settings.presence_text ?? ""}
-          onChange={(e) => updateSettings({ presence_text: e.target.value })}
-          maxLength={60}
-          placeholder="jugando Valorant, competitivo"
-        />
-      </div>
+      <PresenceEditor />
       <ToggleRow
         label="Mostrar estado"
-        description="Aparece debajo de tu nombre, como en Discord."
+        description="La tarjeta debajo de tu nombre, como en Discord."
         checked={settings.show_presence}
         onChange={(show_presence) => updateSettings({ show_presence })}
       />
@@ -81,9 +73,21 @@ export function InfoCard() {
   );
 }
 
+const ICON_STYLE_CHOICES: Choice<"mono" | "color">[] = [
+  { value: "mono", label: "Blancos" },
+  { value: "color", label: "A color" },
+];
+
 export function LinksCard() {
+  const { draft, updateSettings } = usePanel();
   return (
     <PanelCard title="Redes" description="Arrastra para cambiar el orden.">
+      <ChoiceChips
+        label="Íconos"
+        value={draft.settings.icon_style ?? "mono"}
+        options={ICON_STYLE_CHOICES}
+        onChange={(icon_style) => updateSettings({ icon_style })}
+      />
       <LinksManager />
     </PanelCard>
   );

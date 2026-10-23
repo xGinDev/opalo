@@ -213,22 +213,30 @@ export type Database = {
       profile_settings: {
         Row: {
           accent_color: string;
+          arrangement: "default" | "stacked" | "corners" | "links-first" | "compact" | "minimal";
           bg_blur: number;
           bg_color: string;
           bg_kind: Database["public"]["Enums"]["bg_kind"];
           bg_url: string | null;
           card_border: boolean;
           card_opacity: number;
+          card_style: "classic" | "glass" | "neon" | "opal" | "floating" | "retro" | "aurora";
           cursor_trail: boolean;
           enter_text: string | null;
           favicon_url: string | null;
           layout: Database["public"]["Enums"]["layout_type"];
           music_title: string | null;
+          music_volume: number;
+          music_cover_url: string | null;
           music_url: string | null;
           name_effect: Database["public"]["Enums"]["name_fx"];
           name_font: string;
+          name_fx_color: string | null;
           particles: Database["public"]["Enums"]["particle_kind"];
           presence_text: string | null;
+          presence_source: "custom" | "discord";
+          discord_id: string | null;
+          icon_style: "mono" | "color";
           profile_id: string;
           show_badges: boolean;
           show_branding: boolean;
@@ -243,22 +251,30 @@ export type Database = {
         };
         Insert: {
           accent_color?: string;
+          arrangement?: "default" | "stacked" | "corners" | "links-first" | "compact" | "minimal";
           bg_blur?: number;
           bg_color?: string;
           bg_kind?: Database["public"]["Enums"]["bg_kind"];
           bg_url?: string | null;
           card_border?: boolean;
           card_opacity?: number;
+          card_style?: "classic" | "glass" | "neon" | "opal" | "floating" | "retro" | "aurora";
           cursor_trail?: boolean;
           enter_text?: string | null;
           favicon_url?: string | null;
           layout?: Database["public"]["Enums"]["layout_type"];
           music_title?: string | null;
+          music_volume?: number;
+          music_cover_url?: string | null;
           music_url?: string | null;
           name_effect?: Database["public"]["Enums"]["name_fx"];
           name_font?: string;
+          name_fx_color?: string | null;
           particles?: Database["public"]["Enums"]["particle_kind"];
           presence_text?: string | null;
+          presence_source?: "custom" | "discord";
+          discord_id?: string | null;
+          icon_style?: "mono" | "color";
           profile_id: string;
           show_badges?: boolean;
           show_branding?: boolean;
@@ -273,22 +289,30 @@ export type Database = {
         };
         Update: {
           accent_color?: string;
+          arrangement?: "default" | "stacked" | "corners" | "links-first" | "compact" | "minimal";
           bg_blur?: number;
           bg_color?: string;
           bg_kind?: Database["public"]["Enums"]["bg_kind"];
           bg_url?: string | null;
           card_border?: boolean;
           card_opacity?: number;
+          card_style?: "classic" | "glass" | "neon" | "opal" | "floating" | "retro" | "aurora";
           cursor_trail?: boolean;
           enter_text?: string | null;
           favicon_url?: string | null;
           layout?: Database["public"]["Enums"]["layout_type"];
           music_title?: string | null;
+          music_volume?: number;
+          music_cover_url?: string | null;
           music_url?: string | null;
           name_effect?: Database["public"]["Enums"]["name_fx"];
           name_font?: string;
+          name_fx_color?: string | null;
           particles?: Database["public"]["Enums"]["particle_kind"];
           presence_text?: string | null;
+          presence_source?: "custom" | "discord";
+          discord_id?: string | null;
+          icon_style?: "mono" | "color";
           profile_id?: string;
           show_badges?: boolean;
           show_branding?: boolean;
@@ -581,6 +605,17 @@ export type Database = {
         Returns: undefined;
       };
       check_username: { Args: { p_username: string }; Returns: boolean };
+      get_leaderboard: {
+        Args: { p_limit?: number; p_period?: string };
+        Returns: {
+          avatar_url: string | null;
+          display_name: string | null;
+          plan: Database["public"]["Enums"]["plan_type"];
+          rank: number;
+          username: string;
+          views: number;
+        }[];
+      };
       get_my_link_stats: {
         Args: { p_days?: number };
         Returns: {
@@ -620,7 +655,7 @@ export type Database = {
       account_status: "active" | "reported" | "suspended";
       bg_kind: "color" | "image" | "video";
       layout_type: "card" | "center";
-      name_fx: "glow" | "sparkle" | "rainbow" | "none";
+      name_fx: "glow" | "sparkle" | "rainbow" | "none" | "typewriter" | "blur" | "scramble";
       particle_kind: "stars" | "rain" | "snow" | "petals" | "none";
       payment_status: "pending" | "paid" | "refunded" | "failed";
       plan_type: "free" | "premium";
@@ -737,7 +772,7 @@ export const Constants = {
       account_status: ["active", "reported", "suspended"],
       bg_kind: ["color", "image", "video"],
       layout_type: ["card", "center"],
-      name_fx: ["glow", "sparkle", "rainbow", "none"],
+      name_fx: ["glow", "sparkle", "rainbow", "none", "typewriter", "blur", "scramble"],
       particle_kind: ["stars", "rain", "snow", "petals", "none"],
       payment_status: ["pending", "paid", "refunded", "failed"],
       plan_type: ["free", "premium"],

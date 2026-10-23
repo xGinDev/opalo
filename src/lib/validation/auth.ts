@@ -31,8 +31,9 @@ export const usernameSchema = z
     if (error) ctx.addIssue({ code: "custom", message: error });
   });
 
+/** Login accepts an email or a username ("nico", "@nico" or "opalo.me/nico"). */
 export const loginSchema = z.object({
-  email,
+  identifier: z.string().trim().min(1, "Escribe tu correo o tu usuario."),
   password: z.string().min(1, "Escribe tu contraseña."),
   remember: z.boolean(),
 });
@@ -55,3 +56,12 @@ export type RegisterInput = z.input<typeof registerSchema>;
 export type RegisterValues = z.output<typeof registerSchema>;
 export type RecoverInput = z.input<typeof recoverSchema>;
 export type NewPasswordInput = z.input<typeof newPasswordSchema>;
+
+const EMAIL_LIKE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/** Splits the login identifier into an email or a normalized username. */
+export function parseLoginIdentifier(raw: string): { email: string } | { username: string } {
+  const value = raw.trim();
+  if (EMAIL_LIKE.test(value)) return { email: value };
+  return { username: normalizeUsername(value.replace(/^(https?:\/\/)?(www\.)?opalo\.me\//i, "").replace(/^@/, "")) };
+}

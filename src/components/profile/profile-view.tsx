@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Eye, MapPin, Volume2, VolumeX } from "lucide-react";
+import { type FlowBlock, arrangementMeta } from "@/lib/profile/arrangements";
+import { cardStyleMeta } from "@/lib/profile/card-styles";
 import { formatCount, joinedAgo, tabTitleOf } from "@/lib/profile/format";
 import type { PublicLink, PublicProfile } from "@/lib/profile/types";
 import { cn } from "@/lib/utils";
@@ -11,7 +13,7 @@ import { CursorTrail } from "./cursor-trail";
 import { EnterScreen } from "./enter-screen";
 import { useFinePointer, usePrefersReducedMotion } from "./hooks";
 import { MusicPlayer } from "./music-player";
-import { PresenceCard } from "./presence-card";
+import { DiscordPresenceCard, PresenceCard } from "./presence-card";
 import { ProfileAvatar } from "./profile-avatar";
 import { ProfileBadges } from "./profile-badges";
 import { ProfileName } from "./profile-name";
@@ -53,7 +55,7 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
   const reducedMotion = usePrefersReducedMotion();
   const finePointer = useFinePointer();
   const [entered, setEntered] = useState(!isPage);
-  const [audioRef, audio] = useAudio(musicUrl);
+  const [audioRef, audio] = useAudio(musicUrl, (settings.music_volume ?? 60) / 100);
 
   // Count the visit once per page load (the server hashes the visitor and dedupes for 30 min).
   const tracked = useRef(false);
@@ -73,8 +75,79 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
     if (musicUrl) void audio.play();
   }
 
-  const showPresence = settings.show_presence && Boolean(settings.presence_text?.trim());
+  const discordId = settings.presence_source === "discord" && settings.discord_id ? settings.discord_id : null;
+  const showPresence = settings.show_presence && (discordId !== null || Boolean(settings.presence_text?.trim()));
   const showPlayer = settings.show_player && Boolean(musicUrl);
+  const style = cardStyleMeta(settings.card_style);
+  const classic = style.id === "classic";
+  const floating = style.id === "floating";
+  const detachedPlayer = showPlayer && style.detachedPlayer;
+  const arr = arrangementMeta(settings.arrangement);
+  // "row" puts the photo beside the text at every size; the card layout does it on desktop only.
+  const rowAlways = arr.identity === "row";
+  const showAvatar = arr.avatar;
+  const hasCorners = arr.stats === "corner" || (arr.location === "corner" && Boolean(profile.location));
+  const cardVars = {
+    "--card-bg": `rgba(0,0,0,${settings.card_opacity})`,
+    "--card-alpha": settings.card_opacity,
+    "--accent": accent,
+  } as React.CSSProperties;
+
+  const viewsLabel = (
+    <span className="flex items-center gap-1.5">
+      <Eye className="size-[15px]" aria-hidden />
+      <span>
+        {formatCount(views)}
+        <span className="sr-only"> visitas</span>
+      </span>
+    </span>
+  );
+  const locationLabel = (
+    <span className="flex min-w-0 items-center gap-1.5">
+      <MapPin className="size-[15px] shrink-0" fill="currentColor" strokeWidth={0} aria-hidden />
+      <span className="truncate">{profile.location}</span>
+    </span>
+  );
+  const linksFirst = arr.order[0] === "links";
+  const flow: Record<FlowBlock, React.ReactNode> = {
+    presence: showPresence ? (
+      <div key="presence" className={cn("contents", rowAlways && "[&>*]:self-start")}>
+        {discordId ? (
+          <DiscordPresenceCard discordId={discordId} preview={!isPage} />
+        ) : (
+          <PresenceCard name={name} text={settings.presence_text!.trim()} avatarUrl={profile.avatar_url} />
+        )}
+      </div>
+    ) : null,
+    links: (
+      <SocialLinks
+        key="links"
+        links={links}
+        accent={accent}
+        iconStyle={settings.icon_style ?? "mono"}
+        still={reducedMotion}
+        onLinkClick={isPage ? trackClick : undefined}
+        className={cn(
+          "gap-3.5 [--icon-size:28px]",
+          isCard ? "@3xl:justify-start @3xl:gap-3 @3xl:[--icon-size:30px]" : "@3xl:gap-4 @3xl:[--icon-size:32px]",
+          rowAlways && "justify-start",
+          // Right under the name, the icons get a bit more weight.
+          linksFirst && "[--icon-size:32px] @3xl:[--icon-size:34px]",
+        )}
+      />
+    ),
+    player:
+      showPlayer && !detachedPlayer ? (
+        <MusicPlayer
+          key="player"
+          title={settings.music_title?.trim() || "Sin título"}
+          coverUrl={settings.music_cover_url ?? null}
+          audio={audio}
+          accent={accent}
+          className={cn("max-w-[340px]", isCard ? "@3xl:max-w-[560px]" : "@3xl:max-w-[520px]")}
+        />
+      ) : null,
+  };
 
   return (
     <div
@@ -115,96 +188,141 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
           wrapperClassName="w-full @3xl:w-auto"
           className="w-full @3xl:w-auto"
         >
-          <section
-            aria-label={`Perfil de ${name}`}
-            className={cn(
-              "flex w-full flex-col items-center gap-4 text-center",
-              // Background (card_opacity) and border apply to both layouts at every size.
-              "rounded-[22px] bg-[var(--card-bg)] px-5 py-6 backdrop-blur-[9px]",
-              settings.card_border ? "border-[3px] border-white/22 @3xl:border-4" : "border border-white/10",
-              settings.card_opacity > 0 && "shadow-[0_30px_45px_rgba(0,0,0,0.6)]",
-              settings.card_opacity === 0 && !settings.card_border && "border-transparent px-0 py-0 backdrop-blur-none",
-              isCard
-                ? "@3xl:mx-auto @3xl:w-[740px] @3xl:items-start @3xl:gap-[22px] @3xl:px-[30px] @3xl:pt-[30px] @3xl:pb-[26px] @3xl:text-left"
-                : "@3xl:mx-auto @3xl:w-fit @3xl:max-w-[560px] @3xl:min-w-[480px] @3xl:gap-[18px] @3xl:px-12 @3xl:py-10",
-            )}
-            style={{ "--card-bg": `rgba(0,0,0,${settings.card_opacity})` } as React.CSSProperties}
-          >
-            <div
+          <div className="flex w-full flex-col gap-3 @3xl:w-auto">
+            <section
+              aria-label={`Perfil de ${name}`}
               className={cn(
-                // Full width so the name row and bio never shrink to the avatar's width.
-                "flex w-full flex-col items-center gap-4",
-                isCard ? "@3xl:flex-row @3xl:gap-[22px]" : "@3xl:gap-[18px]",
+                "relative isolate flex w-full flex-col items-center gap-4 px-5 py-6 text-center",
+                // Classic: background (card_opacity) and border apply to both layouts at every size.
+                classic && "rounded-[22px] bg-[var(--card-bg)] backdrop-blur-[9px]",
+                classic && (settings.card_border ? "border-[3px] border-white/22 @3xl:border-4" : "border border-white/10"),
+                classic && settings.card_opacity > 0 && "shadow-[0_30px_45px_rgba(0,0,0,0.6)]",
+                classic && settings.card_opacity === 0 && !settings.card_border && "border-transparent px-0 py-0 backdrop-blur-none",
+                // Premium designs (globals.css): their own fill, glow and border.
+                !classic && style.className,
+                !classic && style.id !== "glass" && "backdrop-blur-[9px]",
+                !classic && !style.ownBorder && settings.card_border && "border-[3px] border-white/22 @3xl:border-4",
+                floating && showAvatar && (isCard ? "mt-[54px] @3xl:mt-[62px]" : "mt-[54px] @3xl:mt-16"),
+                isCard
+                  ? "@3xl:mx-auto @3xl:w-[740px] @3xl:items-start @3xl:gap-[22px] @3xl:px-[30px] @3xl:pt-[30px] @3xl:pb-[26px] @3xl:text-left"
+                  : "@3xl:mx-auto @3xl:w-fit @3xl:max-w-[560px] @3xl:min-w-[480px] @3xl:gap-[18px] @3xl:px-12 @3xl:py-10",
+                rowAlways && "items-start text-left",
+                // Room for the views / location pinned to the bottom corners.
+                hasCorners && "pb-14 @3xl:pb-16",
               )}
+              style={cardVars}
             >
-              <ProfileAvatar
-                name={name}
-                avatarUrl={profile.avatar_url}
-                accent={accent}
-                online={settings.show_online}
-                className={cn("size-[108px]", isCard ? "@3xl:size-[124px]" : "@3xl:size-32")}
-              />
-              <div className={cn("flex w-full min-w-0 flex-col items-center gap-2", isCard && "@3xl:w-auto @3xl:flex-1 @3xl:items-start")}>
-                <div className={cn("flex flex-wrap items-center justify-center gap-2.5", isCard && "@3xl:justify-start @3xl:gap-3")}>
-                  <ProfileName
-                    name={name}
-                    font={settings.name_font}
-                    effect={settings.name_effect}
-                    accent={accent}
-                    still={reducedMotion}
-                    as={isPage ? "h1" : "p"}
-                    className={cn("text-[38px]", isCard ? "@3xl:text-[44px]" : "@3xl:text-[46px]")}
-                  />
-                  {settings.show_badges && <ProfileBadges badges={badges} />}
-                </div>
-                <TypingBio bio={profile.bio} still={reducedMotion} className="text-[15px] font-semibold @3xl:text-[17px]" />
-                {isCard && (
-                  <p className="hidden text-xs font-medium text-muted-foreground @3xl:block">{joinedAgo(profile.created_at)}</p>
+              <div
+                className={cn(
+                  // Full width so the name row and bio never shrink to the avatar's width.
+                  "flex w-full flex-col items-center gap-4",
+                  isCard ? "@3xl:flex-row @3xl:gap-[22px]" : "@3xl:gap-[18px]",
+                  rowAlways && "flex-row gap-4 @3xl:flex-row @3xl:gap-[22px]",
+                  floating && (isCard || rowAlways) && "@3xl:items-start",
+                  floating && rowAlways && "items-start",
                 )}
+              >
+                {showAvatar && (
+                  <ProfileAvatar
+                    name={name}
+                    avatarUrl={profile.avatar_url}
+                    accent={accent}
+                    online={settings.show_online}
+                    className={cn(
+                      rowAlways ? "size-[84px] @3xl:size-[112px]" : "size-[108px]",
+                      !rowAlways && (isCard ? "@3xl:size-[124px]" : "@3xl:size-32"),
+                      // Avatar flotante: half of the photo sits above the card's top edge.
+                      floating &&
+                        (rowAlways
+                          ? "-mt-[66px] @3xl:-mt-[86px]"
+                          : isCard
+                            ? "-mt-[78px] @3xl:-mt-[92px]"
+                            : "-mt-[78px] @3xl:-mt-[104px]"),
+                    )}
+                  />
+                )}
+                <div
+                  className={cn(
+                    "flex w-full min-w-0 flex-col items-center gap-2",
+                    isCard && "@3xl:w-auto @3xl:flex-1 @3xl:items-start",
+                    rowAlways && "w-auto flex-1 items-start gap-1.5",
+                  )}
+                >
+                  <div
+                    className={cn(
+                      "flex flex-wrap items-center justify-center gap-2.5",
+                      (isCard || rowAlways) && "@3xl:justify-start @3xl:gap-3",
+                      rowAlways && "justify-start",
+                    )}
+                  >
+                    <ProfileName
+                      name={name}
+                      font={settings.name_font}
+                      effect={settings.name_effect}
+                      sparkleColor={settings.name_fx_color ?? null}
+                      accent={accent}
+                      still={reducedMotion}
+                      as={isPage ? "h1" : "p"}
+                      className={cn(
+                        rowAlways ? "text-[30px] @3xl:text-[40px]" : "text-[38px]",
+                        !rowAlways && (isCard ? "@3xl:text-[44px]" : "@3xl:text-[46px]"),
+                        !showAvatar && "text-[44px] @3xl:text-[56px]",
+                      )}
+                    />
+                    {settings.show_badges && arr.badges === "inline" && <ProfileBadges badges={badges} />}
+                  </div>
+                  {settings.show_badges && arr.badges === "below" && <ProfileBadges badges={badges} />}
+                  <TypingBio bio={profile.bio} still={reducedMotion} className="text-[15px] font-semibold @3xl:text-[17px]" />
+                  {arr.location === "line" && profile.location && (
+                    <p className="flex items-center gap-1.5 text-[13px] font-bold">
+                      <MapPin className="size-[15px]" fill="currentColor" strokeWidth={0} aria-hidden />
+                      {profile.location}
+                    </p>
+                  )}
+                  {isCard && !rowAlways && (
+                    <p className="hidden text-xs font-medium text-muted-foreground @3xl:block">{joinedAgo(profile.created_at)}</p>
+                  )}
+                </div>
               </div>
-            </div>
 
-            {showPresence && <PresenceCard name={name} text={settings.presence_text!.trim()} avatarUrl={profile.avatar_url} />}
+              {arr.order.map((block) => flow[block])}
 
-            <SocialLinks
-              links={links}
-              accent={accent}
-              still={reducedMotion}
-              onLinkClick={isPage ? trackClick : undefined}
-              className={cn(
-                "gap-3.5 [--icon-size:28px]",
-                isCard ? "@3xl:justify-start @3xl:gap-3 @3xl:[--icon-size:30px]" : "@3xl:gap-4 @3xl:[--icon-size:32px]",
+              {(arr.stats === "inline" || (arr.location === "stats" && profile.location)) && (
+                <div
+                  className={cn(
+                    "flex flex-wrap items-center justify-center gap-2.5 text-[13px] font-bold",
+                    rowAlways && "justify-start",
+                  )}
+                >
+                  {arr.stats === "inline" && viewsLabel}
+                  {arr.stats === "inline" && arr.location === "stats" && profile.location && (
+                    <span aria-hidden className="h-3.5 w-px bg-white/25" />
+                  )}
+                  {arr.location === "stats" && profile.location && locationLabel}
+                </div>
               )}
-            />
 
-            {showPlayer && (
-              <MusicPlayer
-                title={settings.music_title?.trim() || "Sin título"}
-                audio={audio}
-                accent={accent}
-                className={cn("max-w-[340px]", isCard ? "@3xl:max-w-[560px]" : "@3xl:max-w-[520px]")}
-              />
+              {arr.stats === "corner" && (
+                <div className="absolute bottom-4 left-5 text-[13px] font-bold @3xl:bottom-5 @3xl:left-[30px]">{viewsLabel}</div>
+              )}
+              {arr.location === "corner" && profile.location && (
+                <div className="absolute right-5 bottom-4 max-w-[55%] text-[13px] font-bold @3xl:right-[30px] @3xl:bottom-5">
+                  {locationLabel}
+                </div>
+              )}
+            </section>
+
+            {detachedPlayer && (
+              <div className={cn("relative isolate px-4 py-3 backdrop-blur-[9px]", style.className)} style={cardVars}>
+                <MusicPlayer
+                  title={settings.music_title?.trim() || "Sin título"}
+                  coverUrl={settings.music_cover_url ?? null}
+                  audio={audio}
+                  accent={accent}
+                />
+              </div>
             )}
-
-            <div className="flex flex-wrap items-center justify-center gap-2.5 text-[13px] font-bold">
-              <span className="flex items-center gap-1.5">
-                <Eye className="size-[15px]" aria-hidden />
-                <span>
-                  {formatCount(views)}
-                  <span className="sr-only"> visitas</span>
-                </span>
-              </span>
-              {profile.location && (
-                <>
-                  <span aria-hidden className="h-3.5 w-px bg-white/25" />
-                  <span className="flex items-center gap-1.5">
-                    <MapPin className="size-[15px]" fill="currentColor" strokeWidth={0} aria-hidden />
-                    {profile.location}
-                  </span>
-                </>
-              )}
-            </div>
-          </section>
+          </div>
         </Tilt>
       </div>
 

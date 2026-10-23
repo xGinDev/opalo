@@ -10,6 +10,7 @@ import { sectionFor } from "./nav";
 import { LivePreview } from "./live-preview";
 import { PanelHeader } from "./panel-header";
 import { PanelSidebar } from "./panel-sidebar";
+import { SaveBar } from "./save-bar";
 
 /** Figma 7:209 layout: sidebar · content (header + editor) · live preview. */
 export function PanelShell({ children }: { children: React.ReactNode }) {
@@ -42,7 +43,10 @@ export function PanelShell({ children }: { children: React.ReactNode }) {
         <main className="flex flex-col gap-7 px-4 py-6 sm:px-8 lg:px-10 lg:py-7">
           <PanelHeader />
           <div className={section.preview ? "grid items-start gap-7 xl:grid-cols-[minmax(0,1fr)_340px]" : "max-w-[960px]"}>
-            <div className="flex min-w-0 flex-col gap-5">{children}</div>
+            <div className="flex min-w-0 flex-col gap-5">
+              {children}
+              {section.save && <SaveBar aboveMobileButton={section.preview} />}
+            </div>
             {section.preview && (
               <div className="sticky top-7 hidden xl:block">
                 <LivePreview />

@@ -203,6 +203,32 @@ export const PLATFORMS = {
 
 export type Platform = keyof typeof PLATFORMS;
 
+/**
+ * Brand colors for the "a color" icon style (simple-icons hex, nudged lighter where the official
+ * color disappears on a dark background). Brands that are black (X, TikTok, GitHub…) stay white.
+ */
+const BRAND_COLORS: Partial<Record<Platform, string>> = {
+  instagram: "#FF0069", facebook: "#0866FF", bluesky: "#0285FF", snapchat: "#FFFC00", pinterest: "#E60023",
+  reddit: "#FF4500", tumblr: "#7C9CBF", linkedin: "#0A66C2", mastodon: "#6364FF", vk: "#0077FF",
+  discord: "#5865F2", telegram: "#26A5E4", whatsapp: "#25D366", signal: "#3A76F0", line: "#00C300",
+  kakaotalk: "#FFCD00", wechat: "#07C160",
+  youtube: "#FF0000", twitch: "#9146FF", kick: "#53FC18", vimeo: "#1AB7EA",
+  spotify: "#1ED760", soundcloud: "#FF5500", applemusic: "#FA243C", youtubemusic: "#FF0000", deezer: "#A238FF",
+  bandcamp: "#629AA9", lastfm: "#D51007",
+  steam: "#66C0F4", playstation: "#0070D1", xbox: "#107C10", battlenet: "#148EFF", riotgames: "#EB0029",
+  osu: "#FF66AA", namemc: "#9DD86B",
+  gitlab: "#FC6D26", behance: "#1769FF", dribbble: "#EA4C89", artstation: "#13AFF0", deviantart: "#05CC47",
+  pixiv: "#0096FA", substack: "#FF6719", letterboxd: "#FF8000", myanimelist: "#4F74C8", anilist: "#02A9FF",
+  paypal: "#009CDE", patreon: "#FF424D", kofi: "#FF5E5B", buymeacoffee: "#FFDD00", cashapp: "#00D632",
+  venmo: "#008CFF", mercadopago: "#00B1EA", binance: "#F0B90B", bitcoin: "#F7931A", ethereum: "#8A92B2",
+  onlyfans: "#00AFF0", fansly: "#1FA7F8", fanvue: "#4FD26E", manyvids: "#E8467C", chaturbate: "#F47321", justforfans: "#E8467C",
+  email: "#EA4335",
+};
+
+export function brandColor(platform: string) {
+  return BRAND_COLORS[platform as Platform] ?? "#FFFFFF";
+}
+
 export function platformMeta(platform: string): PlatformMeta {
   return (PLATFORMS as Record<string, PlatformMeta>)[platform] ?? PLATFORMS.otro;
 }

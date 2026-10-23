@@ -4,9 +4,13 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { ACCENT_SWATCHES, BACKGROUND_SWATCHES } from "@/lib/panel/types";
 import { nameFontFamily } from "@/lib/profile-fonts";
+import { cardStyleMeta } from "@/lib/profile/card-styles";
 import type { Enums } from "@/types/database";
 import { AccentPicker, ChoiceChips, type Choice, LayoutPicker, PanelCard, PremiumBadge, ToggleRow } from "./editor-ui";
+import { ArrangementPicker } from "./arrangement-picker";
+import { CardStylePicker } from "./card-style-picker";
 import { FileUploadButton } from "./file-upload-button";
+import { NameEffectPicker } from "./name-effect-picker";
 import { TabAndEntryCard } from "./tab-entry-card";
 import { usePanel } from "./panel-provider";
 import { PARTICLE_CHOICES } from "./profile-sections";
@@ -16,13 +20,6 @@ const FONT_CHOICES: Choice<string>[] = [
   { value: "Space Grotesk", label: "Space Grotesk" },
   { value: "Silkscreen", label: "Silkscreen", premium: true },
   { value: "Fredoka", label: "Fredoka", premium: true },
-];
-
-const EFFECT_CHOICES: Choice<Enums<"name_fx">>[] = [
-  { value: "glow", label: "Brillo" },
-  { value: "none", label: "Ninguno" },
-  { value: "sparkle", label: "Destellos", premium: true },
-  { value: "rainbow", label: "Arcoíris", premium: true },
 ];
 
 const BACKGROUND_CHOICES: Choice<Enums<"bg_kind">>[] = [
@@ -54,16 +51,21 @@ export function AppearanceEditor() {
     <>
       <PanelCard title="Estilo" description="Cómo se acomoda tu perfil en la pantalla.">
         <LayoutPicker value={s.layout} onChange={(layout) => updateSettings({ layout })} />
-        <ToggleRow
-          label="Borde grueso"
-          description={
-            s.layout === "card"
-              ? "Un marco claro alrededor de la tarjeta."
-              : "Un marco claro alrededor del contenido centrado."
-          }
-          checked={s.card_border}
-          onChange={(card_border) => updateSettings({ card_border })}
-        />
+        <CardStylePicker />
+        <ArrangementPicker />
+        {/* Neón, Ópalo and Retro draw their own border. */}
+        {!cardStyleMeta(s.card_style).ownBorder && (
+          <ToggleRow
+            label="Borde grueso"
+            description={
+              s.layout === "card"
+                ? "Un marco claro alrededor de la tarjeta."
+                : "Un marco claro alrededor del contenido centrado."
+            }
+            checked={s.card_border}
+            onChange={(card_border) => updateSettings({ card_border })}
+          />
+        )}
         <SliderRow
           id="card-opacity"
           label={s.layout === "card" ? "Opacidad de la tarjeta" : "Opacidad del fondo del contenido"}
@@ -102,7 +104,7 @@ export function AppearanceEditor() {
             );
           })}
         </div>
-        <ChoiceChips label="Efecto" value={s.name_effect} options={EFFECT_CHOICES} onChange={(name_effect) => updateSettings({ name_effect })} premiumFeature="los efectos destellos y arcoíris" />
+        <NameEffectPicker />
         <AccentPicker value={s.accent_color} swatches={ACCENT_SWATCHES} onChange={(accent_color) => updateSettings({ accent_color })} />
       </PanelCard>
 

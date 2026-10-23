@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Crea una contraseña nueva</title>
+  </head>
+  <body style="margin:0;padding:0;background:#0b0812;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0b0812;padding:40px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#14111c;border:1px solid #2a2535;border-radius:20px;">
+            <tr>
+              <td style="padding:36px 32px 8px;font-family:Helvetica,Arial,sans-serif;">
+                <p style="margin:0 0 28px;font-size:22px;font-weight:800;letter-spacing:-0.5px;color:#f5f2fa;">
+                  <span style="color:#b9a7ff;">&#9670;</span> ópalo
+                </p>
+                <h1 style="margin:0 0 12px;font-size:24px;line-height:1.25;font-weight:800;color:#f5f2fa;">Crea una contraseña nueva</h1>
+                <p style="margin:0 0 28px;font-size:15px;line-height:1.6;color:#9d97ab;">Recibimos una solicitud para cambiar la contraseña de <strong style="color:#f5f2fa;">{{ .Email }}</strong>. Toca el botón para elegir una nueva.</p>
+                <table role="presentation" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="border-radius:12px;background:#b9a7ff;background-image:linear-gradient(90deg,#f6a8cf,#b9a7ff 50%,#8fe3dc);">
+                      <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/recuperar/nueva" style="display:inline-block;padding:14px 28px;font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#140f22;text-decoration:none;">Cambiar mi contraseña</a>
+                    </td>
+                  </tr>
+                </table>
+                <p style="margin:28px 0 0;font-size:13px;line-height:1.6;color:#9d97ab;">Si no fuiste tú, ignora este correo: tu contraseña sigue igual. El enlace vence en 1 hora.</p>
+                <p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:#6f6880;word-break:break-all;">
+                  ¿El botón no funciona? Copia este enlace en tu navegador:<br />
+                  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/recuperar/nueva" style="color:#b9a7ff;">{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/recuperar/nueva</a>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:24px 32px 32px;font-family:Helvetica,Arial,sans-serif;">
+                <p style="margin:0;border-top:1px solid #2a2535;padding-top:20px;font-size:12px;line-height:1.6;color:#6f6880;">
+                  Ópalo · Todo lo que eres, en un solo enlace.<br />
+                  ¿Dudas? Escríbenos a <a href="mailto:soporte@opalo.me" style="color:#9d97ab;">soporte@opalo.me</a>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

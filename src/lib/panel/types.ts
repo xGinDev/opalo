@@ -17,6 +17,8 @@ export type PanelData = {
   badges: PublicBadge[];
   stats: { views: number; clicks: number };
   email: string | null;
+  /** Discord user ID when the account signed in with Discord (offered in the status editor). */
+  discordAccountId: string | null;
 };
 
 /** Accent swatches from Figma 7:466 "Color de acento". */

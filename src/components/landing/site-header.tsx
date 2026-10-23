@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
+import { HeaderAccount, SheetAccount } from "@/components/landing/header-account";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -14,15 +14,18 @@ import {
 
 const NAV_LINKS = [
   { href: "/#funciones", label: "Funciones" },
-  { href: "/#ejemplos", label: "Ejemplos" },
+  { href: "/#clasificacion", label: "Clasificación" },
   { href: "/#precios", label: "Precios" },
   { href: "/#preguntas", label: "Preguntas" },
 ];
 
-/** Figma 3:7 "Navegación". Links collapse into a sheet below `md`. */
+/**
+ * Figma 3:7 "Navegación", pinned to the top while scrolling. Links collapse into a sheet below `md`.
+ * The account area is client-side so these pages stay static.
+ */
 export function SiteHeader() {
   return (
-    <header className="border-b border-line">
+    <header className="sticky top-0 z-50 border-b border-line bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/65">
       <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-4 py-[22px] sm:px-8 lg:px-20">
         <Logo href="/" />
 
@@ -38,13 +41,8 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <Button variant="ghost" asChild>
-            <Link href="/login">Iniciar sesión</Link>
-          </Button>
-          <Button variant="opal" asChild>
-            <Link href="/registro">Crear mi página</Link>
-          </Button>
+        <div className="hidden md:block">
+          <HeaderAccount />
         </div>
 
         <Sheet>
@@ -75,13 +73,8 @@ export function SiteHeader() {
                 ))}
               </ul>
             </nav>
-            <div className="mt-auto flex flex-col gap-2 p-4">
-              <Button variant="secondary" asChild>
-                <Link href="/login">Iniciar sesión</Link>
-              </Button>
-              <Button variant="opal" asChild>
-                <Link href="/registro">Crear mi página</Link>
-              </Button>
+            <div className="mt-auto p-4">
+              <SheetAccount />
             </div>
           </SheetContent>
         </Sheet>

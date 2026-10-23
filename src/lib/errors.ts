@@ -1,7 +1,7 @@
 // Turns Supabase Auth and database errors into Spanish messages for the UI.
 
 const AUTH_ERRORS: Record<string, string> = {
-  invalid_credentials: "Correo o contraseña incorrectos.",
+  invalid_credentials: "Correo, usuario o contraseña incorrectos.",
   email_not_confirmed: "Confirma tu correo antes de entrar. Revisa tu bandeja de entrada.",
   user_already_exists: "Ya existe una cuenta con ese correo.",
   email_exists: "Ya existe una cuenta con ese correo.",

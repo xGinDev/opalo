@@ -2,6 +2,7 @@
 
 import { useTransition } from "react";
 import { Loader2 } from "lucide-react";
+import { SiDiscord, SiGoogle } from "react-icons/si";
 import { toast } from "sonner";
 import { signInWithProvider } from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
@@ -13,9 +14,10 @@ type OAuthButtonsProps = {
   disabled?: boolean;
 };
 
+/** Must stay in sync with the providers enabled in Supabase (Authentication → Providers). */
 const PROVIDERS = [
-  { id: "google", label: "Continuar con Google" },
-  { id: "discord", label: "Continuar con Discord" },
+  { id: "google", label: "Continuar con Google", icon: SiGoogle },
+  { id: "discord", label: "Continuar con Discord", icon: SiDiscord },
 ] as const;
 
 export function OAuthButtons({ next, getPendingUsername, disabled }: OAuthButtonsProps) {
@@ -29,7 +31,7 @@ export function OAuthButtons({ next, getPendingUsername, disabled }: OAuthButton
   }
 
   return (
-    <div className="grid gap-3 sm:grid-cols-2">
+    <div className={PROVIDERS.length > 1 ? "grid gap-3 sm:grid-cols-2" : "grid"}>
       {PROVIDERS.map((provider) => (
         <Button
           key={provider.id}
@@ -39,7 +41,7 @@ export function OAuthButtons({ next, getPendingUsername, disabled }: OAuthButton
           disabled={disabled || isPending}
           onClick={() => continueWith(provider.id)}
         >
-          {isPending && <Loader2 className="animate-spin" aria-hidden />}
+          {isPending ? <Loader2 className="animate-spin" aria-hidden /> : <provider.icon aria-hidden />}
           {provider.label}
         </Button>
       ))}
