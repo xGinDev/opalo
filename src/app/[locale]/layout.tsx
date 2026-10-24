@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
@@ -34,5 +35,10 @@ export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
-  return <RootDocument locale={locale}>{children}</RootDocument>;
+  return (
+    <RootDocument locale={locale}>
+      {children}
+      <Analytics />
+    </RootDocument>
+  );
 }

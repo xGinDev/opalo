@@ -1,4 +1,3 @@
-import { Analytics } from "@vercel/analytics/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { DirectionProvider } from "@/components/direction-provider";
@@ -13,7 +12,7 @@ const SERVER_ONLY = ["Legal", "Meta"];
 
 /**
  * <html>/<body> shared by the root layouts ([locale], admin, dev): language and direction,
- * fonts, providers, toasts and analytics.
+ * fonts, providers and toasts. Vercel Analytics lives in app/[locale]/layout.tsx.
  */
 export async function RootDocument({ locale, children }: { locale: string; children: React.ReactNode }) {
   const dir = isRtl(locale) ? "rtl" : "ltr";
@@ -29,7 +28,6 @@ export async function RootDocument({ locale, children }: { locale: string; child
             <Toaster position="bottom-center" />
           </DirectionProvider>
         </NextIntlClientProvider>
-        <Analytics />
       </body>
     </html>
   );
