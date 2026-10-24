@@ -1,3 +1,4 @@
+import { messageKey } from "@/i18n/message-key";
 import { createClient } from "@/lib/supabase/client";
 
 /** Mirrors the bucket limits in 0001_init.sql. */
@@ -25,10 +26,11 @@ const EXT: Record<string, string> = {
   "audio/wav": "wav",
 };
 
+/** Returns a message key (Panel.upload.*) when the file can't be uploaded, else null. */
 export function validateFile(bucket: Bucket, file: Blob): string | null {
   const { maxBytes, types } = BUCKETS[bucket];
-  if (!(types as readonly string[]).includes(file.type)) return "Ese tipo de archivo no está permitido.";
-  if (file.size > maxBytes) return `El archivo pesa más de ${Math.round(maxBytes / 1024 / 1024)} MB.`;
+  if (!(types as readonly string[]).includes(file.type)) return "Panel.upload.typeNotAllowed";
+  if (file.size > maxBytes) return messageKey("Panel.upload.tooBig", { mb: Math.round(maxBytes / 1024 / 1024) });
   return null;
 }
 
@@ -50,10 +52,10 @@ export async function uploadUserFile(
 
   if (error) {
     if (/row-level security|unauthorized|403/i.test(error.message)) {
-      return { error: "Subir fondos y música es solo para Premium." };
+      return { error: "Panel.upload.premiumOnly" };
     }
-    if (/too large|413|exceeded/i.test(error.message)) return { error: "El archivo es demasiado grande." };
-    return { error: "No pudimos subir el archivo. Inténtalo de nuevo." };
+    if (/too large|413|exceeded/i.test(error.message)) return { error: "Panel.upload.tooLarge" };
+    return { error: "Panel.upload.failed" };
   }
   return { url: supabase.storage.from(bucket).getPublicUrl(path).data.publicUrl };
 }

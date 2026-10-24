@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { Award, Loader2, Plus, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
+import { useMessageText } from "@/i18n/use-message-text";
 import { assignBadge, createBadge, deleteBadge, removeBadge } from "@/app/admin/actions";
 import { AdminCard } from "@/components/admin/admin-ui";
 import { UserAvatar } from "@/components/admin/users-table";
@@ -53,13 +54,14 @@ function IconSelect({ value, onChange, id }: { value: string; onChange: (v: stri
 
 function useAction() {
   const [isPending, startTransition] = useTransition();
+  const text = useMessageText();
   function run(action: () => Promise<{ ok: boolean; error?: string }>, success: string, after?: () => void) {
     startTransition(async () => {
       const result = await action();
       if (result.ok) {
         toast.success(success);
         after?.();
-      } else toast.error(result.error ?? "Algo salió mal.");
+      } else toast.error(text(result.error ?? "Errors.generic"));
     });
   }
   return [isPending, run] as const;

@@ -1,6 +1,7 @@
 "use client";
 
 import { Lock } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { ARRANGEMENTS, type Arrangement } from "@/lib/profile/arrangements";
 import { cn } from "@/lib/utils";
 import { PremiumBadge } from "./editor-ui";
@@ -54,7 +55,7 @@ function Sketch({ rows }: { rows: Arrangement["sketch"] }) {
               </span>
             );
           case "corner-left":
-            return <span key={i} className="absolute bottom-2 left-2.5 h-[3px] w-4 rounded-full bg-white/55" />;
+            return <span key={i} className="absolute start-2.5 bottom-2 h-[3px] w-4 rounded-full bg-white/55" />;
           case "corners":
             return (
               <span key={i} className="absolute inset-x-2.5 bottom-2 flex justify-between">
@@ -70,15 +71,16 @@ function Sketch({ rows }: { rows: Arrangement["sketch"] }) {
 
 /** "Distribución": order and placement of the profile's parts (Premium except the default one). */
 export function ArrangementPicker() {
+  const t = useTranslations("Panel.arrangements");
   const { draft, updateSettings, isPremium, requirePremium } = usePanel();
   const value = draft.settings.arrangement ?? "default";
 
   return (
     <div className="flex flex-col gap-2.5">
       <p className="flex items-center gap-2 text-[13px] font-semibold text-muted-foreground">
-        Distribución {!isPremium && <PremiumBadge />}
+        {t("label")} {!isPremium && <PremiumBadge />}
       </p>
-      <div role="radiogroup" aria-label="Distribución" className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+      <div role="radiogroup" aria-label={t("label")} className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
         {ARRANGEMENTS.map((a) => {
           const selected = a.id === value;
           const locked = a.premium && !isPremium;
@@ -89,19 +91,19 @@ export function ArrangementPicker() {
               role="radio"
               aria-checked={selected}
               aria-describedby={`arrangement-${a.id}`}
-              onClick={() => (locked ? requirePremium("las distribuciones del perfil") : updateSettings({ arrangement: a.id }))}
+              onClick={() => (locked ? requirePremium("Panel.premiumFeatures.arrangements") : updateSettings({ arrangement: a.id }))}
               className={cn(
-                "flex flex-col gap-2 rounded-[14px] bg-surface-2 p-2.5 text-left transition-colors",
+                "flex flex-col gap-2 rounded-[14px] bg-surface-2 p-2.5 text-start transition-colors",
                 selected ? "border-[1.5px] border-lilac" : "border border-line hover:border-muted-foreground/40",
               )}
             >
               <Sketch rows={a.sketch} />
               <span className="flex items-center justify-between gap-1.5 px-0.5 text-[13px] font-bold">
-                {a.label}
+                {t(`${a.id}.label`)}
                 {locked && <Lock className="size-3.5 shrink-0 text-muted-foreground" aria-label="Premium" />}
               </span>
               <span id={`arrangement-${a.id}`} className="px-0.5 text-xs leading-snug text-muted-foreground">
-                {a.description}
+                {t(`${a.id}.description`)}
               </span>
             </button>
           );

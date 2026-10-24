@@ -3,16 +3,17 @@ import { USERNAME_REGEX, normalizeUsername } from "@/lib/username";
 
 export const CONTACT_MESSAGE_MAX = 1000;
 
-export const CONTACT_REASONS = [
-  { value: "cuenta", label: "Cuenta y acceso" },
-  { value: "pagos", label: "Pagos y Premium" },
-  { value: "problema", label: "Reportar un problema" },
-  { value: "alianzas", label: "Alianzas y prensa" },
-  { value: "otro", label: "Otro" },
-] as const;
+/** Reason values; their labels live in Contact.reasons. The email to support uses these Spanish labels. */
+export const CONTACT_REASONS = ["cuenta", "pagos", "problema", "alianzas", "otro"] as const;
+type ContactReason = (typeof CONTACT_REASONS)[number];
 
-type ContactReason = (typeof CONTACT_REASONS)[number]["value"];
-const REASON_VALUES = CONTACT_REASONS.map((r) => r.value) as [ContactReason, ...ContactReason[]];
+const SUPPORT_LABELS: Record<ContactReason, string> = {
+  cuenta: "Cuenta y acceso",
+  pagos: "Pagos y Premium",
+  problema: "Reportar un problema",
+  alianzas: "Alianzas y prensa",
+  otro: "Otro",
+};
 
 /** Accepts "nico", "@nico" or "opalo.me/nico" and returns the normalized username. */
 function cleanUsername(value: string) {
@@ -20,19 +21,20 @@ function cleanUsername(value: string) {
   return normalizeUsername(bare);
 }
 
+// Messages are translation keys (shown with useMessageText).
 export const contactSchema = z.object({
-  name: z.string().trim().min(2, "Escribe tu nombre.").max(80, "Máximo 80 caracteres."),
-  email: z.string().trim().pipe(z.email("Escribe un correo válido.")),
-  reason: z.enum(REASON_VALUES, "Elige un motivo."),
+  name: z.string().trim().min(2, "Validation.contact.name").max(80, "Validation.contact.nameMax"),
+  email: z.string().trim().pipe(z.email("Validation.contact.email")),
+  reason: z.enum(CONTACT_REASONS, "Validation.contact.reason"),
   username: z
     .string()
     .transform(cleanUsername)
-    .refine((u) => u === "" || USERNAME_REGEX.test(u), "Ese usuario no es válido."),
+    .refine((u) => u === "" || USERNAME_REGEX.test(u), "Validation.contact.username"),
   message: z
     .string()
     .trim()
-    .min(10, "Cuéntanos un poco más (mínimo 10 caracteres).")
-    .max(CONTACT_MESSAGE_MAX, `Máximo ${CONTACT_MESSAGE_MAX} caracteres.`),
+    .min(10, "Validation.contact.messageMin")
+    .max(CONTACT_MESSAGE_MAX, "Validation.contact.messageMax"),
   /** Honeypot: hidden from people, bots tend to fill it. */
   website: z.string().optional(),
 });
@@ -40,6 +42,7 @@ export const contactSchema = z.object({
 export type ContactInput = z.input<typeof contactSchema>;
 export type ContactValues = z.output<typeof contactSchema>;
 
+/** Spanish label for the email Ópalo support receives. */
 export function contactReasonLabel(value: ContactReason) {
-  return CONTACT_REASONS.find((r) => r.value === value)?.label ?? value;
+  return SUPPORT_LABELS[value] ?? value;
 }

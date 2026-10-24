@@ -20,7 +20,7 @@ const SPARKLES = [
  * "Avatar flotante" card with the "Apilada" arrangement (badges under the name, location on
  * its own line, views in the corner).
  */
-export function HeroProfileCard() {
+export function HeroProfileCard({ bio, location }: { bio: string; location: string }) {
   return (
     <div className="relative mx-auto h-[540px] w-full max-w-[460px] sm:h-[600px]" aria-hidden>
       <GlowOrb
@@ -82,11 +82,12 @@ export function HeroProfileCard() {
           </span>
 
           <p className="text-base font-semibold">
-            todo lo mío, en un solo lugar<span className="ml-0.5 inline-block h-[1.05em] w-[2px] animate-blink bg-white align-[-0.15em]" />
+            {bio}
+            <span className="ml-0.5 inline-block h-[1.05em] w-[2px] animate-blink bg-white align-[-0.15em]" />
           </p>
 
           <p className="flex items-center gap-1.5 text-[13px] font-bold">
-            <MapPin className="size-[15px]" fill="currentColor" strokeWidth={0} /> en algún lugar
+            <MapPin className="size-[15px]" fill="currentColor" strokeWidth={0} /> {location}
           </p>
 
           <div className="flex gap-4 pt-2">
@@ -95,7 +96,7 @@ export function HeroProfileCard() {
             ))}
           </div>
 
-          <p className="absolute bottom-4 left-5 flex items-center gap-1.5 text-[13px] font-bold">
+          <p className="absolute start-5 bottom-4 flex items-center gap-1.5 text-[13px] font-bold">
             <Eye className="size-[15px]" /> 48.210
           </p>
         </div>

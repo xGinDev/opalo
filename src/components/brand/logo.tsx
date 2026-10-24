@@ -1,5 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 type LogoProps = {
@@ -12,6 +13,7 @@ type LogoProps = {
 
 /** Figma 2:130 — opal gem + "ópalo" wordmark. */
 export function Logo({ className, href, iconOnly = false }: LogoProps) {
+  const t = useTranslations("Common");
   const content = (
     <>
       <Image src="/brand/gem.svg" alt="" width={30} height={30} unoptimized priority />
@@ -29,7 +31,7 @@ export function Logo({ className, href, iconOnly = false }: LogoProps) {
 
   if (href) {
     return (
-      <Link href={href} className={cn(classes, "rounded-sm")} aria-label="Ópalo, ir al inicio">
+      <Link href={href} className={cn(classes, "rounded-sm")} aria-label={t("homeLabel")}>
         {content}
       </Link>
     );

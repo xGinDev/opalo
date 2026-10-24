@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { motion, useReducedMotion } from "motion/react";
 import { Clock, Gem, Sparkle, XCircle } from "lucide-react";
 import { Tag } from "@/components/opal/tag";
 import { Button } from "@/components/ui/button";
+import { Link, useRouter } from "@/i18n/navigation";
 
 type Status = "paid" | "pending" | "failed" | "unknown";
 
@@ -17,6 +17,7 @@ const SPARKS = Array.from({ length: 10 }, (_, i) => {
 
 /** Return screen after the hosted checkout. Pending payments re-check every 4 s for a minute. */
 export function PaymentResult({ status }: { status: Status }) {
+  const t = useTranslations("Panel.payment");
   const router = useRouter();
   const reduce = useReducedMotion();
 
@@ -71,18 +72,15 @@ export function PaymentResult({ status }: { status: Status }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45, duration: 0.5 }}
         >
-          <Tag tone="opal">Premium</Tag>
-          <h2 className="text-3xl font-extrabold tracking-[-0.02em] sm:text-4xl">¡Ya eres Premium!</h2>
-          <p className="max-w-md text-muted-foreground">
-            Gracias por apoyar Ópalo. Desbloqueaste fondos en video, música, todos los efectos y redes ilimitadas, para
-            siempre.
-          </p>
+          <Tag tone="opal">{t("premiumTag")}</Tag>
+          <h2 className="text-3xl font-extrabold tracking-[-0.02em] sm:text-4xl">{t("paidTitle")}</h2>
+          <p className="max-w-md text-muted-foreground">{t("paidBody")}</p>
           <div className="mt-2 flex flex-wrap justify-center gap-3">
             <Button variant="opal" asChild>
-              <Link href="/panel/apariencia">Personalizar mi perfil</Link>
+              <Link href="/panel/apariencia">{t("customize")}</Link>
             </Button>
             <Button variant="secondary" asChild>
-              <Link href="/panel/musica">Subir mi canción</Link>
+              <Link href="/panel/musica">{t("uploadSong")}</Link>
             </Button>
           </div>
         </motion.div>
@@ -94,11 +92,8 @@ export function PaymentResult({ status }: { status: Status }) {
     return (
       <div role="status" className="flex flex-col items-center gap-4 rounded-2xl border border-line bg-surface px-6 py-14 text-center">
         <Clock className="size-10 animate-pulse text-gold" aria-hidden />
-        <h2 className="text-2xl font-bold">Estamos confirmando tu pago</h2>
-        <p className="max-w-md text-muted-foreground">
-          Algunos métodos (como PSE) tardan unos minutos. Esta página se actualiza sola; también te avisaremos al
-          activarse Premium.
-        </p>
+        <h2 className="text-2xl font-bold">{t("pendingTitle")}</h2>
+        <p className="max-w-md text-muted-foreground">{t("pendingBody")}</p>
       </div>
     );
   }
@@ -106,14 +101,12 @@ export function PaymentResult({ status }: { status: Status }) {
   return (
     <div role="alert" className="flex flex-col items-center gap-4 rounded-2xl border border-line bg-surface px-6 py-14 text-center">
       <XCircle className="size-10 text-danger" aria-hidden />
-      <h2 className="text-2xl font-bold">{status === "failed" ? "El pago no se completó" : "No encontramos ese pago"}</h2>
+      <h2 className="text-2xl font-bold">{status === "failed" ? t("failedTitle") : t("notFoundTitle")}</h2>
       <p className="max-w-md text-muted-foreground">
-        {status === "failed"
-          ? "La pasarela rechazó o canceló el pago. No se hizo ningún cobro; puedes intentarlo de nuevo."
-          : "Si ya pagaste, espera unos minutos y revisa tu plan. Si el problema sigue, escríbenos a soporte@opalo.me."}
+        {status === "failed" ? t("failedBody") : t("notFoundBody")}
       </p>
       <Button variant="opal" asChild>
-        <Link href="/panel/premium">Volver a Premium</Link>
+        <Link href="/panel/premium">{t("back")}</Link>
       </Button>
     </div>
   );

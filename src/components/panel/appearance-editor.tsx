@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { ACCENT_SWATCHES, BACKGROUND_SWATCHES } from "@/lib/panel/types";
@@ -23,9 +24,9 @@ const FONT_CHOICES: Choice<string>[] = [
 ];
 
 const BACKGROUND_CHOICES: Choice<Enums<"bg_kind">>[] = [
-  { value: "color", label: "Color" },
-  { value: "image", label: "Imagen o GIF", premium: true },
-  { value: "video", label: "Video", premium: true },
+  { value: "color", label: "Panel.appearance.bgColor" },
+  { value: "image", label: "Panel.appearance.bgImage", premium: true },
+  { value: "video", label: "Panel.appearance.bgVideo", premium: true },
 ];
 
 function SliderRow({ id, label, value, display, ...props }: { id: string; label: string; value: number; display: string } & Omit<React.ComponentProps<typeof Slider>, "value">) {
@@ -44,43 +45,40 @@ function SliderRow({ id, label, value, display, ...props }: { id: string; label:
 
 /** Full appearance editor (not in the Figma; built from the panel components of 7:209). */
 export function AppearanceEditor() {
+  const t = useTranslations("Panel.appearance");
   const { draft, updateSettings, isPremium, requirePremium } = usePanel();
   const s = draft.settings;
 
   return (
     <>
-      <PanelCard title="Estilo" description="Cómo se acomoda tu perfil en la pantalla.">
+      <PanelCard title="Panel.appearance.styleTitle" description="Panel.appearance.styleDescription">
         <LayoutPicker value={s.layout} onChange={(layout) => updateSettings({ layout })} />
         <CardStylePicker />
         <ArrangementPicker />
         {/* Neón, Ópalo and Retro draw their own border. */}
         {!cardStyleMeta(s.card_style).ownBorder && (
           <ToggleRow
-            label="Borde grueso"
-            description={
-              s.layout === "card"
-                ? "Un marco claro alrededor de la tarjeta."
-                : "Un marco claro alrededor del contenido centrado."
-            }
+            label="Panel.appearance.border"
+            description={s.layout === "card" ? "Panel.appearance.borderCard" : "Panel.appearance.borderCenter"}
             checked={s.card_border}
             onChange={(card_border) => updateSettings({ card_border })}
           />
         )}
         <SliderRow
           id="card-opacity"
-          label={s.layout === "card" ? "Opacidad de la tarjeta" : "Opacidad del fondo del contenido"}
+          label={t(s.layout === "card" ? "opacityCard" : "opacityCenter")}
           value={s.card_opacity}
-          display={`${Math.round(s.card_opacity * 100)}%${s.card_opacity === 0 ? " (sin fondo)" : ""}`}
+          display={`${Math.round(s.card_opacity * 100)}%${s.card_opacity === 0 ? ` ${t("noBackground")}` : ""}`}
           min={0}
           max={0.9}
           step={0.05}
           onValueChange={([card_opacity]) => updateSettings({ card_opacity })}
         />
-        <ToggleRow label="Inclinación 3D" description="La tarjeta sigue al mouse (solo en computador)." checked={s.tilt_3d} onChange={(tilt_3d) => updateSettings({ tilt_3d })} />
+        <ToggleRow label="Panel.appearance.tilt" description="Panel.appearance.tiltDescription" checked={s.tilt_3d} onChange={(tilt_3d) => updateSettings({ tilt_3d })} />
       </PanelCard>
 
-      <PanelCard title="Nombre" description="Tipografía, efecto y color de acento.">
-        <div role="radiogroup" aria-label="Tipografía" className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <PanelCard title="Panel.appearance.nameTitle" description="Panel.appearance.nameDescription">
+        <div role="radiogroup" aria-label={t("font")} className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {FONT_CHOICES.map((font) => {
             const selected = s.name_font === font.value;
             const locked = font.premium && !isPremium;
@@ -90,8 +88,8 @@ export function AppearanceEditor() {
                 type="button"
                 role="radio"
                 aria-checked={selected}
-                onClick={() => (locked ? requirePremium("las tipografías extra") : updateSettings({ name_font: font.value }))}
-                className={`flex flex-col items-start gap-1.5 rounded-[14px] bg-surface-2 p-3.5 text-left transition-colors ${selected ? "border-[1.5px] border-lilac" : "border border-line hover:border-muted-foreground/40"}`}
+                onClick={() => (locked ? requirePremium("Panel.premiumFeatures.fonts") : updateSettings({ name_font: font.value }))}
+                className={`flex flex-col items-start gap-1.5 rounded-[14px] bg-surface-2 p-3.5 text-start transition-colors ${selected ? "border-[1.5px] border-lilac" : "border border-line hover:border-muted-foreground/40"}`}
               >
                 <span className="text-2xl leading-none font-bold" style={{ fontFamily: nameFontFamily(font.value) }}>
                   Aa
@@ -108,10 +106,10 @@ export function AppearanceEditor() {
         <AccentPicker value={s.accent_color} swatches={ACCENT_SWATCHES} onChange={(accent_color) => updateSettings({ accent_color })} />
       </PanelCard>
 
-      <PanelCard title="Fondo" description="Un color sólido, o tu propia imagen o video.">
-        <ChoiceChips label="Tipo" value={s.bg_kind} options={BACKGROUND_CHOICES} onChange={(bg_kind) => updateSettings({ bg_kind })} premiumFeature="el fondo con imagen o video" />
+      <PanelCard title="Panel.appearance.backgroundTitle" description="Panel.appearance.backgroundDescription">
+        <ChoiceChips label="Panel.appearance.bgType" value={s.bg_kind} options={BACKGROUND_CHOICES} onChange={(bg_kind) => updateSettings({ bg_kind })} premiumFeature="Panel.premiumFeatures.background" />
         {s.bg_kind === "color" && (
-          <AccentPicker label="Color de fondo" value={s.bg_color} swatches={BACKGROUND_SWATCHES} onChange={(bg_color) => updateSettings({ bg_color })} />
+          <AccentPicker label="Panel.appearance.bgSolid" value={s.bg_color} swatches={BACKGROUND_SWATCHES} onChange={(bg_color) => updateSettings({ bg_color })} />
         )}
         {s.bg_kind !== "color" && (
           <div className="flex flex-col gap-4 rounded-md bg-surface-2 p-4">
@@ -119,40 +117,40 @@ export function AppearanceEditor() {
               <FileUploadButton
                 bucket="backgrounds"
                 name="fondo"
-                label={s.bg_url ? "Cambiar archivo" : `Subir ${s.bg_kind === "video" ? "video" : "imagen"}`}
+                label={s.bg_url ? t("changeFile") : t(s.bg_kind === "video" ? "uploadVideo" : "uploadImage")}
                 accept={s.bg_kind === "video" ? ["video/mp4", "video/webm"] : ["image/png", "image/jpeg", "image/webp", "image/gif"]}
                 onUploaded={(bg_url, file) => updateSettings({ bg_url, bg_kind: file.type.startsWith("video/") ? "video" : "image" })}
               />
               <p className="text-[13px] text-muted-foreground">
-                {s.bg_kind === "video" ? "MP4 o WebM, hasta 50 MB." : "PNG, JPG, WebP o GIF, hasta 50 MB."}
+                {t(s.bg_kind === "video" ? "videoTypes" : "imageTypes")}
               </p>
             </div>
-            {!s.bg_url && <p className="text-[13px] text-gold">Sube un archivo para ver tu fondo. Mientras tanto se usa tu color de fondo.</p>}
+            {!s.bg_url && <p className="text-[13px] text-gold">{t("noFileYet")}</p>}
           </div>
         )}
         {s.bg_kind !== "color" && (
-          <SliderRow id="bg-blur" label="Desenfoque" value={s.bg_blur} display={`${s.bg_blur} px`} min={0} max={20} step={1} onValueChange={([bg_blur]) => updateSettings({ bg_blur })} />
+          <SliderRow id="bg-blur" label={t("blur")} value={s.bg_blur} display={`${s.bg_blur} px`} min={0} max={20} step={1} onValueChange={([bg_blur]) => updateSettings({ bg_blur })} />
         )}
-        <ChoiceChips label="Partículas" value={s.particles} options={PARTICLE_CHOICES} onChange={(particles) => updateSettings({ particles })} premiumFeature="las partículas de pétalos" />
-        <ToggleRow label="Rastro del cursor" description="Puntos que siguen al mouse." checked={s.cursor_trail} onChange={(cursor_trail) => updateSettings({ cursor_trail })} premium premiumFeature="el rastro del cursor" />
+        <ChoiceChips label="Panel.particles.label" value={s.particles} options={PARTICLE_CHOICES} onChange={(particles) => updateSettings({ particles })} premiumFeature="Panel.premiumFeatures.particles" />
+        <ToggleRow label="Panel.appearance.cursor" description="Panel.appearance.cursorDescription" checked={s.cursor_trail} onChange={(cursor_trail) => updateSettings({ cursor_trail })} premium premiumFeature="Panel.premiumFeatures.cursor" />
       </PanelCard>
 
       <TabAndEntryCard />
 
-      <PanelCard title="Opciones visibles" description="Elige qué se muestra en tu página.">
+      <PanelCard title="Panel.appearance.visibleTitle" description="Panel.appearance.visibleDescription">
         <div className="grid gap-2">
-          <ToggleRow label="Ubicación" checked={s.show_location} onChange={(show_location) => updateSettings({ show_location })} />
-          <ToggleRow label="Insignias" checked={s.show_badges} onChange={(show_badges) => updateSettings({ show_badges })} />
-          <ToggleRow label="Punto de en línea" checked={s.show_online} onChange={(show_online) => updateSettings({ show_online })} />
-          <ToggleRow label="Estado" checked={s.show_presence} onChange={(show_presence) => updateSettings({ show_presence })} />
-          <ToggleRow label="Reproductor de música" checked={s.show_player} onChange={(show_player) => updateSettings({ show_player })} />
+          <ToggleRow label="Panel.appearance.showLocation" checked={s.show_location} onChange={(show_location) => updateSettings({ show_location })} />
+          <ToggleRow label="Panel.appearance.showBadges" checked={s.show_badges} onChange={(show_badges) => updateSettings({ show_badges })} />
+          <ToggleRow label="Panel.appearance.showOnline" checked={s.show_online} onChange={(show_online) => updateSettings({ show_online })} />
+          <ToggleRow label="Panel.appearance.showPresence" checked={s.show_presence} onChange={(show_presence) => updateSettings({ show_presence })} />
+          <ToggleRow label="Panel.appearance.showPlayer" checked={s.show_player} onChange={(show_player) => updateSettings({ show_player })} />
           <ToggleRow
-            label="Marca “Hecho con ópalo”"
-            description={isPremium ? undefined : "Quitarla es de Premium."}
+            label="Panel.appearance.showBranding"
+            description={isPremium ? undefined : "Panel.appearance.brandingPremium"}
             checked={s.show_branding}
             onChange={(show_branding) => updateSettings({ show_branding })}
             premium
-            premiumFeature="la opción de quitar la marca de Ópalo"
+            premiumFeature="Panel.premiumFeatures.branding"
           />
         </div>
       </PanelCard>

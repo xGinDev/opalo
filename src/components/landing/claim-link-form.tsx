@@ -1,12 +1,14 @@
 "use client";
 
 import { useId, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "@/i18n/navigation";
 import { USERNAME_MAX, isValidUsername, normalizeUsername } from "@/lib/username";
 
 /** Figma 3:30 "Reservar enlace": opalo.me/<username> → continues to the sign-up form. */
 export function ClaimLinkForm() {
+  const t = useTranslations("Landing.claim");
   const router = useRouter();
   const inputId = useId();
   const errorId = useId();
@@ -17,16 +19,17 @@ export function ClaimLinkForm() {
     event.preventDefault();
     const username = normalizeUsername(value);
     if (username && !isValidUsername(username)) {
-      setError("Usa hasta 20 letras, números o símbolos como $ _ . ~ ! * -. No puede terminar en . ni en !");
+      setError(t("invalid"));
       return;
     }
-    router.push(username ? `/registro?usuario=${encodeURIComponent(username)}` : "/registro");
+    router.push(username ? { pathname: "/registro", query: { usuario: username } } : "/registro");
   }
 
   return (
     <form onSubmit={onSubmit} noValidate className="w-full max-w-[540px]">
-      <div className="flex flex-col gap-2 rounded-lg border border-line bg-surface p-2 transition-colors focus-within:border-lilac/60 sm:flex-row sm:items-center sm:pl-5">
-        <label htmlFor={inputId} className="flex min-w-0 flex-1 items-center px-3 pt-2 text-[17px] sm:p-0">
+      <div className="flex flex-col gap-2 rounded-lg border border-line bg-surface p-2 transition-colors focus-within:border-lilac/60 sm:flex-row sm:items-center sm:ps-5">
+        {/* The link reads left to right in every language. */}
+        <label htmlFor={inputId} dir="ltr" className="flex min-w-0 flex-1 items-center px-3 pt-2 text-[17px] sm:p-0">
           <span className="font-semibold text-muted-foreground">opalo.me/</span>
           <input
             id={inputId}
@@ -36,19 +39,19 @@ export function ClaimLinkForm() {
               setValue(e.target.value);
               setError(null);
             }}
-            placeholder="tunombre"
+            placeholder={t("placeholder")}
             maxLength={USERNAME_MAX}
             autoComplete="off"
             autoCapitalize="none"
             spellCheck={false}
-            aria-label="Tu nombre de usuario"
+            aria-label={t("label")}
             aria-invalid={Boolean(error)}
             aria-describedby={error ? errorId : undefined}
             className="w-full min-w-0 bg-transparent font-bold text-foreground outline-none placeholder:text-foreground"
           />
         </label>
         <Button type="submit" variant="opal" className="shrink-0">
-          Reservar mi enlace
+          {t("submit")}
         </Button>
       </div>
       {error && (

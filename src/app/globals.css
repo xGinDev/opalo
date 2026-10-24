@@ -63,8 +63,8 @@
 
 @theme inline {
   /* Fonts (set by next/font in the root layout) */
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-bricolage), var(--font-manrope), ui-sans-serif, sans-serif;
+  --font-sans: var(--font-manrope), var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-manrope), var(--font-arabic), ui-sans-serif, sans-serif;
 
   /* Radii: 8 / 12 / 16 / 20 / 24 / 32 */
   --radius-sm: 0.5rem;

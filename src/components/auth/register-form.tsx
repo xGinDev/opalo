@@ -1,15 +1,17 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, MailCheck } from "lucide-react";
-import { signUp } from "@/app/(auth)/actions";
+import { signUp } from "@/app/[locale]/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Link } from "@/i18n/navigation";
+import { useMessageText } from "@/i18n/use-message-text";
 import { type RegisterInput, type RegisterValues, registerSchema } from "@/lib/validation/auth";
 import { AuthDivider } from "./auth-column";
 import { OAuthButtons } from "./oauth-buttons";
@@ -23,6 +25,8 @@ type RegisterFormProps = {
 
 /** Figma 6:230 — sign-up with live username check. */
 export function RegisterForm({ next, initialUsername = "" }: RegisterFormProps) {
+  const t = useTranslations("Auth.register");
+  const text = useMessageText();
   const [isPending, startTransition] = useTransition();
   const [confirmEmail, setConfirmEmail] = useState<string | null>(null);
   const form = useForm<RegisterInput, unknown, RegisterValues>({
@@ -52,10 +56,12 @@ export function RegisterForm({ next, initialUsername = "" }: RegisterFormProps) 
     return (
       <div role="status" className="flex flex-col items-start gap-4 rounded-xl border border-line bg-surface p-6">
         <MailCheck className="size-9 text-success" aria-hidden />
-        <h2 className="font-sans text-xl font-bold">Revisa tu correo</h2>
+        <h2 className="font-sans text-xl font-bold">{t("checkEmailTitle")}</h2>
         <p className="text-[15px] leading-normal text-muted-foreground">
-          Te enviamos un enlace a <strong className="text-foreground">{confirmEmail}</strong> para confirmar tu cuenta.
-          Ábrelo desde este mismo navegador y te llevamos directo a tu panel.
+          {t.rich("checkEmailBody", {
+            email: confirmEmail,
+            strong: (chunks) => <strong className="text-foreground">{chunks}</strong>,
+          })}
         </p>
       </div>
     );
@@ -91,9 +97,9 @@ export function RegisterForm({ next, initialUsername = "" }: RegisterFormProps) 
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Correo</FormLabel>
+                <FormLabel>{t("email")}</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="tu@correo.com" autoComplete="email" {...field} />
+                  <Input type="email" placeholder={t("emailPlaceholder")} autoComplete="email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -104,9 +110,9 @@ export function RegisterForm({ next, initialUsername = "" }: RegisterFormProps) 
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Contraseña</FormLabel>
+                <FormLabel>{t("password")}</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Mínimo 8 caracteres" autoComplete="new-password" {...field} />
+                  <Input type="password" placeholder={t("passwordPlaceholder")} autoComplete="new-password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -123,14 +129,18 @@ export function RegisterForm({ next, initialUsername = "" }: RegisterFormProps) 
                   </FormControl>
                   <FormLabel className="text-sm leading-snug font-medium">
                     <span>
-                      Acepto los{" "}
-                      <Link href="/terminos" target="_blank" className="font-bold text-lilac hover:underline">
-                        Términos
-                      </Link>{" "}
-                      y la{" "}
-                      <Link href="/privacidad" target="_blank" className="font-bold text-lilac hover:underline">
-                        Política de privacidad
-                      </Link>
+                      {t.rich("terms", {
+                        terms: (chunks) => (
+                          <Link href="/terminos" target="_blank" className="font-bold text-lilac hover:underline">
+                            {chunks}
+                          </Link>
+                        ),
+                        privacy: (chunks) => (
+                          <Link href="/privacidad" target="_blank" className="font-bold text-lilac hover:underline">
+                            {chunks}
+                          </Link>
+                        ),
+                      })}
                     </span>
                   </FormLabel>
                 </div>
@@ -141,13 +151,13 @@ export function RegisterForm({ next, initialUsername = "" }: RegisterFormProps) 
 
           {form.formState.errors.root && (
             <p role="alert" className="rounded-md border border-danger/30 bg-danger/10 px-3.5 py-2.5 text-sm text-danger">
-              {form.formState.errors.root.message}
+              {text(form.formState.errors.root.message)}
             </p>
           )}
 
           <Button type="submit" variant="opal" className="w-full" disabled={isPending}>
             {isPending && <Loader2 className="animate-spin" aria-hidden />}
-            Crear mi cuenta
+            {t("submit")}
           </Button>
         </form>
       </Form>

@@ -32,10 +32,10 @@ export function useUsernameAvailability(raw: string, current?: string): Username
       const { data, error } = await createClient().rpc("check_username", { p_username: value });
       if (cancelled) return;
       const status: UsernameStatus = error
-        ? { state: "error", message: "No pudimos comprobarlo. Inténtalo de nuevo." }
+        ? { state: "error", message: "Errors.usernameCheckFailed" }
         : data
           ? { state: "available" }
-          : { state: "taken", message: "Ese nombre ya está en uso o reservado." };
+          : { state: "taken", message: "Errors.usernameTaken" };
       setRemote({ value, status });
     }, DEBOUNCE_MS);
     return () => {

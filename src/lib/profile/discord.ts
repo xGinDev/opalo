@@ -25,12 +25,18 @@ type LanyardData = {
   spotify: { song: string; artist: string; album_art_url: string | null } | null;
 };
 
+/** What the user is doing; worded by the card (Profile.discord.*). */
+export type DiscordActivity =
+  | { kind: "spotify"; song: string; artist: string }
+  | { kind: "playing" | "streaming" | "listeningTo" | "watching" | "competing"; name: string; extra: string | null }
+  | { kind: "custom"; text: string }
+  | null;
+
 export type DiscordPresence = {
   name: string;
   avatarUrl: string;
   status: DiscordStatus;
-  /** "Jugando Valorant", "Escuchando Blinding Lights · The Weeknd", custom status… */
-  text: string;
+  activity: DiscordActivity;
   /** Activity art (game icon, album cover), when there is one. */
   imageUrl: string | null;
 };
@@ -40,12 +46,8 @@ export type LanyardResult =
   | { state: "not-monitored" } // not in Lanyard's server yet
   | { state: "error" };
 
-export const STATUS_LABELS: Record<DiscordStatus, string> = {
-  online: "En línea",
-  idle: "Ausente",
-  dnd: "No molestar",
-  offline: "Desconectado",
-};
+/** Discord activity types → Profile.discord.* keys. */
+const ACTIVITY_KINDS = { 0: "playing", 1: "streaming", 2: "listeningTo", 3: "watching", 5: "competing" } as const;
 
 function avatarUrl(user: LanyardData["discord_user"]) {
   if (!user.avatar) {
@@ -73,25 +75,24 @@ function toPresence(data: LanyardData): DiscordPresence {
   if (data.listening_to_spotify && data.spotify) {
     return {
       ...base,
-      text: `Escuchando ${data.spotify.song} · ${data.spotify.artist}`,
+      activity: { kind: "spotify", song: data.spotify.song, artist: data.spotify.artist },
       imageUrl: data.spotify.album_art_url,
     };
   }
 
   const activity = data.activities.find((a) => a.type !== 4);
   if (activity) {
-    const verb = { 0: "Jugando", 1: "En directo:", 2: "Escuchando", 3: "Viendo", 5: "Compitiendo en" }[activity.type] ?? "";
-    const extra = activity.details || activity.state;
+    const kind = ACTIVITY_KINDS[activity.type as keyof typeof ACTIVITY_KINDS] ?? "playing";
     return {
       ...base,
-      text: [`${verb} ${activity.name}`.trim(), extra].filter(Boolean).join(" · "),
+      activity: { kind, name: activity.name, extra: activity.details || activity.state || null },
       imageUrl: assetUrl(activity),
     };
   }
 
   const custom = data.activities.find((a) => a.type === 4);
   const customText = [custom?.emoji && !custom.emoji.id ? custom.emoji.name : null, custom?.state].filter(Boolean).join(" ");
-  return { ...base, text: customText || STATUS_LABELS[data.discord_status], imageUrl: null };
+  return { ...base, activity: customText ? { kind: "custom", text: customText } : null, imageUrl: null };
 }
 
 export async function fetchDiscordPresence(discordId: string, signal?: AbortSignal): Promise<LanyardResult> {

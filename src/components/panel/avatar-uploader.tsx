@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import { Camera, Loader2, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { setAvatar } from "@/app/panel/actions";
+import { setAvatar } from "@/app/[locale]/panel/actions";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
+import { useMessageText } from "@/i18n/use-message-text";
 import { uploadUserFile, validateFile } from "@/lib/panel/storage";
 import { usePanel } from "./panel-provider";
 
@@ -17,6 +19,7 @@ type Crop = { zoom: number; x: number; y: number };
 
 /** Square crop: drag to frame, slider to zoom. Exports a 512×512 WebP. */
 function CropDialog({ src, onCancel, onDone }: { src: string; onCancel: () => void; onDone: (blob: Blob) => void }) {
+  const t = useTranslations("Panel.avatar");
   const [img, setImg] = useState<HTMLImageElement | null>(null);
   const [crop, setCrop] = useState<Crop>({ zoom: 1, x: 0, y: 0 });
   const drag = useRef<{ startX: number; startY: number; x: number; y: number } | null>(null);
@@ -55,8 +58,8 @@ function CropDialog({ src, onCancel, onDone }: { src: string; onCancel: () => vo
     <Dialog open onOpenChange={(o) => !o && onCancel()}>
       <DialogContent className="max-w-sm">
         <DialogHeader>
-          <DialogTitle>Recorta tu foto</DialogTitle>
-          <DialogDescription>Arrastra para encuadrar y usa el control para acercar.</DialogDescription>
+          <DialogTitle>{t("cropTitle")}</DialogTitle>
+          <DialogDescription>{t("cropDescription")}</DialogDescription>
         </DialogHeader>
         <div
           className="relative mx-auto touch-none overflow-hidden rounded-full bg-surface-2"
@@ -79,7 +82,7 @@ function CropDialog({ src, onCancel, onDone }: { src: string; onCancel: () => vo
             // eslint-disable-next-line @next/next/no-img-element -- local object URL being cropped
             <img
               src={src}
-              alt="Vista del recorte"
+              alt={t("cropAlt")}
               draggable={false}
               className="pointer-events-none absolute max-w-none select-none"
               style={{ width: w, height: h, left: (VIEW - w) / 2 + crop.x, top: (VIEW - h) / 2 + crop.y }}
@@ -92,14 +95,14 @@ function CropDialog({ src, onCancel, onDone }: { src: string; onCancel: () => vo
           max={3}
           step={0.01}
           onValueChange={([zoom]) => setCrop((c) => clamp({ ...c, zoom }))}
-          aria-label="Zoom"
+          aria-label={t("zoom")}
         />
         <DialogFooter>
           <Button variant="ghost" onClick={onCancel}>
-            Cancelar
+            {t("cancel")}
           </Button>
           <Button variant="opal" onClick={exportBlob} disabled={!img}>
-            Usar foto
+            {t("use")}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -109,6 +112,8 @@ function CropDialog({ src, onCancel, onDone }: { src: string; onCancel: () => vo
 
 /** Avatar row in "Información": upload (with crop) or remove. Saved immediately. */
 export function AvatarUploader() {
+  const t = useTranslations("Panel");
+  const text = useMessageText();
   const { data, setSavedProfile } = usePanel();
   const { profile } = data;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -119,7 +124,7 @@ export function AvatarUploader() {
     if (!file) return;
     const invalid = validateFile("avatars", file);
     if (invalid) {
-      toast.error(invalid);
+      toast.error(text(invalid));
       return;
     }
     setSource(URL.createObjectURL(file));
@@ -131,16 +136,16 @@ export function AvatarUploader() {
     startTransition(async () => {
       const uploaded = await uploadUserFile("avatars", profile.id, blob, "avatar");
       if ("error" in uploaded) {
-        toast.error(uploaded.error);
+        toast.error(text(uploaded.error));
         return;
       }
       const previous = profile.avatar_url;
       setSavedProfile({ avatar_url: uploaded.url });
       const result = await setAvatar(uploaded.url);
-      if (result.ok) toast.success("Foto actualizada");
+      if (result.ok) toast.success(t("avatar.updated"));
       else {
         setSavedProfile({ avatar_url: previous });
-        toast.error(result.error);
+        toast.error(text(result.error));
       }
     });
   }
@@ -152,7 +157,7 @@ export function AvatarUploader() {
       const result = await setAvatar(null);
       if (!result.ok) {
         setSavedProfile({ avatar_url: previous });
-        toast.error(result.error);
+        toast.error(text(result.error));
       }
     });
   }
@@ -162,21 +167,21 @@ export function AvatarUploader() {
       <div className="relative size-16 shrink-0 overflow-hidden rounded-full border-3 border-white/16 bg-opal">
         {profile.avatar_url && (
           // eslint-disable-next-line @next/next/no-img-element -- user upload from Supabase Storage
-          <img src={profile.avatar_url} alt="Tu foto" className="size-full object-cover" />
+          <img src={profile.avatar_url} alt={t("avatar.photoAlt")} className="size-full object-cover" />
         )}
         {isPending && (
           <span className="absolute inset-0 flex items-center justify-center bg-black/50">
-            <Loader2 className="size-5 animate-spin" aria-label="Subiendo" />
+            <Loader2 className="size-5 animate-spin" aria-label={t("upload.uploading")} />
           </span>
         )}
       </div>
       <div className="flex flex-wrap gap-2">
         <Button variant="secondary" size="sm" onClick={() => inputRef.current?.click()} disabled={isPending}>
-          <Camera aria-hidden /> {profile.avatar_url ? "Cambiar foto" : "Subir foto"}
+          <Camera aria-hidden /> {profile.avatar_url ? t("avatar.change") : t("avatar.upload")}
         </Button>
         {profile.avatar_url && (
           <Button variant="ghost" size="sm" onClick={remove} disabled={isPending}>
-            <Trash2 aria-hidden /> Quitar
+            <Trash2 aria-hidden /> {t("avatar.remove")}
           </Button>
         )}
         <input

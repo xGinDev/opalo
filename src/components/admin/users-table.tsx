@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { Ellipsis, ExternalLink, Gem, Loader2, ShieldBan, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
+import { useMessageText } from "@/i18n/use-message-text";
 import { getUserEmail, setUserPlan, setUserStatus } from "@/app/admin/actions";
 import { Tag } from "@/components/opal/tag";
 import { Button } from "@/components/ui/button";
@@ -41,6 +42,7 @@ export function UserAvatar({ user, size = 36 }: { user: Pick<AdminUserRow, "avat
 function UserSheet({ user, onClose }: { user: AdminUserRow | null; onClose: () => void }) {
   const [email, setEmail] = useState<string | null | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
+  const text = useMessageText();
 
   useEffect(() => {
     if (!user) return;
@@ -62,7 +64,7 @@ function UserSheet({ user, onClose }: { user: AdminUserRow | null; onClose: () =
       if (result.ok) {
         toast.success(success);
         onClose();
-      } else toast.error(result.error);
+      } else toast.error(text(result.error));
     });
   }
 

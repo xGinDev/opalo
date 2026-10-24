@@ -7,8 +7,7 @@ export type FlowBlock = "presence" | "links" | "player";
 
 export type Arrangement = {
   id: ArrangementId;
-  label: string;
-  description: string;
+  /** Label and description live in Panel.arrangements.<id>. */
   premium: boolean;
   /** Show the photo at all ("Minimal" hides it). */
   avatar: boolean;
@@ -29,8 +28,6 @@ export type Arrangement = {
 export const ARRANGEMENTS: Arrangement[] = [
   {
     id: "default",
-    label: "Predeterminada",
-    description: "Foto, nombre con insignias, estado, redes y visitas al final.",
     premium: false,
     avatar: true,
     identity: "auto",
@@ -42,8 +39,6 @@ export const ARRANGEMENTS: Arrangement[] = [
   },
   {
     id: "stacked",
-    label: "Apilada",
-    description: "Las insignias bajo el nombre, la ubicación en su línea y las visitas en la esquina.",
     premium: true,
     avatar: true,
     identity: "auto",
@@ -55,8 +50,6 @@ export const ARRANGEMENTS: Arrangement[] = [
   },
   {
     id: "corners",
-    label: "Esquinas",
-    description: "Visitas abajo a la izquierda y ubicación abajo a la derecha.",
     premium: true,
     avatar: true,
     identity: "auto",
@@ -68,8 +61,6 @@ export const ARRANGEMENTS: Arrangement[] = [
   },
   {
     id: "links-first",
-    label: "Redes arriba",
-    description: "Tus redes justo debajo del nombre, el estado después.",
     premium: true,
     avatar: true,
     identity: "auto",
@@ -81,8 +72,6 @@ export const ARRANGEMENTS: Arrangement[] = [
   },
   {
     id: "compact",
-    label: "Compacta",
-    description: "Foto al lado del nombre también en el celular, todo alineado a la izquierda.",
     premium: true,
     avatar: true,
     identity: "row",
@@ -94,8 +83,6 @@ export const ARRANGEMENTS: Arrangement[] = [
   },
   {
     id: "minimal",
-    label: "Minimal",
-    description: "Sin foto: el nombre manda. Redes y estado debajo.",
     premium: true,
     avatar: false,
     identity: "auto",

@@ -12,7 +12,7 @@ const ACTIVE_OFFSET = 140;
  * Figma 22:540 "Índice": sticky table of contents that highlights the section in view.
  * The active section is the last one whose heading has scrolled past ACTIVE_OFFSET.
  */
-export function LegalToc({ items }: { items: TocItem[] }) {
+export function LegalToc({ items, title }: { items: TocItem[]; title: string }) {
   const [activeId, setActiveId] = useState(items[0]?.id);
 
   useEffect(() => {
@@ -48,8 +48,8 @@ export function LegalToc({ items }: { items: TocItem[] }) {
   }, [items]);
 
   return (
-    <nav aria-label="En esta página" className="flex flex-col gap-1">
-      <p className="mb-2.5 text-[13px] font-bold text-muted-foreground">En esta página</p>
+    <nav aria-label={title} className="flex flex-col gap-1">
+      <p className="mb-2.5 text-[13px] font-bold text-muted-foreground">{title}</p>
       <ol className="flex flex-col gap-1">
         {items.map((item) => {
           const active = item.id === activeId;
@@ -59,7 +59,7 @@ export function LegalToc({ items }: { items: TocItem[] }) {
                 href={`#${item.id}`}
                 aria-current={active ? "location" : undefined}
                 className={cn(
-                  "block border-l-2 py-2 pr-2 pl-3.5 text-sm transition-colors",
+                  "block border-s-2 py-2 pe-2 ps-3.5 text-sm transition-colors",
                   active
                     ? "border-lilac font-bold text-foreground"
                     : "border-line font-medium text-muted-foreground hover:border-muted-foreground hover:text-foreground",

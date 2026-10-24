@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Eye, MapPin, Volume2, VolumeX } from "lucide-react";
 import { type FlowBlock, arrangementMeta } from "@/lib/profile/arrangements";
 import { cardStyleMeta } from "@/lib/profile/card-styles";
-import { formatCount, joinedAgo, tabTitleOf } from "@/lib/profile/format";
+import { formatCount, joinedRelative, tabTitleOf } from "@/lib/profile/format";
 import type { PublicLink, PublicProfile } from "@/lib/profile/types";
 import { cn } from "@/lib/utils";
 import { ProfileBackground } from "./background/profile-background";
@@ -46,6 +47,8 @@ function trackClick(link: PublicLink) {
  */
 export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
   const { profile, settings, links, badges, views } = data;
+  const t = useTranslations("Profile");
+  const locale = useLocale();
   const isPage = variant === "page";
   const isCard = settings.layout === "card";
   const name = profile.display_name?.trim() || profile.username;
@@ -93,12 +96,14 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
     "--accent": accent,
   } as React.CSSProperties;
 
+  const joinedWhen = joinedRelative(profile.created_at, locale);
+  const joined = joinedWhen ? t("joined", { when: joinedWhen }) : t("joinedToday");
   const viewsLabel = (
     <span className="flex items-center gap-1.5">
       <Eye className="size-[15px]" aria-hidden />
       <span>
-        {formatCount(views)}
-        <span className="sr-only"> visitas</span>
+        {formatCount(views, locale)}
+        <span className="sr-only"> {t("views")}</span>
       </span>
     </span>
   );
@@ -140,7 +145,7 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
       showPlayer && !detachedPlayer ? (
         <MusicPlayer
           key="player"
-          title={settings.music_title?.trim() || "Sin título"}
+          title={settings.music_title?.trim() || t("untitled")}
           coverUrl={settings.music_cover_url ?? null}
           audio={audio}
           accent={accent}
@@ -166,9 +171,9 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
         <button
           type="button"
           onClick={audio.toggleMute}
-          aria-label={audio.muted ? "Activar sonido" : "Silenciar"}
+          aria-label={audio.muted ? t("unmute") : t("mute")}
           aria-pressed={audio.muted}
-          className="fixed top-4 left-4 z-30 rounded-[14px] border border-white/14 bg-black/45 p-3.5 backdrop-blur-[6px] transition-colors hover:bg-black/60 @3xl:top-5 @3xl:left-5"
+          className="fixed start-4 top-4 z-30 rounded-[14px] border border-white/14 bg-black/45 p-3.5 backdrop-blur-[6px] transition-colors hover:bg-black/60 @3xl:start-5 @3xl:top-5"
         >
           {audio.muted ? <VolumeX className="size-6" aria-hidden /> : <Volume2 className="size-6" aria-hidden />}
         </button>
@@ -190,7 +195,7 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
         >
           <div className="flex w-full flex-col gap-3 @3xl:w-auto">
             <section
-              aria-label={`Perfil de ${name}`}
+              aria-label={t("profileOf", { name })}
               className={cn(
                 "relative isolate flex w-full flex-col items-center gap-4 px-5 py-6 text-center",
                 // Classic: background (card_opacity) and border apply to both layouts at every size.
@@ -204,9 +209,9 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
                 !classic && !style.ownBorder && settings.card_border && "border-[3px] border-white/22 @3xl:border-4",
                 floating && showAvatar && (isCard ? "mt-[54px] @3xl:mt-[62px]" : "mt-[54px] @3xl:mt-16"),
                 isCard
-                  ? "@3xl:mx-auto @3xl:w-[740px] @3xl:items-start @3xl:gap-[22px] @3xl:px-[30px] @3xl:pt-[30px] @3xl:pb-[26px] @3xl:text-left"
+                  ? "@3xl:mx-auto @3xl:w-[740px] @3xl:items-start @3xl:gap-[22px] @3xl:px-[30px] @3xl:pt-[30px] @3xl:pb-[26px] @3xl:text-start"
                   : "@3xl:mx-auto @3xl:w-fit @3xl:max-w-[560px] @3xl:min-w-[480px] @3xl:gap-[18px] @3xl:px-12 @3xl:py-10",
-                rowAlways && "items-start text-left",
+                rowAlways && "items-start text-start",
                 // Room for the views / location pinned to the bottom corners.
                 hasCorners && "pb-14 @3xl:pb-16",
               )}
@@ -280,7 +285,7 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
                     </p>
                   )}
                   {isCard && !rowAlways && (
-                    <p className="hidden text-xs font-medium text-muted-foreground @3xl:block">{joinedAgo(profile.created_at)}</p>
+                    <p className="hidden text-xs font-medium text-muted-foreground @3xl:block">{joined}</p>
                   )}
                 </div>
               </div>
@@ -303,10 +308,10 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
               )}
 
               {arr.stats === "corner" && (
-                <div className="absolute bottom-4 left-5 text-[13px] font-bold @3xl:bottom-5 @3xl:left-[30px]">{viewsLabel}</div>
+                <div className="absolute start-5 bottom-4 text-[13px] font-bold @3xl:start-[30px] @3xl:bottom-5">{viewsLabel}</div>
               )}
               {arr.location === "corner" && profile.location && (
-                <div className="absolute right-5 bottom-4 max-w-[55%] text-[13px] font-bold @3xl:right-[30px] @3xl:bottom-5">
+                <div className="absolute end-5 bottom-4 max-w-[55%] text-[13px] font-bold @3xl:end-[30px] @3xl:bottom-5">
                   {locationLabel}
                 </div>
               )}
@@ -315,7 +320,7 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
             {detachedPlayer && (
               <div className={cn("relative isolate px-4 py-3 backdrop-blur-[9px]", style.className)} style={cardVars}>
                 <MusicPlayer
-                  title={settings.music_title?.trim() || "Sin título"}
+                  title={settings.music_title?.trim() || t("untitled")}
                   coverUrl={settings.music_cover_url ?? null}
                   audio={audio}
                   accent={accent}
@@ -330,10 +335,10 @@ export function ProfileView({ data, variant = "page" }: ProfileViewProps) {
         {settings.show_branding &&
           (isPage ? (
             <Link href="/" className="rounded-sm text-[11px] font-semibold text-muted-foreground hover:text-foreground @3xl:text-xs">
-              Hecho con ópalo
+              {t("madeWith")}
             </Link>
           ) : (
-            <span className="text-[11px] font-semibold text-muted-foreground">Hecho con ópalo</span>
+            <span className="text-[11px] font-semibold text-muted-foreground">{t("madeWith")}</span>
           ))}
         {isPage && <ReportDialog profileId={profile.id} username={profile.username} />}
       </footer>

@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import NextLink from "next/link";
+import { useTranslations } from "next-intl";
 import { ExternalLink, LayoutDashboard, LogOut, ShieldCheck } from "lucide-react";
-import { signOut } from "@/app/(auth)/actions";
+import { signOut } from "@/app/[locale]/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SheetClose } from "@/components/ui/sheet";
+import { Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { profilePath } from "@/lib/username";
 import { cn } from "@/lib/utils";
@@ -74,6 +76,7 @@ function Avatar({ user, size }: { user: NonNullable<HeaderUser>; size: number })
 
 /** Desktop: login/register, or "Ir al panel" + an account menu when signed in. */
 export function HeaderAccount() {
+  const t = useTranslations("Landing.account");
   const user = useHeaderUser();
 
   if (user === undefined) return <div className="h-[46px] w-[260px]" aria-hidden />;
@@ -82,10 +85,10 @@ export function HeaderAccount() {
     return (
       <div className="flex items-center gap-2">
         <Button variant="ghost" asChild>
-          <Link href="/login">Iniciar sesión</Link>
+          <Link href="/login">{t("login")}</Link>
         </Button>
         <Button variant="opal" asChild>
-          <Link href="/registro">Crear mi página</Link>
+          <Link href="/registro">{t("createPage")}</Link>
         </Button>
       </div>
     );
@@ -95,13 +98,13 @@ export function HeaderAccount() {
     <div className="flex items-center gap-3">
       <Button variant="opal" asChild>
         <Link href="/panel">
-          <LayoutDashboard aria-hidden /> Ir al panel
+          <LayoutDashboard aria-hidden /> {t("goToPanel")}
         </Link>
       </Button>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger
           className="rounded-full ring-offset-2 ring-offset-background outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          aria-label={`Tu cuenta: ${user.name}`}
+          aria-label={t("yourAccount", { name: user.name })}
         >
           <Avatar user={user} size={40} />
         </DropdownMenuTrigger>
@@ -122,30 +125,31 @@ export function HeaderAccount() {
 }
 
 function AccountItems({ user }: { user: NonNullable<HeaderUser> }) {
+  const t = useTranslations("Landing.account");
   return (
     <>
       <DropdownMenuItem asChild>
-        <Link href={profilePath(user.username)}>
-          <ExternalLink aria-hidden /> Ver mi perfil
-        </Link>
+        <NextLink href={profilePath(user.username)}>
+          <ExternalLink aria-hidden /> {t("viewProfile")}
+        </NextLink>
       </DropdownMenuItem>
       <DropdownMenuItem asChild>
         <Link href="/panel">
-          <LayoutDashboard aria-hidden /> Mi panel
+          <LayoutDashboard aria-hidden /> {t("myPanel")}
         </Link>
       </DropdownMenuItem>
       {user.isAdmin && (
         <DropdownMenuItem asChild>
-          <Link href="/admin">
-            <ShieldCheck aria-hidden /> Administración
-          </Link>
+          <NextLink href="/admin">
+            <ShieldCheck aria-hidden /> {t("admin")}
+          </NextLink>
         </DropdownMenuItem>
       )}
       <DropdownMenuSeparator />
       <form action={signOut}>
         <DropdownMenuItem asChild>
           <button type="submit" className="w-full">
-            <LogOut aria-hidden /> Cerrar sesión
+            <LogOut aria-hidden /> {t("signOut")}
           </button>
         </DropdownMenuItem>
       </form>
@@ -155,6 +159,7 @@ function AccountItems({ user }: { user: NonNullable<HeaderUser> }) {
 
 /** Mobile sheet footer: same choices as the desktop header, stacked. */
 export function SheetAccount() {
+  const t = useTranslations("Landing.account");
   const user = useHeaderUser();
   const wrap = (node: React.ReactNode) => <SheetClose asChild>{node}</SheetClose>;
   if (user === undefined) return null;
@@ -164,12 +169,12 @@ export function SheetAccount() {
       <div className="flex flex-col gap-2">
         {wrap(
           <Button variant="secondary" asChild>
-            <Link href="/login">Iniciar sesión</Link>
+            <Link href="/login">{t("login")}</Link>
           </Button>,
         )}
         {wrap(
           <Button variant="opal" asChild>
-            <Link href="/registro">Crear mi página</Link>
+            <Link href="/registro">{t("createPage")}</Link>
           </Button>,
         )}
       </div>
@@ -187,25 +192,25 @@ export function SheetAccount() {
         </span>
       </div>
       {wrap(
-        <Link href={profilePath(user.username)} className={row}>
-          <ExternalLink aria-hidden /> Ver mi perfil
-        </Link>,
+        <NextLink href={profilePath(user.username)} className={row}>
+          <ExternalLink aria-hidden /> {t("viewProfile")}
+        </NextLink>,
       )}
       {user.isAdmin &&
         wrap(
-          <Link href="/admin" className={row}>
-            <ShieldCheck aria-hidden /> Administración
-          </Link>,
+          <NextLink href="/admin" className={row}>
+            <ShieldCheck aria-hidden /> {t("admin")}
+          </NextLink>,
         )}
       <form action={signOut}>
         <button type="submit" className={cn(row, "w-full")}>
-          <LogOut aria-hidden /> Cerrar sesión
+          <LogOut aria-hidden /> {t("signOut")}
         </button>
       </form>
       {wrap(
         <Button variant="opal" className="mt-2" asChild>
           <Link href="/panel">
-            <LayoutDashboard aria-hidden /> Ir al panel
+            <LayoutDashboard aria-hidden /> {t("goToPanel")}
           </Link>
         </Button>,
       )}

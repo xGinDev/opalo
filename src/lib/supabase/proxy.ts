@@ -1,68 +1,45 @@
 import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import type { Database } from "@/types/database";
 import { hasSupabaseEnv, supabaseAnonKey, supabaseUrl } from "./env";
 import { REMEMBER_COOKIE, applyRemember, isRemembered } from "./remember";
 
-// /admin is deliberately not here: anonymous visitors get the same 404 as non-admins.
-const PROTECTED_PREFIXES = ["/panel"];
-const AUTH_PAGES = ["/login", "/registro"];
-
-function matches(pathname: string, prefixes: string[]) {
-  return prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`));
-}
+type CookieToSet = { name: string; value: string; options?: Parameters<typeof applyRemember>[0] };
 
 /**
- * Refreshes the Supabase session cookie on every request and guards private routes.
- * /admin is gated server-side (requireAdmin → 404 for anyone who isn't an admin, signed in or not).
+ * Refreshes the Supabase session for this request. Updated cookies are written to
+ * `request.cookies` (so Server Components see the fresh session) and returned so the caller can
+ * put them on whatever response it builds (next, rewrite or redirect).
  */
-export async function updateSession(request: NextRequest) {
-  let response = NextResponse.next({ request });
-  if (!hasSupabaseEnv) return response;
+export async function refreshSession(request: NextRequest) {
+  const cookies: CookieToSet[] = [];
+  if (!hasSupabaseEnv) return { isSignedIn: false, cookies };
 
   const remember = isRemembered(request.cookies.get(REMEMBER_COOKIE)?.value);
-
   const supabase = createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll();
       },
       setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-        response = NextResponse.next({ request });
-        cookiesToSet.forEach(({ name, value, options }) =>
-          response.cookies.set(name, value, applyRemember(options, remember)),
-        );
+        cookiesToSet.forEach(({ name, value, options }) => {
+          request.cookies.set(name, value);
+          cookies.push({ name, value, options: applyRemember(options, remember) });
+        });
       },
     },
   });
 
   // Do not run code between createServerClient and getClaims().
   const { data } = await supabase.auth.getClaims();
-  const isSignedIn = Boolean(data?.claims);
-  const { pathname, search } = request.nextUrl;
+  return { isSignedIn: Boolean(data?.claims), cookies };
+}
 
-  // Redirects must carry over any refreshed session cookies.
-  const redirectTo = (target: string) => {
-    const redirect = NextResponse.redirect(new URL(target, request.url));
-    response.cookies.getAll().forEach((cookie) => redirect.cookies.set(cookie));
-    return redirect;
-  };
-
-  if (!isSignedIn && pathname === "/panel/premium") {
-    // "Obtener Premium" without an account: sign up first, then come back here.
-    return redirectTo("/registro?plan=premium");
-  }
-  if (!isSignedIn && matches(pathname, PROTECTED_PREFIXES)) {
-    return redirectTo(`/login?next=${encodeURIComponent(pathname + search)}`);
-  }
-  if (isSignedIn && matches(pathname, AUTH_PAGES)) {
-    const params = request.nextUrl.searchParams;
-    const next = params.get("next");
-    if (params.get("plan") === "premium") return redirectTo("/panel/premium");
-    const isSafe = next?.startsWith("/") && !next.startsWith("//") && !next.startsWith("/\\");
-    return redirectTo(isSafe ? next! : "/panel");
-  }
-
+/** Copies the refreshed session cookies onto a response. */
+export function withSessionCookies<T extends { cookies: { set: (name: string, value: string, options?: object) => unknown } }>(
+  response: T,
+  cookies: CookieToSet[],
+) {
+  cookies.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
   return response;
 }

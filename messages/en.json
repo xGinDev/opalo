@@ -1,0 +1,1161 @@
+{
+  "Auth": {
+    "visual": {
+      "title": "Your profile, your style.",
+      "description": "40+ ways to make it yours: backgrounds, music, effects, fonts and more.",
+      "samples": {
+        "kairo": "streaming Tuesday to Saturday",
+        "luna": "photos, travel and coffee",
+        "studio": "web design for brands"
+      }
+    },
+    "divider": "or with your email",
+    "oauth": {
+      "google": "Continue with Google",
+      "discord": "Continue with Discord"
+    },
+    "login": {
+      "title": "Welcome back",
+      "description": "Sign in to edit your profile and see your views.",
+      "noAccount": "Don’t have an account? <link>Create one for free</link>",
+      "identifier": "Email or username",
+      "identifierPlaceholder": "you@email.com or your username",
+      "password": "Password",
+      "remember": "Remember me",
+      "forgot": "Forgot your password?",
+      "submit": "Sign in"
+    },
+    "register": {
+      "title": "Create your page",
+      "description": "Pick your link and start for free. It takes less than a minute.",
+      "haveAccount": "Already have an account? <link>Sign in</link>",
+      "email": "Email",
+      "emailPlaceholder": "you@email.com",
+      "password": "Password",
+      "passwordPlaceholder": "At least 8 characters",
+      "terms": "I accept the <terms>Terms</terms> and the <privacy>Privacy Policy</privacy>",
+      "submit": "Create my account",
+      "checkEmailTitle": "Check your email",
+      "checkEmailBody": "We sent a link to <strong>{email}</strong> to confirm your account. Open it in this same browser and we’ll take you straight to your dashboard."
+    },
+    "username": {
+      "label": "Your link",
+      "placeholder": "yourname",
+      "checking": "Checking…",
+      "available": "Available",
+      "unavailable": "Not available"
+    },
+    "recover": {
+      "title": "Get back into your account",
+      "description": "Enter your account email and we’ll send you a link to create a new password.",
+      "remembered": "Remembered it? <link>Sign in</link>",
+      "email": "Email",
+      "submit": "Send link",
+      "sentTitle": "Check your email",
+      "sentBody": "If there’s an account for <strong>{email}</strong>, we sent it a link to create a new password. It may take a few minutes."
+    },
+    "newPassword": {
+      "expiredTitle": "The link expired",
+      "expiredBody": "Password reset links are short-lived and only work once. Request a new one.",
+      "requestAnother": "Request another link",
+      "title": "Create a new password",
+      "description": "Use at least 8 characters.",
+      "password": "New password",
+      "passwordPlaceholder": "At least 8 characters",
+      "confirm": "Repeat the password",
+      "submit": "Save password",
+      "done": "Done, your password was changed."
+    }
+  },
+  "Common": {
+    "homeLabel": "Ópalo, go to the home page",
+    "tagline": "Everything you are, in one link.",
+    "premium": "Premium",
+    "free": "Free",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "copied": "Copied",
+    "loading": "Loading…",
+    "error": "Something went wrong. Please try again."
+  },
+  "Contact": {
+    "tag": "Contact",
+    "title": "Let’s talk.",
+    "lead": "Having trouble with your account, a question about Premium or an idea for Ópalo? Write to us and we’ll reply within 48 business hours.",
+    "channels": {
+      "support": {
+        "title": "Support",
+        "description": "Account, sign-in, payments and Premium."
+      },
+      "press": {
+        "title": "Partnerships and press",
+        "description": "Collaborations, creators and media."
+      },
+      "report": {
+        "title": "Report a profile",
+        "detail": "“Report” button on any profile",
+        "description": "Impersonation, scams or content that breaks the rules."
+      }
+    },
+    "form": {
+      "title": "Send us a message",
+      "subtitle": "All fields are required, except your username.",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@email.com",
+      "reason": "Reason",
+      "reasonPlaceholder": "Choose a reason",
+      "username": "Your Ópalo username (optional)",
+      "message": "Message",
+      "messagePlaceholder": "Tell us what happened or how we can help…",
+      "honeypot": "Website",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "consent": "By sending, you agree that we’ll use your data only to reply to you, as described in our <privacy>Privacy Policy</privacy>.",
+      "sentToast": "Message sent. We’ll get back to you soon.",
+      "sentTitle": "Message sent!",
+      "sentBody": "We’ll reply to the email you gave us within 48 business hours.",
+      "sendAnother": "Send another message"
+    },
+    "reasons": {
+      "cuenta": "Account and sign-in",
+      "pagos": "Payments and Premium",
+      "problema": "Report a problem",
+      "alianzas": "Partnerships and press",
+      "otro": "Other"
+    }
+  },
+  "Errors": {
+    "generic": "Something went wrong. Please try again.",
+    "loginFailed": "We couldn’t sign you in. Please try again.",
+    "checkLogin": "Check your email or username and your password.",
+    "emailOnly": "Right now you can only sign in with your email.",
+    "invalidCredentials": "Wrong email, username or password.",
+    "emailNotConfirmed": "Confirm your email before signing in. Check your inbox.",
+    "userExists": "An account with that email already exists.",
+    "weakPassword": "That password is too weak. Use at least 8 characters.",
+    "samePassword": "The new password must be different from the old one.",
+    "emailRateLimit": "We sent too many emails. Wait a moment and try again.",
+    "rateLimit": "Too many attempts. Wait a moment and try again.",
+    "signupDisabled": "Sign-ups are turned off for now.",
+    "invalidEmail": "That email isn’t valid.",
+    "sessionExpired": "Your session expired. Please sign in again.",
+    "linkExpired": "The link expired or was already used. Request a new one.",
+    "flowExpired": "The link expired. Please try again.",
+    "providerDisabled": "That sign-in method isn’t available.",
+    "usernameUnavailable": "That username isn’t available.",
+    "usernameReserved": "That username is reserved.",
+    "usernameCooldown": "You can only change your username once every 14 days.",
+    "usernameTaken": "That name is already taken or reserved.",
+    "usernameCheckFailed": "We couldn’t check it. Please try again.",
+    "notAllowed": "You don’t have permission to do that.",
+    "platformUnavailable": "That network isn’t available yet.",
+    "premium": {
+      "generic": "Premium only.",
+      "background": "Premium only: image or video backgrounds.",
+      "music": "Premium only: music on your profile.",
+      "branding": "Premium only: removing the Ópalo branding.",
+      "cursor": "Premium only: the cursor trail.",
+      "particles": "Premium only: petal particles.",
+      "nameEffect": "Premium only: Premium name effects.",
+      "font": "Premium only: extra fonts.",
+      "links": "Premium only: more than 6 links.",
+      "cardStyle": "Premium only: card designs.",
+      "arrangement": "Premium only: profile layouts."
+    }
+  },
+  "Landing": {
+    "nav": {
+      "label": "Main",
+      "features": "Features",
+      "leaderboard": "Leaderboard",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "openMenu": "Open menu",
+      "menu": "Menu",
+      "menuDescription": "Site navigation"
+    },
+    "account": {
+      "login": "Sign in",
+      "createPage": "Create my page",
+      "goToPanel": "Go to dashboard",
+      "yourAccount": "Your account: {name}",
+      "viewProfile": "View my profile",
+      "myPanel": "My dashboard",
+      "admin": "Admin",
+      "signOut": "Sign out"
+    },
+    "hero": {
+      "tag": "Video backgrounds, music and live effects",
+      "titleLine1": "Everything you are,",
+      "titleLine2": "in one link.",
+      "lead": "Create a profile page that looks like you: your background, your music, your socials and your style. Share it in your bio and let it speak for you.",
+      "note": "Free forever. Premium for 10 USD, one-time payment.",
+      "sampleBio": "all of me, in one place",
+      "sampleLocation": "somewhere"
+    },
+    "claim": {
+      "placeholder": "yourname",
+      "label": "Your username",
+      "submit": "Claim my link",
+      "invalid": "Use up to 20 letters, numbers or symbols like $ _ . ~ ! * -. It can’t end in . or !"
+    },
+    "features": {
+      "title": "Made to stand out",
+      "description": "Everything you need to make your profile one of a kind, without touching a line of code.",
+      "items": {
+        "background": {
+          "title": "Video or image backgrounds",
+          "description": "Upload a video, a GIF or a photo and adjust the blur to your liking."
+        },
+        "music": {
+          "title": "Your music playing",
+          "description": "Add a song that plays when someone opens your profile."
+        },
+        "effects": {
+          "title": "Effects with personality",
+          "description": "Particles, a glowing name, a cursor trail and fonts to choose from."
+        },
+        "presence": {
+          "title": "Live status",
+          "description": "Show whether you’re online, what you’re playing or what you’re listening to."
+        },
+        "stats": {
+          "title": "View statistics",
+          "description": "See how many people view your profile and which links they click."
+        },
+        "link": {
+          "title": "A short link",
+          "description": "opalo.me/yourname: easy to remember and to put in any bio."
+        }
+      }
+    },
+    "leaderboard": {
+      "title": "Leaderboard",
+      "description": "The 30 most visited profiles on Ópalo. Will yours make it?",
+      "period": "Period",
+      "allTime": "All time",
+      "month": "This month",
+      "podium": "Top spots",
+      "rest": "Rest of the board",
+      "place": "Place",
+      "first": "1st",
+      "second": "2nd",
+      "third": "3rd",
+      "views": "views",
+      "viewsMonth": "views this month",
+      "emptyAll": "No profiles on the board yet. Yours could be the first.",
+      "emptyMonth": "No views yet this month. The first profile to get one takes first place.",
+      "cta": "Create my page"
+    },
+    "pricing": {
+      "title": "Simple pricing",
+      "description": "Start for free. If you want everything, pay once and it’s yours forever.",
+      "free": {
+        "name": "Free",
+        "period": "forever",
+        "description": "All the basics to have your page ready today.",
+        "cta": "Start for free"
+      },
+      "premium": {
+        "name": "Premium",
+        "tag": "One-time payment",
+        "period": "USD, for life",
+        "description": "Unlock everything with no subscriptions or monthly charges.",
+        "cta": "Get Premium"
+      }
+    },
+    "faq": {
+      "titleLine1": "Frequently asked",
+      "titleLine2": "questions",
+      "items": {
+        "oneTime": {
+          "q": "Is Premium really a one-time payment?",
+          "a": "Yes. You pay 10 USD once and keep Premium for as long as your account exists. No renewals and no monthly charges."
+        },
+        "username": {
+          "q": "Can I change my username?",
+          "a": "Yes, from Settings. Your old link becomes free for someone else after 14 days."
+        },
+        "payment": {
+          "q": "Which payment methods do you accept?",
+          "a": "Credit and debit cards, plus local payment methods depending on your country."
+        },
+        "business": {
+          "q": "Does it work for my business?",
+          "a": "Of course. You can show your website, booking page, catalog and contact details with a clean look."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Your link is waiting for you.",
+      "description": "Claim your name before someone else does.",
+      "cta": "Create my page for free"
+    },
+    "footer": {
+      "legal": "Legal",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "contact": "Contact",
+      "language": "Language"
+    }
+  },
+  "Legal": {
+    "tag": "Legal",
+    "updated": "Last updated: {date}",
+    "onThisPage": "On this page",
+    "terms": {
+      "metaTitle": "Terms and conditions",
+      "metaDescription": "The rules for using Ópalo.",
+      "title": "Terms and conditions",
+      "intro": "These are the rules for using Ópalo. We wrote them as clearly as we could: if something isn’t clear, write to us.",
+      "sections": {
+        "aceptacion": {
+          "label": "Acceptance",
+          "blocks": [
+            "By creating an account or using Ópalo (opalo.me) you accept these terms and our <privacy>Privacy Policy</privacy>. If you don’t agree, don’t use the service."
+          ]
+        },
+        "tu-cuenta": {
+          "label": "Your account",
+          "blocks": [
+            "You must be at least 14 years old to create an account. If you’re a minor, you need permission from your parents or legal guardian.",
+            "You’re responsible for what happens in your account and for keeping your password safe. If you think someone got in without permission, let us know right away."
+          ]
+        },
+        "nombre-de-usuario": {
+          "label": "Your username",
+          "blocks": [
+            "Your username forms your link (opalo.me/yourname). You can change it once every 14 days; the old name becomes free for others after 14 days.",
+            "You can’t use names that impersonate another person, brand or company, or register them only to resell them. We may reclaim a name that breaks these rules."
+          ]
+        },
+        "lo-que-publicas": {
+          "label": "What you post",
+          "blocks": [
+            "You own your content and you’re responsible for it. By posting it you give us permission to show it on your profile and in previews of the service. You may not post:",
+            {
+              "list": [
+                "Illegal, hateful or violent content, or content that harasses other people.",
+                "Sexual content involving minors, under any circumstances.",
+                "Scams, misleading links, malware or attempts to steal data.",
+                "Music, images or videos you don’t have the rights or permission to use.",
+                "Other people’s personal information without their consent."
+              ]
+            }
+          ]
+        },
+        "plan-premium": {
+          "label": "Premium plan",
+          "blocks": [
+            "Premium costs 10 USD as a one-time payment. It’s not a subscription: there are no monthly charges or renewals, and you keep it for as long as your account exists and Ópalo keeps running.",
+            "You can request a refund within 5 business days of the purchase, as provided by the right of withdrawal. If it’s refunded, your account goes back to the Free plan.",
+            "Payments are processed by an external payment gateway. Ópalo doesn’t store your card details."
+          ]
+        },
+        "suspension-y-cierre": {
+          "label": "Suspension and closure",
+          "blocks": [
+            "We may suspend or close accounts that break these terms, with or without prior notice depending on the severity. An account suspended for violations doesn’t get a refund of the Premium plan.",
+            "You can delete your account whenever you want from Settings."
+          ]
+        },
+        "responsabilidad": {
+          "label": "Liability",
+          "blocks": [
+            "Ópalo is provided as is. We do our best to keep it working at all times, but we don’t guarantee it will be free of errors or interruptions, and we’re not responsible for the content users post or for the external sites they link to."
+          ]
+        },
+        "cambios": {
+          "label": "Changes",
+          "blocks": [
+            "We may update these terms. If the change is significant, we’ll let you know by email or in the app before it takes effect."
+          ]
+        },
+        "ley-aplicable-y-contacto": {
+          "label": "Governing law and contact",
+          "blocks": [
+            "These terms are governed by the laws of the Republic of Colombia. For any questions, write to us at <support>soporte@opalo.me</support>."
+          ]
+        }
+      }
+    },
+    "privacy": {
+      "metaTitle": "Privacy policy",
+      "metaDescription": "What data Ópalo keeps, what it’s used for and how you can control it.",
+      "title": "Privacy policy",
+      "intro": "What data we keep, what we use it for and how you can control it. We comply with Colombia’s personal data protection law (Law 1581 of 2012).",
+      "sections": {
+        "responsable": {
+          "label": "Who is responsible",
+          "blocks": [
+            "Ópalo (opalo.me) is responsible for processing your personal data. You can contact us at <privacyEmail>privacidad@opalo.me</privacyEmail>."
+          ]
+        },
+        "datos-que-recolectamos": {
+          "label": "What data we collect",
+          "blocks": [
+            {
+              "list": [
+                "Account data: email address and password (stored encrypted; we never see it).",
+                "Profile data: username, name, bio, location, photo, background, music and the links you choose to add.",
+                "Usage data: views and clicks on your profile. We don’t store visitors’ IP addresses; we use an anonymous identifier that changes every day.",
+                "Payment data: the status and amount of your purchase. Card details are handled by the payment gateway, not by us."
+              ]
+            }
+          ]
+        },
+        "para-que-los-usamos": {
+          "label": "What we use it for",
+          "blocks": [
+            "To create and show your profile, give you view statistics, process your Premium purchase, answer your messages, prevent fraud and abuse, and tell you about important changes. We don’t sell your data or show ads."
+          ]
+        },
+        "que-es-publico": {
+          "label": "What is public",
+          "blocks": [
+            "Everything you add to your profile is visible to anyone who opens your link. Your email and your payments are never public. You can hide your location, badges and status from Appearance."
+          ]
+        },
+        "con-quien-los-compartimos": {
+          "label": "Who we share it with",
+          "blocks": [
+            "Only with the providers we need to run: hosting and database, payment gateway and email delivery. All of them are required to protect it. We could also hand it over if a competent authority requires it by law."
+          ]
+        },
+        "cookies": {
+          "label": "Cookies",
+          "blocks": [
+            "We only use the cookies needed to keep you signed in and remember your preferences, like your language. We don’t use advertising or third-party tracking cookies."
+          ]
+        },
+        "tus-derechos": {
+          "label": "Your rights",
+          "blocks": [
+            "You can access, update and correct your data, ask us to delete it, and withdraw your consent. You can do most of this yourself from Settings. For anything else, write to us: we answer inquiries within 10 business days and complaints within 15 business days."
+          ]
+        },
+        "cuanto-tiempo": {
+          "label": "How long we keep it",
+          "blocks": [
+            "For as long as your account exists. If you delete it, we erase your data within 30 days, except what we must keep for legal or accounting obligations, such as payment records."
+          ]
+        },
+        "menores-de-edad": {
+          "label": "Minors",
+          "blocks": [
+            "Ópalo isn’t meant for children under 14. If you’re a parent or guardian and believe a minor gave us data without permission, write to us and we’ll delete it."
+          ]
+        },
+        "cambios": {
+          "label": "Changes",
+          "blocks": [
+            "If we change this policy in a significant way, we’ll let you know by email or in the app before the change applies."
+          ]
+        }
+      }
+    }
+  },
+  "Meta": {
+    "home": {
+      "title": "Ópalo — Your link in bio with video backgrounds, music and effects",
+      "description": "Create your free profile page: one link for all your socials with a video background, music, effects and stats. Premium for 10 USD, one-time payment.",
+      "keywords": "link in bio, bio link, profile page, biolink, custom profile, social media links, guns.lol, linktree alternative"
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Write to us about your account, payments, Premium, partnerships or press."
+    },
+    "login": {
+      "title": "Sign in",
+      "description": "Sign in to your Ópalo account to edit your profile and see your views."
+    },
+    "register": {
+      "title": "Create your page for free",
+      "description": "Claim your opalo.me/yourname link and create your profile page in under a minute."
+    },
+    "recover": {
+      "title": "Reset password",
+      "description": "We’ll send you a link to create a new password."
+    },
+    "newPassword": {
+      "title": "New password"
+    }
+  },
+  "NotFound": {
+    "metaTitle": "Not found",
+    "title": "Nothing here… yet",
+    "body": "This page doesn’t exist, or the profile you’re looking for isn’t available. If the name is free, it could be yours.",
+    "create": "Create my page",
+    "home": "Go to the home page"
+  },
+  "Panel": {
+    "nav": {
+      "label": "Dashboard",
+      "openMenu": "Open dashboard menu",
+      "menu": "Dashboard menu",
+      "menuDescription": "Sections of your dashboard",
+      "sections": {
+        "profile": {
+          "label": "My profile",
+          "description": "Changes show up in the preview instantly."
+        },
+        "appearance": {
+          "label": "Appearance",
+          "description": "Style, font, background and effects of your page."
+        },
+        "links": {
+          "label": "Links",
+          "description": "Your socials and links. They save instantly."
+        },
+        "music": {
+          "label": "Music",
+          "description": "The song that plays when someone visits."
+        },
+        "stats": {
+          "label": "Statistics",
+          "description": "Views of your profile and clicks on your links."
+        },
+        "premium": {
+          "label": "Premium",
+          "description": "Unlock everything with a single payment."
+        },
+        "settings": {
+          "label": "Settings",
+          "description": "Your username, email, password and account."
+        }
+      }
+    },
+    "sidebar": {
+      "upsellTitle": "Go Premium",
+      "upsellBody": "Video backgrounds, music and every effect. 10 USD, one-time payment.",
+      "unlock": "Unlock",
+      "admin": "Admin",
+      "signOut": "Sign out"
+    },
+    "header": {
+      "copyLink": "Copy link {url}",
+      "linkCopied": "Link copied",
+      "viewPage": "View my page",
+      "save": "Save changes",
+      "saved": "Saved"
+    },
+    "saveBar": {
+      "unsaved": "You have unsaved changes",
+      "unsavedShort": "Unsaved",
+      "discard": "Discard",
+      "save": "Save changes"
+    },
+    "unsavedDialog": {
+      "title": "You have unsaved changes",
+      "description": "If you leave now, they’ll be lost.",
+      "discard": "Discard",
+      "keepEditing": "Keep editing",
+      "save": "Save"
+    },
+    "premiumDialog": {
+      "title": "This is a Premium feature",
+      "body": "Unlock {feature} and everything else in Premium for {price} USD. One payment and it’s yours forever.",
+      "allFeatures": "every feature",
+      "later": "Not now",
+      "see": "See Premium"
+    },
+    "premiumFeatures": {
+      "fonts": "the extra fonts",
+      "background": "image or video backgrounds",
+      "particles": "petal particles",
+      "cursor": "the cursor trail",
+      "branding": "removing the Ópalo branding",
+      "arrangements": "profile layouts",
+      "cardStyles": "card designs",
+      "links": "unlimited links",
+      "effect": "the “{name}” effect"
+    },
+    "toasts": {
+      "saved": "Changes saved"
+    },
+    "preview": {
+      "live": "Live preview",
+      "size": "Preview size",
+      "mobile": "Phone",
+      "desktop": "Computer",
+      "expand": "Expand preview",
+      "expandShort": "Expand",
+      "desktopNote": "This is how it looks on a computer. The layout (card or centered) and the 3D tilt (move your mouse) only change on large screens.",
+      "desktopTitle": "Computer preview",
+      "desktopDescription": "Your profile at computer size",
+      "openPreview": "Preview",
+      "previewTitle": "Preview",
+      "previewDescription": "This is how your profile looks"
+    },
+    "layout": {
+      "label": "Layout",
+      "card": "Card",
+      "center": "Centered"
+    },
+    "accent": "Accent color",
+    "otherColor": "Other color",
+    "overview": {
+      "metaTitle": "My profile",
+      "totalViews": "Total views",
+      "linkClicks": "Link clicks",
+      "viewsToday": "Views today",
+      "noChange": "No change this week",
+      "plusThisWeek": "+{count} this week",
+      "percentThisWeek": "{sign}{pct}% this week",
+      "sinceYesterday": "{sign}{count} since yesterday"
+    },
+    "info": {
+      "title": "Information",
+      "description": "The first thing people see when they visit.",
+      "name": "Name",
+      "namePlaceholder": "How you want to be seen",
+      "location": "Location",
+      "locationPlaceholder": "somewhere",
+      "bio": "Bio (separate phrases with | to rotate them)",
+      "bioPlaceholder": "dev by day, gamer by night | if you read this, drink water",
+      "showPresence": "Show status",
+      "showPresenceDescription": "The card under your name, like on Discord."
+    },
+    "avatar": {
+      "upload": "Upload photo",
+      "change": "Change photo",
+      "remove": "Remove",
+      "cropTitle": "Crop your photo",
+      "cropDescription": "Drag to frame it and use the slider to zoom in.",
+      "cropAlt": "Crop preview",
+      "zoom": "Zoom",
+      "cancel": "Cancel",
+      "use": "Use photo",
+      "updated": "Photo updated",
+      "removed": "Photo removed",
+      "photoAlt": "Your photo"
+    },
+    "presence": {
+      "label": "Status",
+      "custom": "Custom",
+      "discord": "Live from Discord",
+      "textLabel": "Status text",
+      "textPlaceholder": "playing Valorant, ranked",
+      "discordId": "Discord user ID",
+      "useMine": "Use my Discord",
+      "invalidId": "The ID is 17 to 20 digits.",
+      "step1": "Join the <lanyard>Lanyard</lanyard> Discord server. That’s what lets us read your status; you don’t have to post anything there.",
+      "step2Mine": "Tap “Use my Discord”, or paste the ID of another account.",
+      "step2Copy": "Copy your ID: in Discord, Settings → Advanced → turn on Developer Mode. Then right-click your profile → Copy User ID.",
+      "step3": "Check the preview: it should show your photo, your status and what you’re playing or listening to."
+    },
+    "links": {
+      "title": "Links",
+      "description": "Drag to reorder.",
+      "icons": "Icons",
+      "iconsMono": "White",
+      "iconsColor": "In color",
+      "add": "Add link",
+      "edit": "Edit link",
+      "dialogDescription": "Type your username or paste the full link.",
+      "network": "Network",
+      "valueEmail": "email",
+      "valueCopy": "username or ID (copied when tapped)",
+      "valueLink": "username or link",
+      "cancel": "Cancel",
+      "save": "Save",
+      "addShort": "Add",
+      "updated": "Link updated",
+      "added": "{name} added",
+      "removed": "{name} removed",
+      "move": "Move {name}",
+      "show": "Show {name}",
+      "options": "{name} options",
+      "editItem": "Edit",
+      "remove": "Delete",
+      "emptyTitle": "You don’t have any links yet",
+      "emptyBody": "Add your Instagram, Discord, website or any link.",
+      "freeLimit": "{count} of {limit} links on the Free plan · <link>unlimited with Premium</link>",
+      "search": "Search networks (Instagram, Kick, OnlyFans…)",
+      "searchLabel": "Search networks",
+      "noResults": "We couldn’t find it. Use “Link” or “Website” for anything else."
+    },
+    "quick": {
+      "title": "Quick appearance",
+      "description": "More options in the Appearance section."
+    },
+    "particles": {
+      "label": "Particles",
+      "stars": "Stars",
+      "rain": "Rain",
+      "petals": "Petals",
+      "snow": "Snow",
+      "none": "None"
+    },
+    "appearance": {
+      "styleTitle": "Layout",
+      "styleDescription": "How your profile sits on the screen.",
+      "border": "Thick border",
+      "borderCard": "A light frame around the card.",
+      "borderCenter": "A light frame around the centered content.",
+      "opacityCard": "Card opacity",
+      "opacityCenter": "Content background opacity",
+      "noBackground": "(no background)",
+      "tilt": "3D tilt",
+      "tiltDescription": "The card follows the mouse (computer only).",
+      "nameTitle": "Name",
+      "nameDescription": "Font, effect and accent color.",
+      "font": "Font",
+      "backgroundTitle": "Background",
+      "backgroundDescription": "A solid color, or your own image or video.",
+      "bgType": "Type",
+      "bgColor": "Color",
+      "bgImage": "Image or GIF",
+      "bgVideo": "Video",
+      "bgSolid": "Background color",
+      "changeFile": "Change file",
+      "uploadImage": "Upload image",
+      "uploadVideo": "Upload video",
+      "videoTypes": "MP4 or WebM, up to 50 MB.",
+      "imageTypes": "PNG, JPG, WebP or GIF, up to 50 MB.",
+      "noFileYet": "Upload a file to see your background. Until then, your background color is used.",
+      "blur": "Blur",
+      "cursor": "Cursor trail",
+      "cursorDescription": "Dots that follow the mouse.",
+      "visibleTitle": "Visible options",
+      "visibleDescription": "Choose what shows on your page.",
+      "showLocation": "Location",
+      "showBadges": "Badges",
+      "showOnline": "Online dot",
+      "showPresence": "Status",
+      "showPlayer": "Music player",
+      "showBranding": "“Made with ópalo” branding",
+      "brandingPremium": "Removing it is a Premium feature."
+    },
+    "cardStyles": {
+      "label": "Card design",
+      "classic": {
+        "label": "Classic",
+        "description": "The usual: clean and dark."
+      },
+      "glass": {
+        "label": "Glass",
+        "description": "Frosted glass with a highlight on top."
+      },
+      "neon": {
+        "label": "Neon",
+        "description": "A light border that spins in your color."
+      },
+      "opal": {
+        "label": "Opal",
+        "description": "An iridescent border and a passing shine."
+      },
+      "floating": {
+        "label": "Floating avatar",
+        "description": "Your photo pops out above the card."
+      },
+      "retro": {
+        "label": "Retro",
+        "description": "A solid shadow and old-monitor scanlines."
+      },
+      "aurora": {
+        "label": "Aurora",
+        "description": "Soft lights moving inside."
+      }
+    },
+    "arrangements": {
+      "label": "Arrangement",
+      "default": {
+        "label": "Default",
+        "description": "Photo, name with badges, status, links and views at the end."
+      },
+      "stacked": {
+        "label": "Stacked",
+        "description": "Badges under the name, location on its own line and views in the corner."
+      },
+      "corners": {
+        "label": "Corners",
+        "description": "Views in the bottom-left and location in the bottom-right."
+      },
+      "links-first": {
+        "label": "Links on top",
+        "description": "Your links right under your name, status after."
+      },
+      "compact": {
+        "label": "Compact",
+        "description": "Photo next to the name on phones too, everything aligned to the start."
+      },
+      "minimal": {
+        "label": "Minimal",
+        "description": "No photo: your name leads. Links and status below."
+      }
+    },
+    "effects": {
+      "label": "Effect",
+      "dialogTitle": "Name effects",
+      "dialogDescription": "Tap one to see it with your name. It applies to your profile when you save your changes.",
+      "group": "Effects",
+      "free": "Free effect.",
+      "premiumIncluded": "Premium effect, included in your plan.",
+      "premiumLocked": "Premium effect. Unlock it with a single payment.",
+      "premiumSuffix": "{name} (Premium)",
+      "cancel": "Cancel",
+      "use": "Use this effect",
+      "unlock": "Unlock",
+      "typewriterShort": "Typewriter",
+      "items": {
+        "none": "None",
+        "glow": "Glow",
+        "typewriter": "Typewriter",
+        "rainbow": "Rainbow",
+        "blur": "Blur",
+        "scramble": "Scramble",
+        "sparkle": "White sparkles",
+        "sparkle-blue": "Blue sparkles",
+        "sparkle-green": "Green sparkles",
+        "sparkle-pink": "Pink sparkles",
+        "sparkle-red": "Red sparkles",
+        "sparkle-yellow": "Yellow sparkles",
+        "sparkle-purple": "Purple sparkles",
+        "sparkle-gold": "Gold sparkles"
+      },
+      "short": {
+        "sparkle": "white",
+        "sparkle-blue": "blue",
+        "sparkle-green": "green",
+        "sparkle-pink": "pink",
+        "sparkle-red": "red",
+        "sparkle-yellow": "yellow",
+        "sparkle-purple": "purple",
+        "sparkle-gold": "gold"
+      }
+    },
+    "tab": {
+      "title": "Tab and entry",
+      "description": "How your profile looks in the browser tab and when people enter.",
+      "tabTitle": "Tab title",
+      "animated": "Type and erase itself",
+      "animatedDescription": "The title appears letter by letter and erases itself, in a loop.",
+      "faviconAlt": "Current favicon",
+      "favicon": "Favicon",
+      "faviconHint": "Square image (PNG, WebP or GIF). Looks best from 64 × 64 px.",
+      "change": "Change",
+      "uploadFavicon": "Upload favicon",
+      "remove": "Remove",
+      "enterText": "Entry text"
+    },
+    "music": {
+      "title": "Your song",
+      "lockedDescription": "It plays when someone opens your profile.",
+      "lockedTitle": "Music is a Premium feature",
+      "lockedBody": "Upload your song, give it a title and have it play when someone taps to enter. 10 USD, one-time payment.",
+      "getPremium": "Go Premium",
+      "description": "MP3 up to 15 MB. It plays when someone taps to enter.",
+      "untitled": "Untitled",
+      "remove": "Remove",
+      "empty": "You haven’t uploaded a song yet.",
+      "change": "Change song",
+      "upload": "Upload MP3",
+      "cover": "Cover",
+      "coverAlt": "Current cover",
+      "coverHint": "Square image (PNG, JPG, WebP or GIF). It shows next to the title.",
+      "coverChange": "Change",
+      "coverUpload": "Upload cover",
+      "coverRemove": "Remove cover",
+      "titleLabel": "Title",
+      "titlePlaceholder": "midnight drive",
+      "volume": "Volume",
+      "volumeHint": "How loud it plays for visitors. They can still mute it.",
+      "volumeLevels": {
+        "silent": "Silent",
+        "low": "Quiet",
+        "medium": "Medium",
+        "loud": "Loud"
+      },
+      "showPlayer": "Show player",
+      "showPlayerDescription": "Cover, progress bar and controls on your profile."
+    },
+    "upload": {
+      "uploading": "Uploading…",
+      "typeNotAllowed": "That file type isn’t allowed.",
+      "tooBig": "The file is larger than {mb} MB.",
+      "premiumOnly": "Uploading backgrounds and music is Premium only.",
+      "tooLarge": "The file is too large.",
+      "failed": "We couldn’t upload the file. Please try again."
+    },
+    "stats": {
+      "metaTitle": "Statistics",
+      "period": "Period",
+      "days": "{count} days",
+      "views": "Views ({count} days)",
+      "clicks": "Link clicks ({count} days)",
+      "ctr": "Clicks per view",
+      "dailyTitle": "Views and clicks per day",
+      "dailyDescription": "Each person counts once every 30 minutes.",
+      "networkTitle": "Clicks per network",
+      "networkDescription": "Last {count} days.",
+      "upsell": "Want to see 30 and 90 days? <link>Detailed statistics are a Premium feature</link>.",
+      "legend": "Legend",
+      "seriesViews": "Views",
+      "seriesClicks": "Clicks",
+      "empty": "No views in this period yet. Share your link to get started.",
+      "asTable": "View as table",
+      "day": "Day",
+      "networkEmpty": "Add links to see which ones get the most clicks.",
+      "clicksCount": "{count} clicks"
+    },
+    "premium": {
+      "metaTitle": "Premium",
+      "alreadyTitle": "You’re already Premium",
+      "alreadyDescription": "Thanks for supporting Ópalo.",
+      "lifetime": "Ópalo Premium, for life",
+      "purchasedOn": "You bought Premium on {date}.",
+      "oneTimeTag": "One-time payment · no renewals",
+      "checkoutError": "We couldn’t open the checkout. Please try again in a few minutes.",
+      "yourPlan": "Your plan",
+      "currentPlan": "Current plan",
+      "payNote": "You pay with Wompi: card, PSE or Nequi. Charged in Colombian pesos: ${amount} COP."
+    },
+    "payment": {
+      "metaTitle": "Your payment",
+      "paidTitle": "You’re Premium now!",
+      "paidBody": "Thanks for supporting Ópalo. You unlocked video backgrounds, music, every effect and unlimited links, forever.",
+      "customize": "Customize my profile",
+      "uploadSong": "Upload my song",
+      "pendingTitle": "We’re confirming your payment",
+      "pendingBody": "Some methods (like PSE) take a few minutes. This page updates on its own, and we’ll also let you know when Premium is active.",
+      "failedTitle": "The payment didn’t go through",
+      "notFoundTitle": "We couldn’t find that payment",
+      "failedBody": "The payment gateway declined or canceled the payment. You weren’t charged; you can try again.",
+      "notFoundBody": "If you already paid, wait a few minutes and check your plan. If the problem continues, write to us at soporte@opalo.me.",
+      "back": "Back to Premium",
+      "premiumTag": "Premium"
+    },
+    "settings": {
+      "metaTitle": "Settings",
+      "username": {
+        "title": "Username",
+        "description": "It’s your link. You can change it once every {days} days.",
+        "label": "Your link",
+        "cooldown": "You changed your username recently. You can change it again on {date}.",
+        "reservedNote": "Your old link stays reserved for {days} days and then anyone can use it.",
+        "submit": "Change username",
+        "changed": "Your link is now opalo.me/{username}"
+      },
+      "email": {
+        "title": "Email",
+        "current": "You’re currently using {email}.",
+        "label": "New email",
+        "placeholder": "you@email.com",
+        "submit": "Change email",
+        "sent": "We sent you a link to confirm the change. Check both inboxes."
+      },
+      "password": {
+        "title": "Password",
+        "current": "Current password",
+        "new": "New password",
+        "newPlaceholder": "At least {min} characters",
+        "confirm": "Repeat the new one",
+        "mismatch": "The passwords don’t match.",
+        "noPassword": "Signed up with Google or Discord and don’t have a password? <link>Create one here</link>.",
+        "submit": "Change password",
+        "updated": "Password updated"
+      },
+      "account": {
+        "title": "Account",
+        "description": "Sign out or delete your account forever.",
+        "signOut": "Sign out",
+        "delete": "Delete my account",
+        "deleteTitle": "Delete your account?",
+        "deleteBody": "Your profile, links, files and statistics will be deleted. This can’t be undone and your link will become free.",
+        "typeOrPaste": "Type or paste",
+        "toConfirm": "to confirm",
+        "copy": "Copy {username}",
+        "copied": "Username copied",
+        "copyFailed": "We couldn’t copy it. Type it in by hand.",
+        "confirmDelete": "Delete forever"
+      }
+    },
+    "errors": {
+      "sessionExpired": "Your session expired. Please sign in again.",
+      "invalidImage": "Invalid image.",
+      "usernameTaken": "That name is already taken or reserved.",
+      "invalidEmail": "Enter a valid email.",
+      "passwordMin": "Use at least {min} characters.",
+      "noEmail": "Your account has no email; use Reset password.",
+      "wrongPassword": "The current password is incorrect.",
+      "confirmUsername": "Type your username exactly to confirm.",
+      "deleteFailed": "We couldn’t delete the account. Write to us at soporte@opalo.me.",
+      "profileMissing": "We couldn’t find your profile."
+    }
+  },
+  "Plans": {
+    "free": [
+      "Your opalo.me/yourname link",
+      "Up to 6 social links",
+      "Color background and 3 particle styles",
+      "View counter",
+      "Ópalo branding at the bottom of your profile"
+    ],
+    "premium": [
+      "Everything in the Free plan",
+      "Unlimited socials and links",
+      "Video or GIF background",
+      "Music on your profile",
+      "Every effect, font and cursor",
+      "Premium badge next to your name",
+      "Detailed statistics",
+      "No Ópalo branding"
+    ]
+  },
+  "Platforms": {
+    "groups": {
+      "social": "Social",
+      "messaging": "Messaging",
+      "video": "Video and streaming",
+      "music": "Music",
+      "gaming": "Gaming",
+      "creators": "Creators",
+      "support": "Support and payments",
+      "adult": "Adult content (18+)",
+      "other": "Contact and other"
+    },
+    "labels": {
+      "email": "Email",
+      "web": "Website",
+      "other": "Link"
+    },
+    "ph": {
+      "username": "your username",
+      "usernameOrLink": "your username or link",
+      "channel": "your channel",
+      "youtube": "@yourchannel",
+      "profileLink": "link to your profile",
+      "email": "you@email.com",
+      "discord": "your username or discord.gg/invite",
+      "paypal": "your paypal.me username",
+      "signal": "your Signal username",
+      "publication": "your publication",
+      "epic": "your Epic name",
+      "idOrLink": "your ID or link",
+      "gamertag": "your gamertag",
+      "eth": "your ETH or ENS address",
+      "btc": "your BTC address",
+      "blog": "your blog",
+      "payId": "your Pay ID",
+      "id": "your ID",
+      "wechat": "your WeChat ID",
+      "psn": "your PSN ID",
+      "line": "your LINE ID",
+      "phone": "number with country code, e.g. 15551234567",
+      "paymentLink": "payment link",
+      "riot": "Name#TAG",
+      "battlenet": "Name#1234",
+      "mastodon": "@user@instance.social"
+    }
+  },
+  "Profile": {
+    "enter": "tap to enter",
+    "enterLabel": "Enter {username}’s profile",
+    "profileOf": "{name}’s profile",
+    "views": "views",
+    "joinedToday": "joined today",
+    "joined": "joined {when}",
+    "online": "Online",
+    "badges": "Badges",
+    "madeWith": "Made with ópalo",
+    "unmute": "Unmute",
+    "mute": "Mute",
+    "untitled": "Untitled",
+    "player": {
+      "seek": "Song position",
+      "play": "Play",
+      "pause": "Pause",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "links": {
+      "tapToCopy": "{name} · tap to copy",
+      "copyLabel": "{name}: {value} (copy)",
+      "copied": "{name} copied: {value}"
+    },
+    "discord": {
+      "online": "Online",
+      "idle": "Idle",
+      "dnd": "Do Not Disturb",
+      "offline": "Offline",
+      "listening": "Listening to {song} · {artist}",
+      "playing": "Playing {name}",
+      "streaming": "Streaming {name}",
+      "listeningTo": "Listening to {name}",
+      "watching": "Watching {name}",
+      "competing": "Competing in {name}",
+      "notConnected": "Discord not connected",
+      "notMonitored": "Join the Lanyard server for it to show.",
+      "error": "We couldn’t read your Discord status."
+    },
+    "report": {
+      "trigger": "Report profile",
+      "title": "Report @{username}",
+      "description": "Tell us what’s going on. The Ópalo team reviews every report.",
+      "loading": "Loading",
+      "signInNeeded": "You need to sign in to send a report.",
+      "signIn": "Sign in",
+      "reason": "Reason",
+      "reasonPlaceholder": "Choose a reason",
+      "reasons": {
+        "spam": "Spam",
+        "ofensivo": "Offensive content",
+        "estafa": "Scam or fraud",
+        "suplantacion": "Impersonation",
+        "otro": "Other reason"
+      },
+      "details": "Details (optional)",
+      "detailsPlaceholder": "What did you see on this profile?",
+      "chooseReason": "Choose a reason.",
+      "ownProfile": "You can’t report your own profile.",
+      "failed": "We couldn’t send the report. Please try again.",
+      "thanks": "Thanks. We’ll review this profile.",
+      "submit": "Send report"
+    },
+    "meta": {
+      "notFound": "Profile not found",
+      "fallbackDescription": "Check out {name}’s profile on Ópalo.",
+      "ogAlt": "{name}’s profile on Ópalo"
+    },
+    "photoOf": "Photo of {name}"
+  },
+  "Validation": {
+    "email": "Enter a valid email.",
+    "passwordMin": "Use at least 8 characters.",
+    "passwordMax": "Maximum 72 characters.",
+    "passwordsMismatch": "The passwords don’t match.",
+    "identifier": "Enter your email or username.",
+    "password": "Enter your password.",
+    "terms": "You must accept the Terms and the Privacy Policy.",
+    "username": {
+      "required": "Choose a username.",
+      "spaces": "It can’t contain spaces.",
+      "max": "Maximum {max} characters.",
+      "notAllowed": "Not allowed: {chars}",
+      "endsWith": "It can’t end in “.” or “!”.",
+      "invalid": "That name isn’t valid."
+    },
+    "contact": {
+      "name": "Enter your name.",
+      "nameMax": "Maximum 80 characters.",
+      "email": "Enter a valid email.",
+      "reason": "Choose a reason.",
+      "username": "That username isn’t valid.",
+      "messageMin": "Tell us a bit more (at least 10 characters).",
+      "messageMax": "Maximum 1000 characters.",
+      "checkFields": "Check the highlighted fields.",
+      "noKey": "We couldn’t send your message. Write to us directly at soporte@opalo.me.",
+      "failed": "We couldn’t send your message. Please try again in a few minutes."
+    },
+    "maxChars": "Maximum {max} characters.",
+    "color": "Invalid color.",
+    "discordId": "The Discord ID is 17 to 20 digits.",
+    "platform": "Choose a network.",
+    "linkValue": "Enter your username or link.",
+    "linkInvalid": "That link isn’t valid."
+  }
+}

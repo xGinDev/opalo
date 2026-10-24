@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import { Eye, Menu } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { usePathname } from "@/i18n/navigation";
+import { isRtl } from "@/i18n/routing";
 import { sectionFor } from "./nav";
 import { LivePreview } from "./live-preview";
 import { PanelHeader } from "./panel-header";
@@ -16,10 +18,13 @@ import { SaveBar } from "./save-bar";
 export function PanelShell({ children }: { children: React.ReactNode }) {
   const section = sectionFor(usePathname());
   const [menuOpen, setMenuOpen] = useState(false);
+  const t = useTranslations("Panel");
+  // Sheets slide from the start/end edges, which swap in Arabic.
+  const rtl = isRtl(useLocale());
 
   return (
     <div className="flex min-h-dvh">
-      <aside className="sticky top-0 hidden h-dvh w-[264px] shrink-0 overflow-y-auto border-r border-line lg:block">
+      <aside className="sticky top-0 hidden h-dvh w-[264px] shrink-0 overflow-y-auto border-e border-line lg:block">
         <PanelSidebar />
       </aside>
 
@@ -28,13 +33,13 @@ export function PanelShell({ children }: { children: React.ReactNode }) {
           <Logo href="/" />
           <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Abrir menú del panel">
+              <Button variant="ghost" size="icon" aria-label={t("nav.openMenu")}>
                 <Menu className="size-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[280px] border-line bg-background p-0">
-              <SheetTitle className="sr-only">Menú del panel</SheetTitle>
-              <SheetDescription className="sr-only">Secciones de tu panel</SheetDescription>
+            <SheetContent side={rtl ? "right" : "left"} className="w-[280px] border-line bg-background p-0">
+              <SheetTitle className="sr-only">{t("nav.menu")}</SheetTitle>
+              <SheetDescription className="sr-only">{t("nav.menuDescription")}</SheetDescription>
               <PanelSidebar onNavigate={() => setMenuOpen(false)} />
             </SheetContent>
           </Sheet>
@@ -59,13 +64,13 @@ export function PanelShell({ children }: { children: React.ReactNode }) {
       {section.preview && (
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="opal" className="fixed right-4 bottom-4 z-40 shadow-lg xl:hidden">
-              <Eye aria-hidden /> Vista previa
+            <Button variant="opal" className="fixed end-4 bottom-4 z-40 shadow-lg xl:hidden">
+              <Eye aria-hidden /> {t("preview.openPreview")}
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-auto max-w-full items-center justify-center overflow-y-auto border-line bg-background p-5">
-            <SheetTitle className="sr-only">Vista previa</SheetTitle>
-            <SheetDescription className="sr-only">Así se ve tu perfil</SheetDescription>
+          <SheetContent side={rtl ? "left" : "right"} className="w-auto max-w-full items-center justify-center overflow-y-auto border-line bg-background p-5">
+            <SheetTitle className="sr-only">{t("preview.previewTitle")}</SheetTitle>
+            <SheetDescription className="sr-only">{t("preview.previewDescription")}</SheetDescription>
             <LivePreview />
           </SheetContent>
         </Sheet>

@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useMessageText } from "@/i18n/use-message-text";
 import { resolveReports } from "@/app/admin/actions";
 import { Button } from "@/components/ui/button";
 import { REPORT_REASON_LABELS, type ReportGroup } from "@/lib/admin/shared";
@@ -11,12 +12,13 @@ import { profilePath } from "@/lib/username";
 /** Figma 8:797: reported profile with Descartar / Suspender (admin_resolve_reports). */
 export function ReportCard({ group, showDetails = false }: { group: ReportGroup; showDetails?: boolean }) {
   const [isPending, startTransition] = useTransition();
+  const text = useMessageText();
 
   function resolve(action: "dismiss" | "suspend") {
     startTransition(async () => {
       const result = await resolveReports(group.profileId, action);
       if (result.ok) toast.success(action === "suspend" ? `@${group.username} suspendido` : "Reportes descartados");
-      else toast.error(result.error);
+      else toast.error(text(result.error));
     });
   }
 

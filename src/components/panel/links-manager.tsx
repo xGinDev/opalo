@@ -1,7 +1,6 @@
 "use client";
 
 import { useId, useState, useTransition } from "react";
-import Link from "next/link";
 import {
   DndContext,
   type DragEndEvent,
@@ -14,14 +13,17 @@ import {
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Ellipsis, GripVertical, Loader2, Pencil, Plus, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { addLink, deleteLink, reorderLinks, updateLink } from "@/app/panel/actions";
+import { addLink, deleteLink, reorderLinks, updateLink } from "@/app/[locale]/panel/actions";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Link } from "@/i18n/navigation";
+import { useMessageText } from "@/i18n/use-message-text";
 import type { LinkRow } from "@/lib/panel/types";
 import { platformMeta } from "@/lib/profile/links";
 import { linkSchema } from "@/lib/validation/panel";
@@ -40,12 +42,15 @@ function LinkEditor({ state, onClose }: { state: EditorState; onClose: () => voi
   const [value, setValue] = useState(editing?.value ?? "");
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("Panel.links");
+  const text = useMessageText();
+  const meta = platformMeta(platform);
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
     const parsed = linkSchema.safeParse({ platform, value });
     if (!parsed.success) {
-      setError(parsed.error.issues[0].message);
+      setError(text(parsed.error.issues[0].message));
       return;
     }
     startTransition(async () => {
@@ -54,20 +59,20 @@ function LinkEditor({ state, onClose }: { state: EditorState; onClose: () => voi
         setLinks((links) => links.map((l) => (l.id === before.id ? { ...l, ...parsed.data } : l)));
         onClose();
         const result = await updateLink(before.id, parsed.data);
-        if (result.ok) toast.success("Red actualizada");
+        if (result.ok) toast.success(t("updated"));
         else {
           setLinks((links) => links.map((l) => (l.id === before.id ? before : l)));
-          toast.error(result.error);
+          toast.error(text(result.error));
         }
       } else {
         const result = await addLink(parsed.data);
         if (result.ok && result.data) {
           const created = result.data;
           setLinks((links) => [...links, created]);
-          toast.success(`${platformMeta(created.platform).label} añadido`);
+          toast.success(t("added", { name: text(platformMeta(created.platform).label) }));
           onClose();
         } else if (!result.ok) {
-          setError(result.error);
+          setError(text(result.error));
         }
       }
     });
@@ -78,11 +83,11 @@ function LinkEditor({ state, onClose }: { state: EditorState; onClose: () => voi
       <DialogContent className="max-w-lg">
         <form onSubmit={submit} className="flex flex-col gap-5" noValidate>
           <DialogHeader>
-            <DialogTitle>{editing ? "Editar red" : "Añadir red"}</DialogTitle>
-            <DialogDescription>Escribe tu usuario o pega el enlace completo.</DialogDescription>
+            <DialogTitle>{editing ? t("edit") : t("add")}</DialogTitle>
+            <DialogDescription>{t("dialogDescription")}</DialogDescription>
           </DialogHeader>
           <div className="grid gap-2">
-            <Label>Red</Label>
+            <Label>{t("network")}</Label>
             <PlatformPicker
               value={platform}
               onChange={(v) => {
@@ -93,13 +98,13 @@ function LinkEditor({ state, onClose }: { state: EditorState; onClose: () => voi
           </div>
           <div className="grid gap-2">
             <Label htmlFor="link-value">
-              {platformMeta(platform).label} · {platform === "email" ? "correo" : platformMeta(platform).copy ? "usuario o ID (se copia al tocarlo)" : "usuario o enlace"}
+              {text(meta.label)} · {platform === "email" ? t("valueEmail") : meta.copy ? t("valueCopy") : t("valueLink")}
             </Label>
             <Input
               id="link-value"
               value={value}
               onChange={(e) => { setValue(e.target.value); setError(null); }}
-              placeholder={platformMeta(platform).placeholder}
+              placeholder={text(meta.placeholder)}
               maxLength={300}
               autoCapitalize="none"
               spellCheck={false}
@@ -109,11 +114,11 @@ function LinkEditor({ state, onClose }: { state: EditorState; onClose: () => voi
           </div>
           <DialogFooter>
             <Button type="button" variant="ghost" onClick={onClose}>
-              Cancelar
+              {t("cancel")}
             </Button>
             <Button type="submit" variant="opal" disabled={isPending}>
               {isPending && <Loader2 className="animate-spin" aria-hidden />}
-              {editing ? "Guardar" : "Añadir"}
+              {editing ? t("save") : t("addShort")}
             </Button>
           </DialogFooter>
         </form>
@@ -126,7 +131,10 @@ function LinkEditor({ state, onClose }: { state: EditorState; onClose: () => voi
 function LinkRowItem({ link, onEdit }: { link: LinkRow; onEdit: (l: LinkRow) => void }) {
   const { links, setLinks } = usePanel();
   const { attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } = useSortable({ id: link.id });
+  const t = useTranslations("Panel.links");
+  const text = useMessageText();
   const meta = platformMeta(link.platform);
+  const label = text(meta.label);
   const Icon = meta.icon;
 
   async function toggle(enabled: boolean) {
@@ -134,7 +142,7 @@ function LinkRowItem({ link, onEdit }: { link: LinkRow; onEdit: (l: LinkRow) => 
     const result = await updateLink(link.id, { enabled });
     if (!result.ok) {
       setLinks((links) => links.map((l) => (l.id === link.id ? { ...l, enabled: !enabled } : l)));
-      toast.error(result.error);
+      toast.error(text(result.error));
     }
   }
 
@@ -142,10 +150,10 @@ function LinkRowItem({ link, onEdit }: { link: LinkRow; onEdit: (l: LinkRow) => 
     const previous = links;
     setLinks((current) => current.filter((l) => l.id !== link.id));
     const result = await deleteLink(link.id);
-    if (result.ok) toast.success(`${meta.label} eliminado`);
+    if (result.ok) toast.success(t("removed", { name: label }));
     else {
       setLinks(() => previous);
-      toast.error(result.error);
+      toast.error(text(result.error));
     }
   }
 
@@ -154,7 +162,7 @@ function LinkRowItem({ link, onEdit }: { link: LinkRow; onEdit: (l: LinkRow) => 
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition }}
       className={cn(
-        "flex items-center gap-3.5 rounded-md bg-surface-2 py-2.5 pr-3.5 pl-2.5",
+        "flex items-center gap-3.5 rounded-md bg-surface-2 py-2.5 ps-2.5 pe-3.5",
         isDragging && "relative z-10 shadow-lg ring-1 ring-lilac/50",
         !link.enabled && "opacity-60",
       )}
@@ -165,7 +173,7 @@ function LinkRowItem({ link, onEdit }: { link: LinkRow; onEdit: (l: LinkRow) => 
         {...attributes}
         {...listeners}
         className="cursor-grab touch-none rounded-sm text-muted-foreground active:cursor-grabbing"
-        aria-label={`Mover ${meta.label}`}
+        aria-label={t("move", { name: label })}
       >
         <GripVertical className="size-[18px]" aria-hidden />
       </button>
@@ -173,22 +181,22 @@ function LinkRowItem({ link, onEdit }: { link: LinkRow; onEdit: (l: LinkRow) => 
         <Icon className="size-[18px]" aria-hidden />
       </span>
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <p className="text-sm font-bold">{meta.label}</p>
+        <p className="text-sm font-bold">{label}</p>
         <p className="truncate text-[13px] font-medium text-muted-foreground">{link.value}</p>
       </div>
-      <Switch checked={link.enabled} onCheckedChange={toggle} aria-label={`Mostrar ${meta.label}`} />
+      <Switch checked={link.enabled} onCheckedChange={toggle} aria-label={t("show", { name: label })} />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon-sm" aria-label={`Opciones de ${meta.label}`}>
+          <Button variant="ghost" size="icon-sm" aria-label={t("options", { name: label })}>
             <Ellipsis className="size-[18px]" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onSelect={() => onEdit(link)}>
-            <Pencil /> Editar
+            <Pencil /> {t("editItem")}
           </DropdownMenuItem>
           <DropdownMenuItem variant="destructive" onSelect={remove}>
-            <Trash2 /> Eliminar
+            <Trash2 /> {t("remove")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -198,6 +206,8 @@ function LinkRowItem({ link, onEdit }: { link: LinkRow; onEdit: (l: LinkRow) => 
 
 /** Figma 7:350 "Redes": sortable list, toggles, edit/delete and the free-plan limit. */
 export function LinksManager() {
+  const t = useTranslations("Panel.links");
+  const text = useMessageText();
   const { links, setLinks, isPremium, requirePremium } = usePanel();
   const [editor, setEditor] = useState<EditorState>(null);
   const dndId = useId(); // stable ids for dnd-kit's aria attributes across SSR and hydration
@@ -218,7 +228,7 @@ export function LinksManager() {
     const result = await reorderLinks(reordered.map((l) => l.id));
     if (!result.ok) {
       setLinks(() => previous);
-      toast.error(result.error);
+      toast.error(text(result.error));
     }
   }
 
@@ -226,8 +236,8 @@ export function LinksManager() {
     <div className="flex flex-col gap-5">
       {sorted.length === 0 ? (
         <div className="flex flex-col items-center gap-1 rounded-md border border-dashed border-line px-4 py-8 text-center">
-          <p className="text-sm font-bold">Aún no tienes redes</p>
-          <p className="text-[13px] text-muted-foreground">Añade tu Instagram, Discord, sitio web o cualquier enlace.</p>
+          <p className="text-sm font-bold">{t("emptyTitle")}</p>
+          <p className="text-[13px] text-muted-foreground">{t("emptyBody")}</p>
         </div>
       ) : (
         <DndContext id={dndId} sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
@@ -244,16 +254,21 @@ export function LinksManager() {
       <Button
         variant="secondary"
         className="w-full"
-        onClick={() => (atLimit ? requirePremium("redes ilimitadas") : setEditor({ mode: "add" }))}
+        onClick={() => (atLimit ? requirePremium("Panel.premiumFeatures.links") : setEditor({ mode: "add" }))}
       >
-        <Plus aria-hidden /> Añadir red
+        <Plus aria-hidden /> {t("add")}
       </Button>
       {!isPremium && (
         <p className="-mt-2 text-center text-[13px] text-muted-foreground">
-          {links.length} de {FREE_LINK_LIMIT} redes en el plan Gratis ·{" "}
-          <Link href="/panel/premium" className="font-bold text-lilac hover:underline">
-            ilimitadas con Premium
-          </Link>
+          {t.rich("freeLimit", {
+            count: links.length,
+            limit: FREE_LINK_LIMIT,
+            link: (chunks) => (
+              <Link href="/panel/premium" className="font-bold text-lilac hover:underline">
+                {chunks}
+              </Link>
+            ),
+          })}
         </p>
       )}
 

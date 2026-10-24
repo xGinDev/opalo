@@ -1,10 +1,12 @@
 import type { LucideIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { GlowOrb } from "@/components/opal/glow-orb";
 import { opalIcons } from "@/components/opal/icons";
 import { cn } from "@/lib/utils";
 
 type SampleCard = {
   name: string;
+  /** Key under Auth.visual.samples. */
   bio: string;
   colors: [string, string];
   icons: LucideIcon[];
@@ -14,21 +16,21 @@ type SampleCard = {
 const CARDS: SampleCard[] = [
   {
     name: "kairo",
-    bio: "stream de martes a sábado",
+    bio: "kairo",
     colors: ["#f6a8cf", "#b9a7ff"],
     icons: [opalIcons.play, opalIcons.chat, opalIcons.music],
     className: "top-[26px] left-0 -rotate-6",
   },
   {
     name: "luna",
-    bio: "fotos, viajes y café",
+    bio: "luna",
     colors: ["#f2d49b", "#f6a8cf"],
     icons: [opalIcons.camera, opalIcons.music, opalIcons.globe],
     className: "top-0 left-[292px] rotate-5",
   },
   {
     name: "Estudio Norte",
-    bio: "diseño web para marcas",
+    bio: "studio",
     colors: ["#8fe3dc", "#f2d49b"],
     icons: [opalIcons.globe, opalIcons.chat],
     className: "top-[232px] left-[180px] -rotate-2",
@@ -37,6 +39,7 @@ const CARDS: SampleCard[] = [
 
 /** Figma 6:169 "Panel visual" shared by login and sign-up. Decorative. */
 export function AuthVisualPanel({ className }: { className?: string }) {
+  const t = useTranslations("Auth.visual");
   return (
     <div
       aria-hidden
@@ -65,7 +68,7 @@ export function AuthVisualPanel({ className }: { className?: string }) {
             <span className="font-display text-2xl font-extrabold tracking-[-0.02em] whitespace-nowrap [text-shadow:0_0_12px_rgba(255,255,255,0.45)]">
               {card.name}
             </span>
-            <span className="text-[13px] font-semibold whitespace-nowrap text-muted-foreground">{card.bio}</span>
+            <span className="text-[13px] font-semibold whitespace-nowrap text-muted-foreground">{t(`samples.${card.bio}`)}</span>
             <span className="flex gap-3 pt-1.5">
               {card.icons.map((Icon, i) => (
                 <Icon key={i} className="size-[18px]" strokeWidth={1.75} />
@@ -76,10 +79,10 @@ export function AuthVisualPanel({ className }: { className?: string }) {
       </div>
 
       <p className="relative font-display text-[52px] leading-none font-extrabold tracking-[-0.03em]">
-        Tu perfil, tu estilo.
+        {t("title")}
       </p>
       <p className="relative max-w-[520px] text-[17px] leading-normal text-muted-foreground">
-        Más de 40 opciones para personalizar: fondos, música, efectos, tipografías y más.
+        {t("description")}
       </p>
     </div>
   );

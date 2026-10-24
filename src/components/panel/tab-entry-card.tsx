@@ -1,10 +1,11 @@
 "use client";
 
 import { Trash2, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { DEFAULT_ENTER_TEXT, tabTitleOf } from "@/lib/profile/format";
+import { tabTitleOf } from "@/lib/profile/format";
 import { Counter, PanelCard, ToggleRow } from "./editor-ui";
 import { FileUploadButton } from "./file-upload-button";
 import { usePanel } from "./panel-provider";
@@ -27,16 +28,18 @@ function TabPreview({ title, faviconUrl }: { title: string; faviconUrl: string |
 
 /** Browser tab (title, typing animation, favicon) and the "toca para entrar" screen text. */
 export function TabAndEntryCard() {
+  const t = useTranslations("Panel.tab");
+  const tProfile = useTranslations("Profile");
   const { draft, data, updateSettings } = usePanel();
   const s = draft.settings;
   const title = tabTitleOf(s, data.profile.username);
 
   return (
-    <PanelCard title="Pestaña y entrada" description="Cómo se ve tu perfil en la pestaña del navegador y al entrar.">
+    <PanelCard title="Panel.tab.title" description="Panel.tab.description">
       <TabPreview title={title} faviconUrl={s.favicon_url} />
 
       <div className="grid gap-2">
-        <Label htmlFor="tab_title">Título de la pestaña</Label>
+        <Label htmlFor="tab_title">{t("tabTitle")}</Label>
         <Input
           id="tab_title"
           value={s.tab_title ?? ""}
@@ -47,8 +50,8 @@ export function TabAndEntryCard() {
         <Counter value={s.tab_title} max={40} />
       </div>
       <ToggleRow
-        label="Escribirse y borrarse solo"
-        description="El título aparece letra por letra y se borra, en bucle."
+        label="Panel.tab.animated"
+        description="Panel.tab.animatedDescription"
         checked={s.tab_title_animated}
         onChange={(tab_title_animated) => updateSettings({ tab_title_animated })}
       />
@@ -56,34 +59,34 @@ export function TabAndEntryCard() {
       <div className="flex flex-wrap items-center gap-3 rounded-md bg-surface-2 p-4">
         <div className="flex size-10 items-center justify-center rounded-sm bg-background">
           {/* eslint-disable-next-line @next/next/no-img-element -- user upload / static brand asset */}
-          <img src={s.favicon_url ?? "/brand/gem.svg"} alt="Favicon actual" className="size-6 rounded-[4px] object-cover" />
+          <img src={s.favicon_url ?? "/brand/gem.svg"} alt={t("faviconAlt")} className="size-6 rounded-[4px] object-cover" />
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
-          <p className="text-sm font-bold">Favicon</p>
-          <p className="text-[13px] text-muted-foreground">Imagen cuadrada (PNG, WebP o GIF). Se ve mejor desde 64 × 64 px.</p>
+          <p className="text-sm font-bold">{t("favicon")}</p>
+          <p className="text-[13px] text-muted-foreground">{t("faviconHint")}</p>
         </div>
         <FileUploadButton
           bucket="avatars"
           name="favicon"
-          label={s.favicon_url ? "Cambiar" : "Subir favicon"}
+          label={s.favicon_url ? t("change") : t("uploadFavicon")}
           accept={FAVICON_TYPES}
           onUploaded={(favicon_url) => updateSettings({ favicon_url })}
         />
         {s.favicon_url && (
           <Button variant="ghost" size="sm" onClick={() => updateSettings({ favicon_url: null })}>
-            <Trash2 aria-hidden /> Quitar
+            <Trash2 aria-hidden /> {t("remove")}
           </Button>
         )}
       </div>
 
       <div className="grid gap-2">
-        <Label htmlFor="enter_text">Texto de entrada</Label>
+        <Label htmlFor="enter_text">{t("enterText")}</Label>
         <Input
           id="enter_text"
           value={s.enter_text ?? ""}
           onChange={(e) => updateSettings({ enter_text: e.target.value })}
           maxLength={40}
-          placeholder={DEFAULT_ENTER_TEXT}
+          placeholder={tProfile("enter")}
         />
         <Counter value={s.enter_text} max={40} />
       </div>

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { usePanel } from "./panel-provider";
@@ -12,6 +13,7 @@ import { usePanel } from "./panel-provider";
  * needs a scroll back to the header. Ctrl/⌘+S saves too.
  */
 export function SaveBar({ aboveMobileButton }: { aboveMobileButton: boolean }) {
+  const t = useTranslations("Panel.saveBar");
   const { dirty, saving, save, discard } = usePanel();
   const reduceMotion = useReducedMotion();
 
@@ -42,19 +44,19 @@ export function SaveBar({ aboveMobileButton }: { aboveMobileButton: boolean }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto flex w-full max-w-[560px] items-center gap-3 rounded-2xl border border-line bg-surface/90 py-2.5 pr-2.5 pl-4 shadow-[0_18px_40px_rgba(0,0,0,0.55)] backdrop-blur-xl"
+            className="pointer-events-auto flex w-full max-w-[560px] items-center gap-3 rounded-2xl border border-line bg-surface/90 py-2.5 ps-4 pe-2.5 shadow-[0_18px_40px_rgba(0,0,0,0.55)] backdrop-blur-xl"
           >
             <span className="size-2 shrink-0 rounded-full bg-gold" aria-hidden />
             <p className="min-w-0 flex-1 truncate text-sm font-semibold">
-              <span className="sm:hidden">Sin guardar</span>
-              <span className="hidden sm:inline">Tienes cambios sin guardar</span>
+              <span className="sm:hidden">{t("unsavedShort")}</span>
+              <span className="hidden sm:inline">{t("unsaved")}</span>
             </p>
             <Button variant="ghost" size="sm" onClick={discard} disabled={saving}>
-              Descartar
+              {t("discard")}
             </Button>
             <Button variant="opal" size="sm" onClick={save} disabled={saving}>
               {saving && <Loader2 className="animate-spin" aria-hidden />}
-              Guardar cambios
+              {t("save")}
             </Button>
           </motion.div>
         )}

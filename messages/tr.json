@@ -1,0 +1,1161 @@
+{
+  "Auth": {
+    "visual": {
+      "title": "Senin profilin, senin tarzın.",
+      "description": "Onu kendine ait kılmanın 40’tan fazla yolu: arka planlar, müzik, efektler, yazı tipleri ve daha fazlası.",
+      "samples": {
+        "kairo": "salıdan cumartesiye yayında",
+        "luna": "fotoğraflar, seyahat ve kahve",
+        "studio": "markalar için web tasarımı"
+      }
+    },
+    "divider": "ya da e-postanla",
+    "oauth": {
+      "google": "Google ile devam et",
+      "discord": "Discord ile devam et"
+    },
+    "login": {
+      "title": "Tekrar hoş geldin",
+      "description": "Profilini düzenlemek ve görüntülenmelerini görmek için giriş yap.",
+      "noAccount": "Hesabın yok mu? <link>Ücretsiz oluştur</link>",
+      "identifier": "E-posta veya kullanıcı adı",
+      "identifierPlaceholder": "sen@email.com veya kullanıcı adın",
+      "password": "Şifre",
+      "remember": "Beni hatırla",
+      "forgot": "Şifreni mi unuttun?",
+      "submit": "Giriş yap"
+    },
+    "register": {
+      "title": "Sayfanı oluştur",
+      "description": "Bağlantını seç ve ücretsiz başla. Bir dakikadan kısa sürer.",
+      "haveAccount": "Zaten hesabın var mı? <link>Giriş yap</link>",
+      "email": "E-posta",
+      "emailPlaceholder": "sen@email.com",
+      "password": "Şifre",
+      "passwordPlaceholder": "En az 8 karakter",
+      "terms": "<terms>Kullanım Koşulları</terms>’nı ve <privacy>Gizlilik Politikası</privacy>’nı kabul ediyorum",
+      "submit": "Hesabımı oluştur",
+      "checkEmailTitle": "E-postanı kontrol et",
+      "checkEmailBody": "Hesabını onaylamak için <strong>{email}</strong> adresine bir bağlantı gönderdik. Aynı tarayıcıda aç, seni doğrudan paneline götürelim."
+    },
+    "username": {
+      "label": "Bağlantın",
+      "placeholder": "adın",
+      "checking": "Kontrol ediliyor…",
+      "available": "Kullanılabilir",
+      "unavailable": "Kullanılamaz"
+    },
+    "recover": {
+      "title": "Hesabına yeniden eriş",
+      "description": "Hesabının e-postasını yaz, yeni bir şifre oluşturman için sana bir bağlantı gönderelim.",
+      "remembered": "Hatırladın mı? <link>Giriş yap</link>",
+      "email": "E-posta",
+      "submit": "Bağlantı gönder",
+      "sentTitle": "E-postanı kontrol et",
+      "sentBody": "<strong>{email}</strong> için bir hesap varsa, yeni bir şifre oluşturma bağlantısı gönderdik. Birkaç dakika sürebilir."
+    },
+    "newPassword": {
+      "expiredTitle": "Bağlantının süresi doldu",
+      "expiredBody": "Şifre sıfırlama bağlantıları kısa sürelidir ve yalnızca bir kez çalışır. Yenisini iste.",
+      "requestAnother": "Yeni bağlantı iste",
+      "title": "Yeni şifre oluştur",
+      "description": "En az 8 karakter kullan.",
+      "password": "Yeni şifre",
+      "passwordPlaceholder": "En az 8 karakter",
+      "confirm": "Şifreyi tekrar yaz",
+      "submit": "Şifreyi kaydet",
+      "done": "Tamam, şifren değiştirildi."
+    }
+  },
+  "Common": {
+    "homeLabel": "Ópalo, ana sayfaya git",
+    "tagline": "Olduğun her şey, tek bir bağlantıda.",
+    "premium": "Premium",
+    "free": "Ücretsiz",
+    "close": "Kapat",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "copied": "Kopyalandı",
+    "loading": "Yükleniyor…",
+    "error": "Bir şeyler ters gitti. Lütfen tekrar dene."
+  },
+  "Contact": {
+    "tag": "İletişim",
+    "title": "Konuşalım.",
+    "lead": "Hesabınla ilgili bir sorun, Premium hakkında bir soru ya da Ópalo için bir fikir mi var? Bize yaz, 48 iş saati içinde yanıt verelim.",
+    "channels": {
+      "support": {
+        "title": "Destek",
+        "description": "Hesap, giriş, ödemeler ve Premium."
+      },
+      "press": {
+        "title": "İş birlikleri ve basın",
+        "description": "Ortaklıklar, içerik üreticileri ve medya."
+      },
+      "report": {
+        "title": "Profil bildir",
+        "detail": "Her profildeki “Bildir” düğmesi",
+        "description": "Kimliğe bürünme, dolandırıcılık veya kuralları ihlal eden içerik."
+      }
+    },
+    "form": {
+      "title": "Bize mesaj gönder",
+      "subtitle": "Kullanıcı adın hariç tüm alanlar zorunludur.",
+      "name": "Ad",
+      "namePlaceholder": "Adın",
+      "email": "E-posta",
+      "emailPlaceholder": "sen@email.com",
+      "reason": "Konu",
+      "reasonPlaceholder": "Bir konu seç",
+      "username": "Ópalo kullanıcı adın (isteğe bağlı)",
+      "message": "Mesaj",
+      "messagePlaceholder": "Ne olduğunu ya da nasıl yardımcı olabileceğimizi anlat…",
+      "honeypot": "Web sitesi",
+      "submit": "Mesajı gönder",
+      "sending": "Gönderiliyor…",
+      "consent": "Göndererek, verilerini yalnızca sana yanıt vermek için kullanmamızı kabul edersin; ayrıntılar <privacy>Gizlilik Politikası</privacy>’nda.",
+      "sentToast": "Mesaj gönderildi. Yakında sana döneceğiz.",
+      "sentTitle": "Mesaj gönderildi!",
+      "sentBody": "Verdiğin e-postaya 48 iş saati içinde yanıt vereceğiz.",
+      "sendAnother": "Başka bir mesaj gönder"
+    },
+    "reasons": {
+      "cuenta": "Hesap ve giriş",
+      "pagos": "Ödemeler ve Premium",
+      "problema": "Sorun bildir",
+      "alianzas": "İş birlikleri ve basın",
+      "otro": "Diğer"
+    }
+  },
+  "Errors": {
+    "generic": "Bir şeyler ters gitti. Lütfen tekrar dene.",
+    "loginFailed": "Giriş yapamadık. Lütfen tekrar dene.",
+    "checkLogin": "E-postanı veya kullanıcı adını ve şifreni kontrol et.",
+    "emailOnly": "Şu anda yalnızca e-postanla giriş yapabilirsin.",
+    "invalidCredentials": "E-posta, kullanıcı adı veya şifre yanlış.",
+    "emailNotConfirmed": "Giriş yapmadan önce e-postanı onayla. Gelen kutunu kontrol et.",
+    "userExists": "Bu e-postayla zaten bir hesap var.",
+    "weakPassword": "Bu şifre çok zayıf. En az 8 karakter kullan.",
+    "samePassword": "Yeni şifre eskisinden farklı olmalı.",
+    "emailRateLimit": "Çok fazla e-posta gönderdik. Biraz bekle ve tekrar dene.",
+    "rateLimit": "Çok fazla deneme. Biraz bekle ve tekrar dene.",
+    "signupDisabled": "Kayıtlar şu anda kapalı.",
+    "invalidEmail": "Bu e-posta geçerli değil.",
+    "sessionExpired": "Oturumunun süresi doldu. Tekrar giriş yap.",
+    "linkExpired": "Bağlantının süresi doldu veya zaten kullanıldı. Yenisini iste.",
+    "flowExpired": "Bağlantının süresi doldu. Lütfen tekrar dene.",
+    "providerDisabled": "Bu giriş yöntemi kullanılamıyor.",
+    "usernameUnavailable": "Bu kullanıcı adı kullanılamıyor.",
+    "usernameReserved": "Bu kullanıcı adı ayrılmış.",
+    "usernameCooldown": "Kullanıcı adını 14 günde yalnızca bir kez değiştirebilirsin.",
+    "usernameTaken": "Bu ad zaten alınmış veya ayrılmış.",
+    "usernameCheckFailed": "Kontrol edemedik. Lütfen tekrar dene.",
+    "notAllowed": "Bunu yapmaya iznin yok.",
+    "platformUnavailable": "Bu ağ henüz kullanılamıyor.",
+    "premium": {
+      "generic": "Yalnızca Premium.",
+      "background": "Yalnızca Premium: resim veya video arka planları.",
+      "music": "Yalnızca Premium: profilinde müzik.",
+      "branding": "Yalnızca Premium: Ópalo markasını kaldırma.",
+      "cursor": "Yalnızca Premium: imleç izi.",
+      "particles": "Yalnızca Premium: yaprak parçacıkları.",
+      "nameEffect": "Yalnızca Premium: Premium ad efektleri.",
+      "font": "Yalnızca Premium: ek yazı tipleri.",
+      "links": "Yalnızca Premium: 6’dan fazla bağlantı.",
+      "cardStyle": "Yalnızca Premium: kart tasarımları.",
+      "arrangement": "Yalnızca Premium: profil düzenleri."
+    }
+  },
+  "Landing": {
+    "nav": {
+      "label": "Ana menü",
+      "features": "Özellikler",
+      "leaderboard": "Sıralama",
+      "pricing": "Fiyatlar",
+      "faq": "SSS",
+      "openMenu": "Menüyü aç",
+      "menu": "Menü",
+      "menuDescription": "Site gezinmesi"
+    },
+    "account": {
+      "login": "Giriş yap",
+      "createPage": "Sayfamı oluştur",
+      "goToPanel": "Panele git",
+      "yourAccount": "Hesabın: {name}",
+      "viewProfile": "Profilimi gör",
+      "myPanel": "Panelim",
+      "admin": "Yönetim",
+      "signOut": "Çıkış yap"
+    },
+    "hero": {
+      "tag": "Video arka planlar, müzik ve canlı efektler",
+      "titleLine1": "Olduğun her şey,",
+      "titleLine2": "tek bir bağlantıda.",
+      "lead": "Sana benzeyen bir profil sayfası oluştur: arka planın, müziğin, sosyal ağların ve tarzın. Biyografinde paylaş, senin yerine o konuşsun.",
+      "note": "Sonsuza kadar ücretsiz. Premium 10 USD, tek seferlik ödeme.",
+      "sampleBio": "her şeyim, tek bir yerde",
+      "sampleLocation": "bir yerlerde"
+    },
+    "claim": {
+      "placeholder": "adın",
+      "label": "Kullanıcı adın",
+      "submit": "Bağlantımı al",
+      "invalid": "En fazla 20 harf, rakam veya $ _ . ~ ! * - gibi semboller kullan. . veya ! ile bitemez"
+    },
+    "features": {
+      "title": "Öne çıkmak için yapıldı",
+      "description": "Profilini benzersiz kılmak için ihtiyacın olan her şey, tek satır kod yazmadan.",
+      "items": {
+        "background": {
+          "title": "Video veya resim arka planlar",
+          "description": "Bir video, GIF veya fotoğraf yükle ve bulanıklığı istediğin gibi ayarla."
+        },
+        "music": {
+          "title": "Müziğin çalıyor",
+          "description": "Biri profilini açtığında çalan bir şarkı ekle."
+        },
+        "effects": {
+          "title": "Kişilik dolu efektler",
+          "description": "Parçacıklar, parlayan bir ad, imleç izi ve seçebileceğin yazı tipleri."
+        },
+        "presence": {
+          "title": "Canlı durum",
+          "description": "Çevrimiçi olup olmadığını, ne oynadığını veya ne dinlediğini göster."
+        },
+        "stats": {
+          "title": "Görüntülenme istatistikleri",
+          "description": "Profilini kaç kişinin gördüğünü ve hangi bağlantılara tıkladıklarını gör."
+        },
+        "link": {
+          "title": "Kısa bir bağlantı",
+          "description": "opalo.me/adın: hatırlaması ve her biyografiye koyması kolay."
+        }
+      }
+    },
+    "leaderboard": {
+      "title": "Sıralama",
+      "description": "Ópalo’da en çok ziyaret edilen 30 profil. Seninki girebilecek mi?",
+      "period": "Dönem",
+      "allTime": "Tüm zamanlar",
+      "month": "Bu ay",
+      "podium": "İlk sıralar",
+      "rest": "Sıralamanın geri kalanı",
+      "place": "Sıra",
+      "first": "1.",
+      "second": "2.",
+      "third": "3.",
+      "views": "görüntülenme",
+      "viewsMonth": "bu ayki görüntülenme",
+      "emptyAll": "Sıralamada henüz profil yok. Seninki ilk olabilir.",
+      "emptyMonth": "Bu ay henüz görüntülenme yok. İlk görüntülenmeyi alan profil birinci olur.",
+      "cta": "Sayfamı oluştur"
+    },
+    "pricing": {
+      "title": "Basit fiyatlar",
+      "description": "Ücretsiz başla. Her şeyi istiyorsan bir kez öde, sonsuza kadar senin olsun.",
+      "free": {
+        "name": "Ücretsiz",
+        "period": "sonsuza kadar",
+        "description": "Sayfanı bugün hazır etmek için tüm temel özellikler.",
+        "cta": "Ücretsiz başla"
+      },
+      "premium": {
+        "name": "Premium",
+        "tag": "Tek seferlik ödeme",
+        "period": "USD, ömür boyu",
+        "description": "Abonelik veya aylık ücret olmadan her şeyin kilidini aç.",
+        "cta": "Premium al"
+      }
+    },
+    "faq": {
+      "titleLine1": "Sıkça sorulan",
+      "titleLine2": "sorular",
+      "items": {
+        "oneTime": {
+          "q": "Premium gerçekten tek seferlik bir ödeme mi?",
+          "a": "Evet. Bir kez 10 USD ödersin ve hesabın var olduğu sürece Premium’u korursun. Yenileme yok, aylık ücret yok."
+        },
+        "username": {
+          "q": "Kullanıcı adımı değiştirebilir miyim?",
+          "a": "Evet, Ayarlar’dan. Eski bağlantın 14 gün sonra başkaları için serbest kalır."
+        },
+        "payment": {
+          "q": "Hangi ödeme yöntemlerini kabul ediyorsunuz?",
+          "a": "Kredi ve banka kartları, ayrıca ülkene göre yerel ödeme yöntemleri."
+        },
+        "business": {
+          "q": "İşletmem için uygun mu?",
+          "a": "Elbette. Web siteni, rezervasyon sayfanı, kataloğunu ve iletişim bilgilerini sade bir görünümle gösterebilirsin."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Bağlantın seni bekliyor.",
+      "description": "Başkası almadan adını kap.",
+      "cta": "Sayfamı ücretsiz oluştur"
+    },
+    "footer": {
+      "legal": "Yasal",
+      "terms": "Koşullar",
+      "privacy": "Gizlilik",
+      "contact": "İletişim",
+      "language": "Dil"
+    }
+  },
+  "Legal": {
+    "tag": "Yasal",
+    "updated": "Son güncelleme: {date}",
+    "onThisPage": "Bu sayfada",
+    "terms": {
+      "metaTitle": "Kullanım koşulları",
+      "metaDescription": "Ópalo’yu kullanma kuralları.",
+      "title": "Kullanım koşulları",
+      "intro": "Bunlar Ópalo’yu kullanma kuralları. Olabildiğince açık yazdık: anlaşılmayan bir şey olursa bize yaz.",
+      "sections": {
+        "aceptacion": {
+          "label": "Kabul",
+          "blocks": [
+            "Bir hesap oluşturarak veya Ópalo’yu (opalo.me) kullanarak bu koşulları ve <privacy>Gizlilik Politikamızı</privacy> kabul edersin. Kabul etmiyorsan hizmeti kullanma."
+          ]
+        },
+        "tu-cuenta": {
+          "label": "Hesabın",
+          "blocks": [
+            "Hesap oluşturmak için en az 14 yaşında olmalısın. Reşit değilsen ebeveynlerinin veya yasal vasinin iznine ihtiyacın var.",
+            "Hesabında olan her şeyden ve şifreni güvende tutmaktan sen sorumlusun. Birinin izinsiz girdiğini düşünüyorsan hemen bize haber ver."
+          ]
+        },
+        "nombre-de-usuario": {
+          "label": "Kullanıcı adın",
+          "blocks": [
+            "Kullanıcı adın bağlantını oluşturur (opalo.me/adın). Onu 14 günde bir değiştirebilirsin; eski ad 14 gün sonra başkaları için serbest kalır.",
+            "Başka bir kişiyi, markayı veya şirketi taklit eden adlar kullanamaz ya da adları yalnızca yeniden satmak için kaydedemezsin. Bu kuralları ihlal eden bir adı geri alabiliriz."
+          ]
+        },
+        "lo-que-publicas": {
+          "label": "Paylaştıkların",
+          "blocks": [
+            "İçeriğin sana aittir ve ondan sen sorumlusun. Paylaşarak onu profilinde ve hizmetin önizlemelerinde göstermemize izin verirsin. Şunları paylaşamazsın:",
+            {
+              "list": [
+                "Yasa dışı, nefret içeren veya şiddet içeren içerik ya da başkalarını taciz eden içerik.",
+                "Hiçbir koşulda reşit olmayanları içeren cinsel içerik.",
+                "Dolandırıcılık, yanıltıcı bağlantılar, kötü amaçlı yazılım veya veri çalma girişimleri.",
+                "Kullanım hakkın veya iznin olmayan müzik, resim ya da videolar.",
+                "Başkalarının kişisel bilgileri, onların izni olmadan."
+              ]
+            }
+          ]
+        },
+        "plan-premium": {
+          "label": "Premium plan",
+          "blocks": [
+            "Premium tek seferlik 10 USD’dir. Abonelik değildir: aylık ücret veya yenileme yoktur ve hesabın var olduğu ve Ópalo çalıştığı sürece seninle kalır.",
+            "Cayma hakkı kapsamında, satın alma tarihinden itibaren 5 iş günü içinde iade talep edebilirsin. İade edilirse hesabın Ücretsiz plana döner.",
+            "Ödemeler harici bir ödeme altyapısı tarafından işlenir. Ópalo kart bilgilerini saklamaz."
+          ]
+        },
+        "suspension-y-cierre": {
+          "label": "Askıya alma ve kapatma",
+          "blocks": [
+            "Bu koşulları ihlal eden hesapları, ciddiyetine göre önceden haber vererek veya vermeden askıya alabilir ya da kapatabiliriz. İhlal nedeniyle askıya alınan bir hesaba Premium plan ücreti iade edilmez.",
+            "Hesabını istediğin zaman Ayarlar’dan silebilirsin."
+          ]
+        },
+        "responsabilidad": {
+          "label": "Sorumluluk",
+          "blocks": [
+            "Ópalo olduğu gibi sunulur. Her zaman çalışması için elimizden geleni yaparız, ancak hatasız veya kesintisiz olacağını garanti etmeyiz; kullanıcıların paylaştığı içerikten veya bağlantı verdikleri harici sitelerden sorumlu değiliz."
+          ]
+        },
+        "cambios": {
+          "label": "Değişiklikler",
+          "blocks": [
+            "Bu koşulları güncelleyebiliriz. Değişiklik önemliyse, yürürlüğe girmeden önce sana e-postayla veya uygulamada haber veririz."
+          ]
+        },
+        "ley-aplicable-y-contacto": {
+          "label": "Uygulanacak hukuk ve iletişim",
+          "blocks": [
+            "Bu koşullar Kolombiya Cumhuriyeti yasalarına tabidir. Her türlü sorun için bize <support>soporte@opalo.me</support> adresinden yaz."
+          ]
+        }
+      }
+    },
+    "privacy": {
+      "metaTitle": "Gizlilik politikası",
+      "metaDescription": "Ópalo hangi verileri saklar, ne için kullanır ve bunları nasıl kontrol edebilirsin.",
+      "title": "Gizlilik politikası",
+      "intro": "Hangi verileri sakladığımız, ne için kullandığımız ve bunları nasıl kontrol edebileceğin. Kolombiya’nın kişisel verilerin korunması kanununa (2012 tarihli 1581 sayılı Kanun) uyarız.",
+      "sections": {
+        "responsable": {
+          "label": "Veri sorumlusu",
+          "blocks": [
+            "Kişisel verilerinin işlenmesinden Ópalo (opalo.me) sorumludur. Bize <privacyEmail>privacidad@opalo.me</privacyEmail> adresinden ulaşabilirsin."
+          ]
+        },
+        "datos-que-recolectamos": {
+          "label": "Hangi verileri topluyoruz",
+          "blocks": [
+            {
+              "list": [
+                "Hesap verileri: e-posta adresi ve şifre (şifreli saklanır; asla göremeyiz).",
+                "Profil verileri: kullanıcı adı, ad, biyografi, konum, fotoğraf, arka plan, müzik ve eklemeyi seçtiğin bağlantılar.",
+                "Kullanım verileri: profilindeki görüntülenmeler ve tıklamalar. Ziyaretçilerin IP adreslerini saklamayız; her gün değişen anonim bir tanımlayıcı kullanırız.",
+                "Ödeme verileri: satın alımının durumu ve tutarı. Kart bilgilerini biz değil, ödeme altyapısı işler."
+              ]
+            }
+          ]
+        },
+        "para-que-los-usamos": {
+          "label": "Ne için kullanıyoruz",
+          "blocks": [
+            "Profilini oluşturmak ve göstermek, sana görüntülenme istatistikleri sunmak, Premium satın alımını işlemek, mesajlarını yanıtlamak, dolandırıcılığı ve kötüye kullanımı önlemek ve sana önemli değişiklikleri bildirmek için. Verilerini satmayız ve reklam göstermeyiz."
+          ]
+        },
+        "que-es-publico": {
+          "label": "Neler herkese açık",
+          "blocks": [
+            "Profiline eklediğin her şey bağlantını açan herkes tarafından görülebilir. E-postan ve ödemelerin asla herkese açık değildir. Konumunu, rozetlerini ve durumunu Görünüm’den gizleyebilirsin."
+          ]
+        },
+        "con-quien-los-compartimos": {
+          "label": "Kimlerle paylaşıyoruz",
+          "blocks": [
+            "Yalnızca çalışmak için ihtiyaç duyduğumuz sağlayıcılarla: barındırma ve veritabanı, ödeme altyapısı ve e-posta gönderimi. Hepsi verileri korumakla yükümlüdür. Yetkili bir makam yasa gereği isterse de teslim edebiliriz."
+          ]
+        },
+        "cookies": {
+          "label": "Çerezler",
+          "blocks": [
+            "Yalnızca oturumunu açık tutmak ve dilin gibi tercihlerini hatırlamak için gereken çerezleri kullanırız. Reklam veya üçüncü taraf izleme çerezleri kullanmayız."
+          ]
+        },
+        "tus-derechos": {
+          "label": "Hakların",
+          "blocks": [
+            "Verilerine erişebilir, onları güncelleyebilir ve düzeltebilir, silinmelerini isteyebilir ve onayını geri çekebilirsin. Bunların çoğunu Ayarlar’dan kendin yapabilirsin. Diğer her şey için bize yaz: sorulara 10 iş günü, şikâyetlere 15 iş günü içinde yanıt veririz."
+          ]
+        },
+        "cuanto-tiempo": {
+          "label": "Ne kadar süre saklıyoruz",
+          "blocks": [
+            "Hesabın var olduğu sürece. Hesabını silersen, ödeme kayıtları gibi yasal veya muhasebe yükümlülükleri nedeniyle saklamamız gerekenler dışında verilerini 30 gün içinde sileriz."
+          ]
+        },
+        "menores-de-edad": {
+          "label": "Reşit olmayanlar",
+          "blocks": [
+            "Ópalo 14 yaşından küçükler için tasarlanmamıştır. Ebeveyn veya vasiysen ve bir çocuğun izinsiz veri verdiğini düşünüyorsan bize yaz, silelim."
+          ]
+        },
+        "cambios": {
+          "label": "Değişiklikler",
+          "blocks": [
+            "Bu politikayı önemli ölçüde değiştirirsek, değişiklik geçerli olmadan önce sana e-postayla veya uygulamada haber veririz."
+          ]
+        }
+      }
+    }
+  },
+  "Meta": {
+    "home": {
+      "title": "Ópalo — Video arka plan, müzik ve efektlerle biyografi bağlantın",
+      "description": "Ücretsiz profil sayfanı oluştur: tüm sosyal ağların için video arka plan, müzik, efektler ve istatistiklerle tek bir bağlantı. Premium 10 USD, tek seferlik ödeme.",
+      "keywords": "biyografi bağlantısı, link in bio, profil sayfası, biolink, kişisel profil, sosyal medya bağlantıları, guns.lol, linktree alternatifi"
+    },
+    "contact": {
+      "title": "İletişim",
+      "description": "Hesabın, ödemeler, Premium, iş birlikleri veya basın hakkında bize yaz."
+    },
+    "login": {
+      "title": "Giriş yap",
+      "description": "Profilini düzenlemek ve görüntülenmelerini görmek için Ópalo hesabına giriş yap."
+    },
+    "register": {
+      "title": "Sayfanı ücretsiz oluştur",
+      "description": "opalo.me/adın bağlantını al ve profil sayfanı bir dakikadan kısa sürede oluştur."
+    },
+    "recover": {
+      "title": "Şifreyi sıfırla",
+      "description": "Yeni bir şifre oluşturman için sana bir bağlantı göndereceğiz."
+    },
+    "newPassword": {
+      "title": "Yeni şifre"
+    }
+  },
+  "NotFound": {
+    "metaTitle": "Bulunamadı",
+    "title": "Burada bir şey yok… henüz",
+    "body": "Bu sayfa yok ya da aradığın profil kullanılamıyor. Ad boştaysa senin olabilir.",
+    "create": "Sayfamı oluştur",
+    "home": "Ana sayfaya git"
+  },
+  "Panel": {
+    "nav": {
+      "label": "Panel",
+      "openMenu": "Panel menüsünü aç",
+      "menu": "Panel menüsü",
+      "menuDescription": "Panelinin bölümleri",
+      "sections": {
+        "profile": {
+          "label": "Profilim",
+          "description": "Değişiklikler önizlemede anında görünür."
+        },
+        "appearance": {
+          "label": "Görünüm",
+          "description": "Sayfanın stili, yazı tipi, arka planı ve efektleri."
+        },
+        "links": {
+          "label": "Bağlantılar",
+          "description": "Sosyal ağların ve bağlantıların. Anında kaydedilir."
+        },
+        "music": {
+          "label": "Müzik",
+          "description": "Biri ziyaret ettiğinde çalan şarkı."
+        },
+        "stats": {
+          "label": "İstatistikler",
+          "description": "Profilinin görüntülenmeleri ve bağlantılarına tıklamalar."
+        },
+        "premium": {
+          "label": "Premium",
+          "description": "Tek bir ödemeyle her şeyin kilidini aç."
+        },
+        "settings": {
+          "label": "Ayarlar",
+          "description": "Kullanıcı adın, e-postan, şifren ve hesabın."
+        }
+      }
+    },
+    "sidebar": {
+      "upsellTitle": "Premium’a geç",
+      "upsellBody": "Video arka planlar, müzik ve tüm efektler. 10 USD, tek seferlik ödeme.",
+      "unlock": "Kilidi aç",
+      "admin": "Yönetim",
+      "signOut": "Çıkış yap"
+    },
+    "header": {
+      "copyLink": "{url} bağlantısını kopyala",
+      "linkCopied": "Bağlantı kopyalandı",
+      "viewPage": "Sayfamı gör",
+      "save": "Değişiklikleri kaydet",
+      "saved": "Kaydedildi"
+    },
+    "saveBar": {
+      "unsaved": "Kaydedilmemiş değişikliklerin var",
+      "unsavedShort": "Kaydedilmedi",
+      "discard": "Vazgeç",
+      "save": "Değişiklikleri kaydet"
+    },
+    "unsavedDialog": {
+      "title": "Kaydedilmemiş değişikliklerin var",
+      "description": "Şimdi çıkarsan kaybolacaklar.",
+      "discard": "Vazgeç",
+      "keepEditing": "Düzenlemeye devam et",
+      "save": "Kaydet"
+    },
+    "premiumDialog": {
+      "title": "Bu bir Premium özelliği",
+      "body": "{feature} ve Premium’daki diğer her şeyin kilidini {price} USD’ye aç. Tek ödeme, sonsuza kadar senin.",
+      "allFeatures": "tüm özellikler",
+      "later": "Şimdi değil",
+      "see": "Premium’u gör"
+    },
+    "premiumFeatures": {
+      "fonts": "ek yazı tipleri",
+      "background": "resim veya video arka planlar",
+      "particles": "yaprak parçacıkları",
+      "cursor": "imleç izi",
+      "branding": "Ópalo markasını kaldırma",
+      "arrangements": "profil düzenleri",
+      "cardStyles": "kart tasarımları",
+      "links": "sınırsız bağlantı",
+      "effect": "“{name}” efekti"
+    },
+    "toasts": {
+      "saved": "Değişiklikler kaydedildi"
+    },
+    "preview": {
+      "live": "Canlı önizleme",
+      "size": "Önizleme boyutu",
+      "mobile": "Telefon",
+      "desktop": "Bilgisayar",
+      "expand": "Önizlemeyi büyüt",
+      "expandShort": "Büyüt",
+      "desktopNote": "Bilgisayarda böyle görünür. Düzen (kart veya ortalı) ve 3D eğim (fareyi hareket ettir) yalnızca büyük ekranlarda değişir.",
+      "desktopTitle": "Bilgisayar önizlemesi",
+      "desktopDescription": "Profilin bilgisayar boyutunda",
+      "openPreview": "Önizleme",
+      "previewTitle": "Önizleme",
+      "previewDescription": "Profilin böyle görünüyor"
+    },
+    "layout": {
+      "label": "Düzen",
+      "card": "Kart",
+      "center": "Ortalı"
+    },
+    "accent": "Vurgu rengi",
+    "otherColor": "Başka renk",
+    "overview": {
+      "metaTitle": "Profilim",
+      "totalViews": "Toplam görüntülenme",
+      "linkClicks": "Bağlantı tıklamaları",
+      "viewsToday": "Bugünkü görüntülenme",
+      "noChange": "Bu hafta değişiklik yok",
+      "plusThisWeek": "Bu hafta +{count}",
+      "percentThisWeek": "Bu hafta %{sign}{pct}",
+      "sinceYesterday": "Dünden beri {sign}{count}"
+    },
+    "info": {
+      "title": "Bilgiler",
+      "description": "Ziyaret edenlerin ilk gördüğü şey.",
+      "name": "Ad",
+      "namePlaceholder": "Nasıl görünmek istiyorsan",
+      "location": "Konum",
+      "locationPlaceholder": "bir yerlerde",
+      "bio": "Biyografi (dönmeleri için cümleleri | ile ayır)",
+      "bioPlaceholder": "gündüz geliştirici, gece oyuncu | bunu okuyorsan su iç",
+      "showPresence": "Durumu göster",
+      "showPresenceDescription": "Adının altındaki kart, Discord’daki gibi."
+    },
+    "avatar": {
+      "upload": "Fotoğraf yükle",
+      "change": "Fotoğrafı değiştir",
+      "remove": "Kaldır",
+      "cropTitle": "Fotoğrafını kırp",
+      "cropDescription": "Konumlandırmak için sürükle, yakınlaştırmak için kaydırıcıyı kullan.",
+      "cropAlt": "Kırpma önizlemesi",
+      "zoom": "Yakınlaştır",
+      "cancel": "İptal",
+      "use": "Fotoğrafı kullan",
+      "updated": "Fotoğraf güncellendi",
+      "removed": "Fotoğraf kaldırıldı",
+      "photoAlt": "Fotoğrafın"
+    },
+    "presence": {
+      "label": "Durum",
+      "custom": "Özel",
+      "discord": "Discord’dan canlı",
+      "textLabel": "Durum metni",
+      "textPlaceholder": "Valorant oynuyor, dereceli",
+      "discordId": "Discord kullanıcı kimliği",
+      "useMine": "Discord’umu kullan",
+      "invalidId": "Kimlik 17 ila 20 rakamdan oluşur.",
+      "step1": "<lanyard>Lanyard</lanyard> Discord sunucusuna katıl. Durumunu okumamızı bu sağlar; orada bir şey yazman gerekmez.",
+      "step2Mine": "“Discord’umu kullan”a dokun ya da başka bir hesabın kimliğini yapıştır.",
+      "step2Copy": "Kimliğini kopyala: Discord’da Ayarlar → Gelişmiş → Geliştirici Modu’nu aç. Sonra profiline sağ tıkla → Kullanıcı ID’sini Kopyala.",
+      "step3": "Önizlemeyi kontrol et: fotoğrafını, durumunu ve ne oynadığını ya da dinlediğini göstermeli."
+    },
+    "links": {
+      "title": "Bağlantılar",
+      "description": "Sıralamak için sürükle.",
+      "icons": "Simgeler",
+      "iconsMono": "Beyaz",
+      "iconsColor": "Renkli",
+      "add": "Bağlantı ekle",
+      "edit": "Bağlantıyı düzenle",
+      "dialogDescription": "Kullanıcı adını yaz veya tam bağlantıyı yapıştır.",
+      "network": "Ağ",
+      "valueEmail": "e-posta",
+      "valueCopy": "kullanıcı adı veya kimlik (dokununca kopyalanır)",
+      "valueLink": "kullanıcı adı veya bağlantı",
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "addShort": "Ekle",
+      "updated": "Bağlantı güncellendi",
+      "added": "{name} eklendi",
+      "removed": "{name} kaldırıldı",
+      "move": "{name} öğesini taşı",
+      "show": "{name} öğesini göster",
+      "options": "{name} seçenekleri",
+      "editItem": "Düzenle",
+      "remove": "Sil",
+      "emptyTitle": "Henüz bağlantın yok",
+      "emptyBody": "Instagram’ını, Discord’unu, web siteni veya herhangi bir bağlantıyı ekle.",
+      "freeLimit": "Ücretsiz planda {count}/{limit} bağlantı · <link>Premium ile sınırsız</link>",
+      "search": "Ağ ara (Instagram, Kick, OnlyFans…)",
+      "searchLabel": "Ağ ara",
+      "noResults": "Bulamadık. Başka her şey için “Bağlantı” veya “Web sitesi”ni kullan."
+    },
+    "quick": {
+      "title": "Hızlı görünüm",
+      "description": "Daha fazla seçenek Görünüm bölümünde."
+    },
+    "particles": {
+      "label": "Parçacıklar",
+      "stars": "Yıldızlar",
+      "rain": "Yağmur",
+      "petals": "Yapraklar",
+      "snow": "Kar",
+      "none": "Yok"
+    },
+    "appearance": {
+      "styleTitle": "Düzen",
+      "styleDescription": "Profilinin ekranda nasıl durduğu.",
+      "border": "Kalın kenarlık",
+      "borderCard": "Kartın etrafında ince bir ışık çerçevesi.",
+      "borderCenter": "Ortalanmış içeriğin etrafında ince bir ışık çerçevesi.",
+      "opacityCard": "Kart opaklığı",
+      "opacityCenter": "İçerik arka planı opaklığı",
+      "noBackground": "(arka plan yok)",
+      "tilt": "3D eğim",
+      "tiltDescription": "Kart fareyi takip eder (yalnızca bilgisayar).",
+      "nameTitle": "Ad",
+      "nameDescription": "Yazı tipi, efekt ve vurgu rengi.",
+      "font": "Yazı tipi",
+      "backgroundTitle": "Arka plan",
+      "backgroundDescription": "Düz bir renk ya da kendi resmin veya videon.",
+      "bgType": "Tür",
+      "bgColor": "Renk",
+      "bgImage": "Resim veya GIF",
+      "bgVideo": "Video",
+      "bgSolid": "Arka plan rengi",
+      "changeFile": "Dosyayı değiştir",
+      "uploadImage": "Resim yükle",
+      "uploadVideo": "Video yükle",
+      "videoTypes": "MP4 veya WebM, en fazla 50 MB.",
+      "imageTypes": "PNG, JPG, WebP veya GIF, en fazla 50 MB.",
+      "noFileYet": "Arka planını görmek için bir dosya yükle. O zamana kadar arka plan rengin kullanılır.",
+      "blur": "Bulanıklık",
+      "cursor": "İmleç izi",
+      "cursorDescription": "Fareyi takip eden noktalar.",
+      "visibleTitle": "Görünen seçenekler",
+      "visibleDescription": "Sayfanda neyin görüneceğini seç.",
+      "showLocation": "Konum",
+      "showBadges": "Rozetler",
+      "showOnline": "Çevrimiçi noktası",
+      "showPresence": "Durum",
+      "showPlayer": "Müzik çalar",
+      "showBranding": "“Made with ópalo” markası",
+      "brandingPremium": "Kaldırmak bir Premium özelliğidir."
+    },
+    "cardStyles": {
+      "label": "Kart tasarımı",
+      "classic": {
+        "label": "Klasik",
+        "description": "Her zamanki: sade ve koyu."
+      },
+      "glass": {
+        "label": "Cam",
+        "description": "Üstte parıltılı buzlu cam."
+      },
+      "neon": {
+        "label": "Neon",
+        "description": "Senin renginde dönen ışıklı bir kenarlık."
+      },
+      "opal": {
+        "label": "Opal",
+        "description": "Yanardöner bir kenarlık ve geçen bir parıltı."
+      },
+      "floating": {
+        "label": "Yüzen avatar",
+        "description": "Fotoğrafın kartın üstünden taşar."
+      },
+      "retro": {
+        "label": "Retro",
+        "description": "Sert bir gölge ve eski monitör çizgileri."
+      },
+      "aurora": {
+        "label": "Aurora",
+        "description": "İçeride hareket eden yumuşak ışıklar."
+      }
+    },
+    "arrangements": {
+      "label": "Yerleşim",
+      "default": {
+        "label": "Varsayılan",
+        "description": "Fotoğraf, rozetli ad, durum, bağlantılar ve en sonda görüntülenmeler."
+      },
+      "stacked": {
+        "label": "Üst üste",
+        "description": "Rozetler adın altında, konum ayrı satırda ve görüntülenmeler köşede."
+      },
+      "corners": {
+        "label": "Köşeler",
+        "description": "Görüntülenmeler sol altta, konum sağ altta."
+      },
+      "links-first": {
+        "label": "Bağlantılar üstte",
+        "description": "Bağlantıların adının hemen altında, durum sonra."
+      },
+      "compact": {
+        "label": "Kompakt",
+        "description": "Telefonda da fotoğraf adın yanında, her şey başa hizalı."
+      },
+      "minimal": {
+        "label": "Minimal",
+        "description": "Fotoğrafsız: adın öne çıkar. Bağlantılar ve durum altta."
+      }
+    },
+    "effects": {
+      "label": "Efekt",
+      "dialogTitle": "Ad efektleri",
+      "dialogDescription": "Adınla görmek için birine dokun. Değişikliklerini kaydettiğinde profiline uygulanır.",
+      "group": "Efektler",
+      "free": "Ücretsiz efekt.",
+      "premiumIncluded": "Premium efekt, planına dahil.",
+      "premiumLocked": "Premium efekt. Tek bir ödemeyle kilidini aç.",
+      "premiumSuffix": "{name} (Premium)",
+      "cancel": "İptal",
+      "use": "Bu efekti kullan",
+      "unlock": "Kilidi aç",
+      "typewriterShort": "Daktilo",
+      "items": {
+        "none": "Yok",
+        "glow": "Parıltı",
+        "typewriter": "Daktilo",
+        "rainbow": "Gökkuşağı",
+        "blur": "Bulanık",
+        "scramble": "Karışık",
+        "sparkle": "Beyaz ışıltılar",
+        "sparkle-blue": "Mavi ışıltılar",
+        "sparkle-green": "Yeşil ışıltılar",
+        "sparkle-pink": "Pembe ışıltılar",
+        "sparkle-red": "Kırmızı ışıltılar",
+        "sparkle-yellow": "Sarı ışıltılar",
+        "sparkle-purple": "Mor ışıltılar",
+        "sparkle-gold": "Altın ışıltılar"
+      },
+      "short": {
+        "sparkle": "beyaz",
+        "sparkle-blue": "mavi",
+        "sparkle-green": "yeşil",
+        "sparkle-pink": "pembe",
+        "sparkle-red": "kırmızı",
+        "sparkle-yellow": "sarı",
+        "sparkle-purple": "mor",
+        "sparkle-gold": "altın"
+      }
+    },
+    "tab": {
+      "title": "Sekme ve giriş",
+      "description": "Profilinin tarayıcı sekmesinde ve girerken nasıl göründüğü.",
+      "tabTitle": "Sekme başlığı",
+      "animated": "Kendini yazıp silsin",
+      "animatedDescription": "Başlık harf harf görünür ve döngü halinde kendini siler.",
+      "faviconAlt": "Mevcut favicon",
+      "favicon": "Favicon",
+      "faviconHint": "Kare resim (PNG, WebP veya GIF). 64 × 64 px ve üzerinde en iyi görünür.",
+      "change": "Değiştir",
+      "uploadFavicon": "Favicon yükle",
+      "remove": "Kaldır",
+      "enterText": "Giriş metni"
+    },
+    "music": {
+      "title": "Şarkın",
+      "lockedDescription": "Biri profilini açtığında çalar.",
+      "lockedTitle": "Müzik bir Premium özelliğidir",
+      "lockedBody": "Şarkını yükle, ona bir başlık ver ve biri girmek için dokunduğunda çalsın. 10 USD, tek seferlik ödeme.",
+      "getPremium": "Premium’a geç",
+      "description": "En fazla 15 MB MP3. Biri girmek için dokunduğunda çalar.",
+      "untitled": "Başlıksız",
+      "remove": "Kaldır",
+      "empty": "Henüz şarkı yüklemedin.",
+      "change": "Şarkıyı değiştir",
+      "upload": "MP3 yükle",
+      "cover": "Kapak",
+      "coverAlt": "Mevcut kapak",
+      "coverHint": "Kare resim (PNG, JPG, WebP veya GIF). Başlığın yanında görünür.",
+      "coverChange": "Değiştir",
+      "coverUpload": "Kapak yükle",
+      "coverRemove": "Kapağı kaldır",
+      "titleLabel": "Başlık",
+      "titlePlaceholder": "midnight drive",
+      "volume": "Ses düzeyi",
+      "volumeHint": "Ziyaretçiler için ne kadar yüksek çaldığı. Yine de sesi kapatabilirler.",
+      "volumeLevels": {
+        "silent": "Sessiz",
+        "low": "Kısık",
+        "medium": "Orta",
+        "loud": "Yüksek"
+      },
+      "showPlayer": "Çaları göster",
+      "showPlayerDescription": "Profilinde kapak, ilerleme çubuğu ve kontroller."
+    },
+    "upload": {
+      "uploading": "Yükleniyor…",
+      "typeNotAllowed": "Bu dosya türüne izin verilmiyor.",
+      "tooBig": "Dosya {mb} MB’tan büyük.",
+      "premiumOnly": "Arka plan ve müzik yüklemek yalnızca Premium’da.",
+      "tooLarge": "Dosya çok büyük.",
+      "failed": "Dosyayı yükleyemedik. Lütfen tekrar dene."
+    },
+    "stats": {
+      "metaTitle": "İstatistikler",
+      "period": "Dönem",
+      "days": "{count} gün",
+      "views": "Görüntülenmeler ({count} gün)",
+      "clicks": "Bağlantı tıklamaları ({count} gün)",
+      "ctr": "Görüntülenme başına tıklama",
+      "dailyTitle": "Günlük görüntülenme ve tıklama",
+      "dailyDescription": "Her kişi 30 dakikada bir kez sayılır.",
+      "networkTitle": "Ağa göre tıklamalar",
+      "networkDescription": "Son {count} gün.",
+      "upsell": "30 ve 90 günü görmek mi istiyorsun? <link>Ayrıntılı istatistikler bir Premium özelliğidir</link>.",
+      "legend": "Açıklama",
+      "seriesViews": "Görüntülenme",
+      "seriesClicks": "Tıklama",
+      "empty": "Bu dönemde henüz görüntülenme yok. Başlamak için bağlantını paylaş.",
+      "asTable": "Tablo olarak gör",
+      "day": "Gün",
+      "networkEmpty": "Hangilerinin daha çok tıklandığını görmek için bağlantı ekle.",
+      "clicksCount": "{count} tıklama"
+    },
+    "premium": {
+      "metaTitle": "Premium",
+      "alreadyTitle": "Zaten Premium’sun",
+      "alreadyDescription": "Ópalo’yu desteklediğin için teşekkürler.",
+      "lifetime": "Ópalo Premium, ömür boyu",
+      "purchasedOn": "Premium’u {date} tarihinde satın aldın.",
+      "oneTimeTag": "Tek seferlik ödeme · yenileme yok",
+      "checkoutError": "Ödeme sayfasını açamadık. Birkaç dakika sonra tekrar dene.",
+      "yourPlan": "Planın",
+      "currentPlan": "Mevcut plan",
+      "payNote": "Wompi ile ödersin: kart, PSE veya Nequi. Kolombiya pesosu olarak tahsil edilir: ${amount} COP."
+    },
+    "payment": {
+      "metaTitle": "Ödemen",
+      "paidTitle": "Artık Premium’sun!",
+      "paidBody": "Ópalo’yu desteklediğin için teşekkürler. Video arka planların, müziğin, tüm efektlerin ve sınırsız bağlantıların kilidini sonsuza kadar açtın.",
+      "customize": "Profilimi özelleştir",
+      "uploadSong": "Şarkımı yükle",
+      "pendingTitle": "Ödemeni onaylıyoruz",
+      "pendingBody": "Bazı yöntemler (PSE gibi) birkaç dakika sürer. Bu sayfa kendiliğinden güncellenir ve Premium etkinleştiğinde sana ayrıca haber veririz.",
+      "failedTitle": "Ödeme gerçekleşmedi",
+      "notFoundTitle": "Bu ödemeyi bulamadık",
+      "failedBody": "Ödeme altyapısı ödemeyi reddetti veya iptal etti. Senden ücret alınmadı; tekrar deneyebilirsin.",
+      "notFoundBody": "Zaten ödediysen birkaç dakika bekle ve planını kontrol et. Sorun devam ederse soporte@opalo.me adresine yaz.",
+      "back": "Premium’a dön",
+      "premiumTag": "Premium"
+    },
+    "settings": {
+      "metaTitle": "Ayarlar",
+      "username": {
+        "title": "Kullanıcı adı",
+        "description": "Bu senin bağlantın. {days} günde bir değiştirebilirsin.",
+        "label": "Bağlantın",
+        "cooldown": "Kullanıcı adını yakın zamanda değiştirdin. {date} tarihinde tekrar değiştirebilirsin.",
+        "reservedNote": "Eski bağlantın {days} gün boyunca ayrılmış kalır, sonra herkes kullanabilir.",
+        "submit": "Kullanıcı adını değiştir",
+        "changed": "Bağlantın artık opalo.me/{username}"
+      },
+      "email": {
+        "title": "E-posta",
+        "current": "Şu anda {email} adresini kullanıyorsun.",
+        "label": "Yeni e-posta",
+        "placeholder": "sen@email.com",
+        "submit": "E-postayı değiştir",
+        "sent": "Değişikliği onaylaman için bir bağlantı gönderdik. Her iki gelen kutusunu da kontrol et."
+      },
+      "password": {
+        "title": "Şifre",
+        "current": "Mevcut şifre",
+        "new": "Yeni şifre",
+        "newPlaceholder": "En az {min} karakter",
+        "confirm": "Yeni şifreyi tekrar yaz",
+        "mismatch": "Şifreler eşleşmiyor.",
+        "noPassword": "Google veya Discord ile kaydoldun ve şifren yok mu? <link>Buradan oluştur</link>.",
+        "submit": "Şifreyi değiştir",
+        "updated": "Şifre güncellendi"
+      },
+      "account": {
+        "title": "Hesap",
+        "description": "Çıkış yap veya hesabını kalıcı olarak sil.",
+        "signOut": "Çıkış yap",
+        "delete": "Hesabımı sil",
+        "deleteTitle": "Hesabın silinsin mi?",
+        "deleteBody": "Profilin, bağlantıların, dosyaların ve istatistiklerin silinecek. Bu geri alınamaz ve bağlantın serbest kalır.",
+        "typeOrPaste": "Onaylamak için",
+        "toConfirm": "yaz veya yapıştır",
+        "copy": "{username} kopyala",
+        "copied": "Kullanıcı adı kopyalandı",
+        "copyFailed": "Kopyalayamadık. Elle yaz.",
+        "confirmDelete": "Kalıcı olarak sil"
+      }
+    },
+    "errors": {
+      "sessionExpired": "Oturumunun süresi doldu. Tekrar giriş yap.",
+      "invalidImage": "Geçersiz resim.",
+      "usernameTaken": "Bu ad zaten alınmış veya ayrılmış.",
+      "invalidEmail": "Geçerli bir e-posta yaz.",
+      "passwordMin": "En az {min} karakter kullan.",
+      "noEmail": "Hesabının e-postası yok; Şifreyi sıfırla’yı kullan.",
+      "wrongPassword": "Mevcut şifre yanlış.",
+      "confirmUsername": "Onaylamak için kullanıcı adını tam olarak yaz.",
+      "deleteFailed": "Hesabı silemedik. soporte@opalo.me adresine yaz.",
+      "profileMissing": "Profilini bulamadık."
+    }
+  },
+  "Plans": {
+    "free": [
+      "opalo.me/adın bağlantın",
+      "En fazla 6 sosyal bağlantı",
+      "Renkli arka plan ve 3 parçacık stili",
+      "Görüntülenme sayacı",
+      "Profilinin altında Ópalo markası"
+    ],
+    "premium": [
+      "Ücretsiz plandaki her şey",
+      "Sınırsız sosyal ağ ve bağlantı",
+      "Video veya GIF arka plan",
+      "Profilinde müzik",
+      "Tüm efektler, yazı tipleri ve imleçler",
+      "Adının yanında Premium rozeti",
+      "Ayrıntılı istatistikler",
+      "Ópalo markası olmadan"
+    ]
+  },
+  "Platforms": {
+    "groups": {
+      "social": "Sosyal ağlar",
+      "messaging": "Mesajlaşma",
+      "video": "Video ve yayın",
+      "music": "Müzik",
+      "gaming": "Oyun",
+      "creators": "İçerik üreticileri",
+      "support": "Destek ve ödemeler",
+      "adult": "Yetişkin içerik (18+)",
+      "other": "İletişim ve diğer"
+    },
+    "labels": {
+      "email": "E-posta",
+      "web": "Web sitesi",
+      "other": "Bağlantı"
+    },
+    "ph": {
+      "username": "kullanıcı adın",
+      "usernameOrLink": "kullanıcı adın veya bağlantın",
+      "channel": "kanalın",
+      "youtube": "@kanalın",
+      "profileLink": "profilinin bağlantısı",
+      "email": "sen@email.com",
+      "discord": "kullanıcı adın veya discord.gg/davet",
+      "paypal": "paypal.me kullanıcı adın",
+      "signal": "Signal kullanıcı adın",
+      "publication": "yayının",
+      "epic": "Epic adın",
+      "idOrLink": "kimliğin veya bağlantın",
+      "gamertag": "gamertag’in",
+      "eth": "ETH veya ENS adresin",
+      "btc": "BTC adresin",
+      "blog": "blogun",
+      "payId": "Pay ID’n",
+      "id": "kimliğin",
+      "wechat": "WeChat ID’n",
+      "psn": "PSN ID’n",
+      "line": "LINE ID’n",
+      "phone": "ülke koduyla numara, örn. 905551234567",
+      "paymentLink": "ödeme bağlantısı",
+      "riot": "Ad#TAG",
+      "battlenet": "Ad#1234",
+      "mastodon": "@kullanici@sunucu.social"
+    }
+  },
+  "Profile": {
+    "enter": "girmek için dokun",
+    "enterLabel": "{username} profiline gir",
+    "profileOf": "{name} profili",
+    "views": "görüntülenme",
+    "joinedToday": "bugün katıldı",
+    "joined": "{when} katıldı",
+    "online": "Çevrimiçi",
+    "badges": "Rozetler",
+    "madeWith": "Made with ópalo",
+    "unmute": "Sesi aç",
+    "mute": "Sesi kapat",
+    "untitled": "Başlıksız",
+    "player": {
+      "seek": "Şarkı konumu",
+      "play": "Oynat",
+      "pause": "Duraklat",
+      "previous": "Önceki",
+      "next": "Sonraki"
+    },
+    "links": {
+      "tapToCopy": "{name} · kopyalamak için dokun",
+      "copyLabel": "{name}: {value} (kopyala)",
+      "copied": "{name} kopyalandı: {value}"
+    },
+    "discord": {
+      "online": "Çevrimiçi",
+      "idle": "Boşta",
+      "dnd": "Rahatsız Etmeyin",
+      "offline": "Çevrimdışı",
+      "listening": "Dinliyor: {song} · {artist}",
+      "playing": "Oynuyor: {name}",
+      "streaming": "Yayında: {name}",
+      "listeningTo": "Dinliyor: {name}",
+      "watching": "İzliyor: {name}",
+      "competing": "Yarışıyor: {name}",
+      "notConnected": "Discord bağlı değil",
+      "notMonitored": "Görünmesi için Lanyard sunucusuna katıl.",
+      "error": "Discord durumunu okuyamadık."
+    },
+    "report": {
+      "trigger": "Profili bildir",
+      "title": "@{username} bildir",
+      "description": "Neler olduğunu anlat. Ópalo ekibi her bildirimi inceler.",
+      "loading": "Yükleniyor",
+      "signInNeeded": "Bildirim göndermek için giriş yapmalısın.",
+      "signIn": "Giriş yap",
+      "reason": "Sebep",
+      "reasonPlaceholder": "Bir sebep seç",
+      "reasons": {
+        "spam": "Spam",
+        "ofensivo": "Rahatsız edici içerik",
+        "estafa": "Dolandırıcılık",
+        "suplantacion": "Kimliğe bürünme",
+        "otro": "Başka bir sebep"
+      },
+      "details": "Ayrıntılar (isteğe bağlı)",
+      "detailsPlaceholder": "Bu profilde ne gördün?",
+      "chooseReason": "Bir sebep seç.",
+      "ownProfile": "Kendi profilini bildiremezsin.",
+      "failed": "Bildirimi gönderemedik. Lütfen tekrar dene.",
+      "thanks": "Teşekkürler. Bu profili inceleyeceğiz.",
+      "submit": "Bildirimi gönder"
+    },
+    "meta": {
+      "notFound": "Profil bulunamadı",
+      "fallbackDescription": "{name} kullanıcısının Ópalo profiline göz at.",
+      "ogAlt": "{name} kullanıcısının Ópalo profili"
+    },
+    "photoOf": "{name} fotoğrafı"
+  },
+  "Validation": {
+    "email": "Geçerli bir e-posta yaz.",
+    "passwordMin": "En az 8 karakter kullan.",
+    "passwordMax": "En fazla 72 karakter.",
+    "passwordsMismatch": "Şifreler eşleşmiyor.",
+    "identifier": "E-postanı veya kullanıcı adını yaz.",
+    "password": "Şifreni yaz.",
+    "terms": "Kullanım Koşulları’nı ve Gizlilik Politikası’nı kabul etmelisin.",
+    "username": {
+      "required": "Bir kullanıcı adı seç.",
+      "spaces": "Boşluk içeremez.",
+      "max": "En fazla {max} karakter.",
+      "notAllowed": "İzin verilmiyor: {chars}",
+      "endsWith": "“.” veya “!” ile bitemez.",
+      "invalid": "Bu ad geçerli değil."
+    },
+    "contact": {
+      "name": "Adını yaz.",
+      "nameMax": "En fazla 80 karakter.",
+      "email": "Geçerli bir e-posta yaz.",
+      "reason": "Bir konu seç.",
+      "username": "Bu kullanıcı adı geçerli değil.",
+      "messageMin": "Biraz daha anlat (en az 10 karakter).",
+      "messageMax": "En fazla 1000 karakter.",
+      "checkFields": "İşaretli alanları kontrol et.",
+      "noKey": "Mesajını gönderemedik. Doğrudan soporte@opalo.me adresine yaz.",
+      "failed": "Mesajını gönderemedik. Birkaç dakika sonra tekrar dene."
+    },
+    "maxChars": "En fazla {max} karakter.",
+    "color": "Geçersiz renk.",
+    "discordId": "Discord kimliği 17 ila 20 rakamdan oluşur.",
+    "platform": "Bir ağ seç.",
+    "linkValue": "Kullanıcı adını veya bağlantını yaz.",
+    "linkInvalid": "Bu bağlantı geçerli değil."
+  }
+}

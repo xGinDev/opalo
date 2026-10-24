@@ -1,15 +1,17 @@
 "use client";
 
 import { useTransition } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { signIn } from "@/app/(auth)/actions";
+import { signIn } from "@/app/[locale]/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Link } from "@/i18n/navigation";
+import { useMessageText } from "@/i18n/use-message-text";
 import { type LoginInput, loginSchema } from "@/lib/validation/auth";
 import { AuthDivider } from "./auth-column";
 import { OAuthButtons } from "./oauth-buttons";
@@ -22,12 +24,14 @@ type LoginFormProps = {
 
 /** Figma 6:135 — email or username + password, plus Google and Discord. */
 export function LoginForm({ next, initialError }: LoginFormProps) {
+  const t = useTranslations("Auth.login");
+  const text = useMessageText();
   const [isPending, startTransition] = useTransition();
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: { identifier: "", password: "", remember: true },
   });
-  const formError = form.formState.errors.root?.message ?? initialError;
+  const formError = text(form.formState.errors.root?.message) || initialError;
 
   function onSubmit(values: LoginInput) {
     startTransition(async () => {
@@ -47,9 +51,9 @@ export function LoginForm({ next, initialError }: LoginFormProps) {
             name="identifier"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Correo o usuario</FormLabel>
+                <FormLabel>{t("identifier")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="tu@correo.com o tu usuario" autoComplete="username" autoCapitalize="none" spellCheck={false} {...field} />
+                  <Input placeholder={t("identifierPlaceholder")} autoComplete="username" autoCapitalize="none" spellCheck={false} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -60,7 +64,7 @@ export function LoginForm({ next, initialError }: LoginFormProps) {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Contraseña</FormLabel>
+                <FormLabel>{t("password")}</FormLabel>
                 <FormControl>
                   <Input type="password" placeholder="••••••••" autoComplete="current-password" {...field} />
                 </FormControl>
@@ -77,12 +81,12 @@ export function LoginForm({ next, initialError }: LoginFormProps) {
                   <FormControl>
                     <Checkbox checked={field.value} onCheckedChange={(v) => field.onChange(v === true)} />
                   </FormControl>
-                  <FormLabel className="text-sm font-medium">Recordarme</FormLabel>
+                  <FormLabel className="text-sm font-medium">{t("remember")}</FormLabel>
                 </FormItem>
               )}
             />
             <Link href="/recuperar" className="text-sm font-bold text-lilac underline-offset-4 hover:underline">
-              ¿Olvidaste tu contraseña?
+              {t("forgot")}
             </Link>
           </div>
 
@@ -94,7 +98,7 @@ export function LoginForm({ next, initialError }: LoginFormProps) {
 
           <Button type="submit" variant="opal" className="w-full" disabled={isPending}>
             {isPending && <Loader2 className="animate-spin" aria-hidden />}
-            Iniciar sesión
+            {t("submit")}
           </Button>
         </form>
       </Form>

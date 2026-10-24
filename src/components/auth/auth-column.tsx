@@ -1,10 +1,11 @@
+import { useTranslations } from "next-intl";
 import { Logo } from "@/components/brand/logo";
 
 type AuthColumnProps = {
   title: string;
   description?: React.ReactNode;
   children: React.ReactNode;
-  /** Bottom line, e.g. "¿No tienes cuenta? Crea una gratis". */
+  /** Bottom line, e.g. "No account? Create one for free". */
   footer?: React.ReactNode;
 };
 
@@ -28,11 +29,12 @@ export function AuthColumn({ title, description, children, footer }: AuthColumnP
 }
 
 /** "o con tu correo" separator between OAuth and the email form. */
-export function AuthDivider({ label = "o con tu correo" }: { label?: string }) {
+export function AuthDivider({ label }: { label?: string }) {
+  const t = useTranslations("Auth");
   return (
     <div className="flex items-center gap-3.5">
       <span aria-hidden className="h-px flex-1 bg-line" />
-      <span className="text-[13px] font-medium text-muted-foreground">{label}</span>
+      <span className="text-[13px] font-medium text-muted-foreground">{label ?? t("divider")}</span>
       <span aria-hidden className="h-px flex-1 bg-line" />
     </div>
   );

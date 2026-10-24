@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Award, CreditCard, Flag, House, LogOut, Menu, User, Users } from "lucide-react";
-import { signOut } from "@/app/(auth)/actions";
+import { signOut } from "@/app/[locale]/(auth)/actions";
 import { Logo } from "@/components/brand/logo";
 import { NavItem } from "@/components/opal/nav-item";
 import { Button } from "@/components/ui/button";

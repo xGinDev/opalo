@@ -1,4 +1,5 @@
-import Link from "next/link";
+import NextLink from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -9,12 +10,15 @@ type NavItemProps = {
   active?: boolean;
   className?: string;
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+  /** Add the language prefix (/en/panel…). Off for routes that aren't translated, like /admin. */
+  localized?: boolean;
 };
 
 /** Figma 2:156 / 2:161 "Ítem de menú" — Normal and Activo states. */
-export function NavItem({ href, icon: Icon, label, active = false, className, onClick }: NavItemProps) {
+export function NavItem({ href, icon: Icon, label, active = false, className, onClick, localized = true }: NavItemProps) {
+  const Anchor = localized ? Link : NextLink;
   return (
-    <Link
+    <Anchor
       href={href}
       onClick={onClick}
       aria-current={active ? "page" : undefined}
@@ -28,6 +32,6 @@ export function NavItem({ href, icon: Icon, label, active = false, className, on
     >
       <Icon className={cn("size-5 shrink-0", active && "text-lilac")} strokeWidth={1.75} aria-hidden />
       <span className="truncate">{label}</span>
-    </Link>
+    </Anchor>
   );
 }

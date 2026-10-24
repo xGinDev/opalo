@@ -1,25 +1,28 @@
 "use client";
 
-import Link from "next/link";
 import { Lock, Music, Trash2, Volume1, Volume2, VolumeX } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
+import { Link } from "@/i18n/navigation";
 import { squareWebp } from "@/lib/panel/image";
 import { Counter, PanelCard, ToggleRow } from "./editor-ui";
 import { FileUploadButton } from "./file-upload-button";
 import { usePanel } from "./panel-provider";
 
-function volumeLabel(v: number) {
-  if (v === 0) return "Silencio";
-  if (v <= 30) return "Pasito";
-  if (v <= 70) return "Medio";
-  return "Duro";
+/** Key under Panel.music.volumeLevels. */
+function volumeLevel(v: number) {
+  if (v === 0) return "silent";
+  if (v <= 30) return "low";
+  if (v <= 70) return "medium";
+  return "loud";
 }
 
 /** /panel/musica — upload an MP3 and title it (Premium). Not in the Figma; uses the panel components. */
 export function MusicEditor() {
+  const t = useTranslations("Panel.music");
   const { draft, updateSettings, isPremium } = usePanel();
   const s = draft.settings;
   const volume = s.music_volume ?? 60;
@@ -27,17 +30,15 @@ export function MusicEditor() {
 
   if (!isPremium) {
     return (
-      <PanelCard title="Tu canción" description="Suena cuando alguien entra a tu perfil.">
+      <PanelCard title="Panel.music.title" description="Panel.music.lockedDescription">
         <div className="flex flex-col items-center gap-3 rounded-md border border-dashed border-line px-6 py-10 text-center">
           <span className="flex size-12 items-center justify-center rounded-full bg-lilac/14 text-lilac">
             <Lock className="size-5" aria-hidden />
           </span>
-          <p className="text-[15px] font-bold">La música es de Premium</p>
-          <p className="max-w-sm text-sm text-muted-foreground">
-            Sube tu canción, ponle título y que suene cuando alguien toque para entrar. 10 USD, un solo pago.
-          </p>
+          <p className="text-[15px] font-bold">{t("lockedTitle")}</p>
+          <p className="max-w-sm text-sm text-muted-foreground">{t("lockedBody")}</p>
           <Button variant="opal" asChild>
-            <Link href="/panel/premium">Hazte Premium</Link>
+            <Link href="/panel/premium">{t("getPremium")}</Link>
           </Button>
         </div>
       </PanelCard>
@@ -45,16 +46,16 @@ export function MusicEditor() {
   }
 
   return (
-    <PanelCard title="Tu canción" description="MP3 de hasta 15 MB. Suena cuando alguien toca para entrar.">
+    <PanelCard title="Panel.music.title" description="Panel.music.description">
       {s.music_url ? (
         <div className="flex flex-col gap-3 rounded-md bg-surface-2 p-4">
           <div className="flex items-center gap-3">
             <span className="flex size-11 shrink-0 items-center justify-center rounded-sm bg-opal text-on-accent">
               <Music className="size-5" aria-hidden />
             </span>
-            <p className="min-w-0 flex-1 truncate text-sm font-bold">{s.music_title?.trim() || "Sin título"}</p>
+            <p className="min-w-0 flex-1 truncate text-sm font-bold">{s.music_title?.trim() || t("untitled")}</p>
             <Button variant="ghost" size="sm" onClick={() => updateSettings({ music_url: null })}>
-              <Trash2 aria-hidden /> Quitar
+              <Trash2 aria-hidden /> {t("remove")}
             </Button>
           </div>
           {/* Same volume visitors will hear, so "Probar" sounds like the profile. */}
@@ -70,14 +71,14 @@ export function MusicEditor() {
         </div>
       ) : (
         <p className="rounded-md border border-dashed border-line px-4 py-6 text-center text-sm text-muted-foreground">
-          Aún no subiste ninguna canción.
+          {t("empty")}
         </p>
       )}
       <div>
         <FileUploadButton
           bucket="music"
           name="cancion"
-          label={s.music_url ? "Cambiar canción" : "Subir MP3"}
+          label={s.music_url ? t("change") : t("upload")}
           accept={["audio/mpeg"]}
           onUploaded={(music_url, file) =>
             updateSettings({ music_url, music_title: s.music_title || file.name.replace(/\.[^.]+$/, "").slice(0, 60) })
@@ -87,7 +88,7 @@ export function MusicEditor() {
       <div className="flex flex-wrap items-center gap-3 rounded-md bg-surface-2 p-4">
         {s.music_cover_url ? (
           // eslint-disable-next-line @next/next/no-img-element -- small user upload from Supabase Storage
-          <img src={s.music_cover_url} alt="Portada actual" className="size-14 shrink-0 rounded-sm object-cover" />
+          <img src={s.music_cover_url} alt={t("coverAlt")} className="size-14 shrink-0 rounded-sm object-cover" />
         ) : (
           <span
             aria-hidden
@@ -96,42 +97,42 @@ export function MusicEditor() {
           />
         )}
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <p className="text-sm font-bold">Portada</p>
-          <p className="text-[13px] text-muted-foreground">Imagen cuadrada (PNG, JPG, WebP o GIF). Sale al lado del título.</p>
+          <p className="text-sm font-bold">{t("cover")}</p>
+          <p className="text-[13px] text-muted-foreground">{t("coverHint")}</p>
         </div>
         <div className="flex gap-2">
           <FileUploadButton
             bucket="avatars"
             name="portada"
-            label={s.music_cover_url ? "Cambiar" : "Subir portada"}
+            label={s.music_cover_url ? t("coverChange") : t("coverUpload")}
             transform={(file) => squareWebp(file, 300)}
             onUploaded={(music_cover_url) => updateSettings({ music_cover_url })}
           />
           {s.music_cover_url && (
-            <Button variant="ghost" size="icon" aria-label="Quitar portada" onClick={() => updateSettings({ music_cover_url: null })}>
+            <Button variant="ghost" size="icon" aria-label={t("coverRemove")} onClick={() => updateSettings({ music_cover_url: null })}>
               <Trash2 aria-hidden />
             </Button>
           )}
         </div>
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="music_title">Título</Label>
+        <Label htmlFor="music_title">{t("titleLabel")}</Label>
         <Input
           id="music_title"
           value={s.music_title ?? ""}
           onChange={(e) => updateSettings({ music_title: e.target.value })}
           maxLength={60}
-          placeholder="midnight drive"
+          placeholder={t("titlePlaceholder")}
         />
         <Counter value={s.music_title} max={60} />
       </div>
       <div className="grid gap-3 rounded-md bg-surface-2 px-4 py-3.5">
         <div className="flex items-center justify-between gap-3">
           <Label id="music-volume" className="flex items-center gap-2 text-sm font-bold text-foreground">
-            <VolumeIcon className="size-4" aria-hidden /> Volumen
+            <VolumeIcon className="size-4" aria-hidden /> {t("volume")}
           </Label>
           <span className="text-[13px] font-semibold text-muted-foreground tabular-nums">
-            {volumeLabel(volume)} · {volume}%
+            {t(`volumeLevels.${volumeLevel(volume)}`)} · {volume}%
           </span>
         </div>
         <Slider
@@ -142,11 +143,11 @@ export function MusicEditor() {
           step={5}
           onValueChange={([music_volume]) => updateSettings({ music_volume })}
         />
-        <p className="text-[13px] text-muted-foreground">Qué tan fuerte suena para quien entra. Igual pueden silenciarla.</p>
+        <p className="text-[13px] text-muted-foreground">{t("volumeHint")}</p>
       </div>
       <ToggleRow
-        label="Mostrar reproductor"
-        description="Portada, barra de progreso y controles en tu perfil."
+        label="Panel.music.showPlayer"
+        description="Panel.music.showPlayerDescription"
         checked={s.show_player}
         onChange={(show_player) => updateSettings({ show_player })}
       />

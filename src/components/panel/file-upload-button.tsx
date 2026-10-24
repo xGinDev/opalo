@@ -2,8 +2,10 @@
 
 import { useRef, useTransition } from "react";
 import { Loader2, Upload } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useMessageText } from "@/i18n/use-message-text";
 import { BUCKETS, type Bucket, uploadUserFile } from "@/lib/panel/storage";
 import { usePanel } from "./panel-provider";
 
@@ -21,6 +23,8 @@ type FileUploadButtonProps = {
 /** Uploads straight to Supabase Storage under the user's folder. */
 export function FileUploadButton({ bucket, name, label, accept, onUploaded, transform }: FileUploadButtonProps) {
   const { data } = usePanel();
+  const t = useTranslations("Panel.upload");
+  const text = useMessageText();
   const inputRef = useRef<HTMLInputElement>(null);
   const [isPending, startTransition] = useTransition();
   const types = accept ?? [...BUCKETS[bucket].types];
@@ -30,7 +34,7 @@ export function FileUploadButton({ bucket, name, label, accept, onUploaded, tran
     startTransition(async () => {
       const blob = transform ? await transform(file).catch(() => file) : file;
       const result = await uploadUserFile(bucket, data.profile.id, blob, name);
-      if ("error" in result) toast.error(result.error);
+      if ("error" in result) toast.error(text(result.error));
       else onUploaded(result.url, file);
     });
   }
@@ -39,7 +43,7 @@ export function FileUploadButton({ bucket, name, label, accept, onUploaded, tran
     <>
       <Button type="button" variant="secondary" onClick={() => inputRef.current?.click()} disabled={isPending}>
         {isPending ? <Loader2 className="animate-spin" aria-hidden /> : <Upload aria-hidden />}
-        {isPending ? "Subiendo…" : label}
+        {isPending ? t("uploading") : text(label)}
       </Button>
       <input
         ref={inputRef}

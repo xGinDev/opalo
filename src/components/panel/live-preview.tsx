@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Maximize2, Monitor, Smartphone } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { ProfilePreview } from "@/components/opal/profile-preview";
 import { ProfileView } from "@/components/profile/profile-view";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
@@ -58,12 +59,13 @@ function BrowserFrame({ children }: { children: React.ReactNode }) {
 }
 
 function ModeToggle({ value, onChange }: { value: PreviewMode; onChange: (mode: PreviewMode) => void }) {
+  const t = useTranslations("Panel.preview");
   const options = [
-    { value: "mobile" as const, label: "Celular", icon: Smartphone },
-    { value: "desktop" as const, label: "Computador", icon: Monitor },
+    { value: "mobile" as const, label: t("mobile"), icon: Smartphone },
+    { value: "desktop" as const, label: t("desktop"), icon: Monitor },
   ];
   return (
-    <div role="radiogroup" aria-label="Tamaño de la vista previa" className="flex gap-0.5 rounded-sm bg-surface p-0.5">
+    <div role="radiogroup" aria-label={t("size")} className="flex gap-0.5 rounded-sm bg-surface p-0.5">
       {options.map(({ value: v, label, icon: Icon }) => (
         <button
           key={v}
@@ -87,6 +89,7 @@ function ModeToggle({ value, onChange }: { value: PreviewMode; onChange: (mode: 
 
 /** Live preview column: phone frame (mobile layout) or a scaled desktop browser. */
 export function LivePreview() {
+  const t = useTranslations("Panel.preview");
   const { preview, previewMode, setPreviewMode } = usePanel();
   const [expanded, setExpanded] = useState(false);
 
@@ -95,7 +98,7 @@ export function LivePreview() {
       <div className="flex items-center justify-between gap-2">
         <p className="flex items-center gap-2 text-[13px] font-bold text-muted-foreground">
           <span className="size-2 rounded-full bg-success" aria-hidden />
-          Vista previa en vivo
+          {t("live")}
         </p>
         <div className="flex items-center gap-1.5">
           {previewMode === "desktop" && (
@@ -103,8 +106,8 @@ export function LivePreview() {
               type="button"
               onClick={() => setExpanded(true)}
               className="rounded-sm p-1.5 text-muted-foreground transition-colors hover:text-foreground"
-              aria-label="Ampliar vista previa"
-              title="Ampliar"
+              aria-label={t("expand")}
+              title={t("expandShort")}
             >
               <Maximize2 className="size-4" aria-hidden />
             </button>
@@ -122,9 +125,7 @@ export function LivePreview() {
           <BrowserFrame>
             <ScaledDesktop />
           </BrowserFrame>
-          <p className="text-xs text-muted-foreground">
-            Así se ve en computador. El estilo (tarjeta o centrado) y la inclinación 3D (mueve el mouse) solo cambian en pantallas grandes.
-          </p>
+          <p className="text-xs text-muted-foreground">{t("desktopNote")}</p>
         </>
       )}
 
@@ -133,8 +134,8 @@ export function LivePreview() {
           className="w-[min(1100px,94vw)] max-w-none border-line p-3 sm:max-w-none"
           onOpenAutoFocus={(e) => e.preventDefault()}
         >
-          <DialogTitle className="sr-only">Vista previa en computador</DialogTitle>
-          <DialogDescription className="sr-only">Tu perfil a tamaño de computador</DialogDescription>
+          <DialogTitle className="sr-only">{t("desktopTitle")}</DialogTitle>
+          <DialogDescription className="sr-only">{t("desktopDescription")}</DialogDescription>
           {expanded && (
             <BrowserFrame>
               <ScaledDesktop />

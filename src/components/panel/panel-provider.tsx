@@ -1,9 +1,11 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { saveProfile } from "@/app/panel/actions";
+import { saveProfile } from "@/app/[locale]/panel/actions";
+import { useRouter } from "@/i18n/navigation";
+import { useMessageText } from "@/i18n/use-message-text";
 import type { SettingsPatch } from "@/lib/validation/panel";
 import {
   EDITABLE_PROFILE_FIELDS,
@@ -70,12 +72,17 @@ export function usePanel() {
 
 export function PanelProvider({ initial, children }: { initial: PanelData; children: React.ReactNode }) {
   const router = useRouter();
+  const t = useTranslations("Panel");
+  const text = useMessageText();
   const [data, setData] = useState(initial);
   const [draft, setDraft] = useState(() => draftOf(initial.profile, initial.settings));
   const [saving, startSaving] = useTransition();
   const [premiumFeature, setPremiumFeature] = useState<string | null>(null);
   const [pendingHref, setPendingHref] = useState<string | null>(null);
   const [previewMode, setPreviewMode] = useState<PreviewMode>("mobile");
+
+  // /admin isn't translated: open it without the language prefix.
+  const go = (href: string) => (href.startsWith("/admin") ? window.location.assign(href) : router.push(href));
 
   const saved = useMemo(() => draftOf(data.profile, data.settings), [data.profile, data.settings]);
   const profilePatch = diff(draft.profile, saved.profile);
@@ -103,13 +110,13 @@ export function PanelProvider({ initial, children }: { initial: PanelData; child
       // The server re-validates every field (enums, lengths, colors) with zod.
       const result = await saveProfile({ profile: profilePatch, settings: settingsPatch as SettingsPatch });
       if (result.ok) {
-        toast.success("Cambios guardados");
+        toast.success(t("toasts.saved"));
       } else {
         setData(previous);
-        toast.error(result.error);
+        toast.error(text(result.error));
       }
     });
-  }, [dirty, data, draft, profilePatch, settingsPatch]);
+  }, [dirty, data, draft, profilePatch, settingsPatch, t, text]);
 
   const value: PanelContextValue = {
     data,
@@ -136,7 +143,7 @@ export function PanelProvider({ initial, children }: { initial: PanelData; child
     // Avatar and username are saved on their own (not part of the draft).
     setSavedProfile: (patch) => setData((d) => ({ ...d, profile: { ...d.profile, ...patch } })),
     requirePremium: setPremiumFeature,
-    navigate: (href) => (dirty ? setPendingHref(href) : router.push(href)),
+    navigate: (href) => (dirty ? setPendingHref(href) : go(href)),
   };
 
   return (
@@ -151,13 +158,13 @@ export function PanelProvider({ initial, children }: { initial: PanelData; child
           setDraft(saved);
           const href = pendingHref!;
           setPendingHref(null);
-          router.push(href);
+          go(href);
         }}
         onSave={() => {
           save();
           const href = pendingHref!;
           setPendingHref(null);
-          router.push(href);
+          go(href);
         }}
       />
     </PanelContext.Provider>

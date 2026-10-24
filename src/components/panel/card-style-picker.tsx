@@ -1,6 +1,7 @@
 "use client";
 
 import { Lock } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { CARD_STYLES, type CardStyle } from "@/lib/profile/card-styles";
 import { cn } from "@/lib/utils";
 import { PremiumBadge } from "./editor-ui";
@@ -8,6 +9,7 @@ import { usePanel } from "./panel-provider";
 
 /** Card designs with a live mini mock of each one (same CSS classes as the profile). */
 export function CardStylePicker() {
+  const t = useTranslations("Panel.cardStyles");
   const { draft, updateSettings, isPremium, requirePremium } = usePanel();
   const s = draft.settings;
   const value = s.card_style ?? "classic";
@@ -15,16 +17,16 @@ export function CardStylePicker() {
   const vars = { "--accent": s.accent_color, "--card-bg": `rgba(0,0,0,${opacity})`, "--card-alpha": opacity } as React.CSSProperties;
 
   function choose(id: CardStyle, premium: boolean) {
-    if (premium && !isPremium) return requirePremium("los diseños de tarjeta");
+    if (premium && !isPremium) return requirePremium("Panel.premiumFeatures.cardStyles");
     updateSettings({ card_style: id });
   }
 
   return (
     <div className="flex flex-col gap-2.5">
       <p className="flex items-center gap-2 text-[13px] font-semibold text-muted-foreground">
-        Diseño de la tarjeta {!isPremium && <PremiumBadge />}
+        {t("label")} {!isPremium && <PremiumBadge />}
       </p>
-      <div role="radiogroup" aria-label="Diseño de la tarjeta" className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+      <div role="radiogroup" aria-label={t("label")} className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
         {CARD_STYLES.map((style) => {
           const selected = style.id === value;
           const locked = style.premium && !isPremium;
@@ -34,10 +36,10 @@ export function CardStylePicker() {
               type="button"
               role="radio"
               aria-checked={selected}
-              title={style.description}
+              title={t(`${style.id}.description`)}
               onClick={() => choose(style.id, style.premium)}
               className={cn(
-                "flex flex-col gap-2 rounded-[14px] bg-surface-2 p-2.5 text-left transition-colors",
+                "flex flex-col gap-2 rounded-[14px] bg-surface-2 p-2.5 text-start transition-colors",
                 selected ? "border-[1.5px] border-lilac" : "border border-line hover:border-muted-foreground/40",
               )}
             >
@@ -69,7 +71,7 @@ export function CardStylePicker() {
                 </span>
               </span>
               <span className="flex items-center justify-between gap-1.5 px-0.5 text-[13px] font-bold">
-                {style.label}
+                {t(`${style.id}.label`)}
                 {locked && <Lock className="size-3.5 shrink-0 text-muted-foreground" aria-label="Premium" />}
               </span>
             </button>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Award, BadgeCheck, Crown, Gem, Shield, Zap, type LucideIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { PublicBadge } from "@/lib/profile/types";
 
@@ -14,11 +15,12 @@ export const BADGE_ICONS: Record<string, { icon: LucideIcon; color: string }> = 
 
 /** Figma 9:768 "insignias": pill with one icon per badge and a tooltip with its name. */
 export function ProfileBadges({ badges }: { badges: PublicBadge[] }) {
+  const t = useTranslations("Profile");
   if (badges.length === 0) return null;
 
   return (
     <ul
-      aria-label="Insignias"
+      aria-label={t("badges")}
       className="flex shrink-0 items-center gap-[7px] rounded-full border border-white/12 bg-white/9 px-2.5 py-1.5"
     >
       {badges.map((badge) => {

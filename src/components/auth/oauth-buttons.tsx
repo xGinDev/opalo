@@ -2,10 +2,12 @@
 
 import { useTransition } from "react";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { SiDiscord, SiGoogle } from "react-icons/si";
 import { toast } from "sonner";
-import { signInWithProvider } from "@/app/(auth)/actions";
+import { signInWithProvider } from "@/app/[locale]/(auth)/actions";
 import { Button } from "@/components/ui/button";
+import { useMessageText } from "@/i18n/use-message-text";
 
 type OAuthButtonsProps = {
   next?: string;
@@ -16,17 +18,19 @@ type OAuthButtonsProps = {
 
 /** Must stay in sync with the providers enabled in Supabase (Authentication → Providers). */
 const PROVIDERS = [
-  { id: "google", label: "Continuar con Google", icon: SiGoogle },
-  { id: "discord", label: "Continuar con Discord", icon: SiDiscord },
+  { id: "google", icon: SiGoogle },
+  { id: "discord", icon: SiDiscord },
 ] as const;
 
 export function OAuthButtons({ next, getPendingUsername, disabled }: OAuthButtonsProps) {
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("Auth.oauth");
+  const text = useMessageText();
 
   function continueWith(provider: (typeof PROVIDERS)[number]["id"]) {
     startTransition(async () => {
       const result = await signInWithProvider(provider, next, getPendingUsername?.());
-      if (result?.status === "error") toast.error(result.message);
+      if (result?.status === "error") toast.error(text(result.message));
     });
   }
 
@@ -42,7 +46,7 @@ export function OAuthButtons({ next, getPendingUsername, disabled }: OAuthButton
           onClick={() => continueWith(provider.id)}
         >
           {isPending ? <Loader2 className="animate-spin" aria-hidden /> : <provider.icon aria-hidden />}
-          {provider.label}
+          {t(provider.id)}
         </Button>
       ))}
     </div>

@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import { type DiscordStatus, type LanyardResult, STATUS_LABELS, fetchDiscordPresence } from "@/lib/profile/discord";
+import { type DiscordPresence, type DiscordStatus, type LanyardResult, fetchDiscordPresence } from "@/lib/profile/discord";
 
 type PresenceCardProps = {
   name: string;
@@ -19,10 +20,11 @@ const STATUS_DOT: Record<DiscordStatus, string> = {
   offline: "bg-[#80848e]",
 };
 
-const shell = "flex max-w-full items-center gap-3 rounded-lg border border-white/12 bg-black/40 py-2.5 pr-5 pl-2.5 text-left backdrop-blur-[8px]";
+const shell = "flex max-w-full items-center gap-3 rounded-lg border border-white/12 bg-black/40 py-2.5 ps-2.5 pe-5 text-start backdrop-blur-[8px]";
 
 /** Figma 9:784 "estado": Discord-style status (custom text, or live from Discord). */
 export function PresenceCard({ name, text, avatarUrl, status, imageUrl }: PresenceCardProps) {
+  const t = useTranslations("Profile.discord");
   return (
     <div className={shell}>
       <span className="relative shrink-0">
@@ -35,8 +37,8 @@ export function PresenceCard({ name, text, avatarUrl, status, imageUrl }: Presen
         {status && (
           <span
             role="img"
-            aria-label={STATUS_LABELS[status]}
-            className={cn("absolute -right-0.5 -bottom-0.5 size-3.5 rounded-full border-[2.5px] border-[#14111c]", STATUS_DOT[status])}
+            aria-label={t(status)}
+            className={cn("absolute -end-0.5 -bottom-0.5 size-3.5 rounded-full border-[2.5px] border-[#14111c]", STATUS_DOT[status])}
           />
         )}
       </span>
@@ -46,7 +48,7 @@ export function PresenceCard({ name, text, avatarUrl, status, imageUrl }: Presen
       </span>
       {imageUrl && (
         // eslint-disable-next-line @next/next/no-img-element -- activity art from Discord/Spotify CDNs
-        <img src={imageUrl} alt="" className="-mr-2 size-10 shrink-0 rounded-md object-cover" />
+        <img src={imageUrl} alt="" className="-me-2 size-10 shrink-0 rounded-md object-cover" />
       )}
     </div>
   );
@@ -97,7 +99,21 @@ function useDiscordPresence(discordId: string) {
  * Live Discord status. On the public page it hides itself until Lanyard answers and when the
  * account isn't available; the panel preview explains what's missing instead.
  */
+/** "Jugando Valorant · competitivo", "Escuchando Blinding Lights · The Weeknd", custom status or the status name. */
+function useActivityText() {
+  const t = useTranslations("Profile.discord");
+  return (p: DiscordPresence) => {
+    const a = p.activity;
+    if (!a) return t(p.status);
+    if (a.kind === "custom") return a.text;
+    if (a.kind === "spotify") return t("listening", { song: a.song, artist: a.artist });
+    return [t(a.kind, { name: a.name }), a.extra].filter(Boolean).join(" · ");
+  };
+}
+
 export function DiscordPresenceCard({ discordId, preview }: { discordId: string; preview: boolean }) {
+  const t = useTranslations("Profile.discord");
+  const activityText = useActivityText();
   const result = useDiscordPresence(discordId);
 
   if (!result) {
@@ -114,7 +130,7 @@ export function DiscordPresenceCard({ discordId, preview }: { discordId: string;
 
   if (result.state === "ok") {
     const p = result.presence;
-    return <PresenceCard name={p.name} text={p.text} avatarUrl={p.avatarUrl} status={p.status} imageUrl={p.imageUrl} />;
+    return <PresenceCard name={p.name} text={activityText(p)} avatarUrl={p.avatarUrl} status={p.status} imageUrl={p.imageUrl} />;
   }
 
   if (!preview) return null;
@@ -122,9 +138,9 @@ export function DiscordPresenceCard({ discordId, preview }: { discordId: string;
     <div className={cn(shell, "border-dashed")}>
       <span aria-hidden className="block size-11 shrink-0 rounded-full bg-white/10" />
       <span className="flex min-w-0 flex-col gap-0.5">
-        <span className="text-[15px] font-bold">Discord sin conectar</span>
+        <span className="text-[15px] font-bold">{t("notConnected")}</span>
         <span className="text-xs font-medium text-muted-foreground">
-          {result.state === "not-monitored" ? "Entra al servidor de Lanyard para que se vea." : "No pudimos leer tu estado de Discord."}
+          {result.state === "not-monitored" ? t("notMonitored") : t("error")}
         </span>
       </span>
     </div>
